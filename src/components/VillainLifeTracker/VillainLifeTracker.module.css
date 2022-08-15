@@ -1,0 +1,54 @@
+.villain-life-tracker-container{
+    border: 1px black solid;
+    width: 100%;
+    height: 100%;
+    margin: 10px;
+    position: relative;
+}
+
+.villain-life-tracker-content{
+    border-radius:  300px 0 300px 0;
+    border: solid black 1px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.villain-life-tracker-name-container{
+    position: absolute;
+    top: 20px;
+}
+
+.villain-life-tracker-name{
+    font-size: larger;
+}
+
+.villain-life-tracker-maxhealth-container{
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+}
+
+.villain-life-tracker-currenthealth{
+font-size: 200px;
+}
+
+.villain-life-tracker-increasehealth {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 150px;
+    height: 150px;
+border: solid red 2px
+}
+
+.villain-life-tracker-decreasehealth {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 150px;
+        height: 150px;
+        border: solid red 2px
+}
