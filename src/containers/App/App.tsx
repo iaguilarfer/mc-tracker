@@ -1,10 +1,11 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "../../logo.svg";
+import styles from "./App.module.css";
+import { Button } from "../../components/Button/Button";
 
 function App() {
   return (
-    <div className="App">
+    <div className={styles["App"]}>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -18,6 +19,7 @@ function App() {
         >
           Learn React
         </a>
+        <Button text={"Button"} onClick={console.warn} disabled={true} />
       </header>
     </div>
   );
