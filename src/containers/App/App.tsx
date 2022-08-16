@@ -17,7 +17,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          MC Tracker
         </a>
         <Button text={"Button"} onClick={console.warn} disabled={true} />
       </header>
