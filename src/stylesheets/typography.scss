@@ -1,0 +1,42 @@
+@font-face {
+  font-family: Exo2;
+  font-style: normal;
+  font-weight: bold;
+  src: url("../assets/fonts/Exo2Mod-Bold.ttf");
+}
+
+@font-face {
+  font-family: Elektra;
+  font-style: normal;
+  font-weight: bold;
+  src: url("../assets/fonts/ElektraMedProMod-Bold.ttf");
+}
+
+@font-face {
+  font-family: Avenir;
+  font-style: normal;
+  font-weight: normal;
+  src: url("../assets/fonts/AvenirNextLTPro-Regular.otf");
+}
+
+@font-face {
+  font-family: Komika;
+  font-style: normal;
+  font-weight: bold;
+  src: url("../assets/fonts/KomikaTitle.ttf");
+}
+
+@font-face {
+  font-family: ChampionsIcons;
+  font-style: normal;
+  font-weight: bold;
+  src: url("../assets/fonts/ChampionsIcons.ttf");
+}
+
+:root {
+  --font-title: Exo2, sans-serif;
+  --font-numbers: Elektra, sans-serif;
+  --font-body: Avenir, sans-serif;
+  --font-traits: Komika, sans-serif;
+  --font-icons: ChampionsIcons, sans-serif;
+}
