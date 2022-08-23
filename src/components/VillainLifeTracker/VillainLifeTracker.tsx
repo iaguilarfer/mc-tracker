@@ -52,13 +52,13 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
         onClick={decreaseHealth}
         className={styles["villain-life-tracker-decreasehealth"]}
       >
-        -1
+        <div>-1</div>
       </div>
       <div
         onClick={increaseHealth}
         className={styles["villain-life-tracker-increasehealth"]}
       >
-        +1
+        <div>+1</div>
       </div>
     </div>
   );

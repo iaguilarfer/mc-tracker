@@ -9,11 +9,16 @@ function App() {
   const rhino: Villain = {
     maxHealth: 18,
     villainName: "Rhino",
-  }
-  
+  };
+
+  const klaw: Villain = {
+    maxHealth: 16,
+    villainName: "Klaw",
+  };
+
   return (
     <div className={styles["App"]}>
-      <VillainLifeTracker villain={rhino}/>
+      <VillainLifeTracker villain={rhino} />
     </div>
   );
 }
