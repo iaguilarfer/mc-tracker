@@ -4,8 +4,8 @@
   height: 100%;
   margin: 10px;
   position: relative;
-  background-color: red;
-  color: aliceblue;
+  background-color: var(--life-background-color);
+  color: var(--life-font-color);
 }
 
 .villain-life-tracker-content {
@@ -15,22 +15,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: red;
-  color: aliceblue;
+  background-color: var(--life-background-color);
+    color: var(--life-font-color);
 }
 
 .villain-life-tracker-name-container {
   position: absolute;
-  top: 20px;
-  background-color: red;
-  color: aliceblue;
+  top: 70px;
+  background-color: var(--life-background-color);
+    color: var(--life-font-color);
   padding: 0;
 }
 
 .villain-life-tracker-name {
   font-size: 80px;
-  background-color: red;
-  color: aliceblue;
+  background-color: var(--life-background-color);
+    color: var(--life-font-color);
   padding: 0;
   margin: 0;
 }
@@ -39,8 +39,8 @@
   position: absolute;
   bottom: 5px;
   left: 5px;
-  background-color: red;
-  color: aliceblue;
+  background-color: var(--life-background-color);
+    color: var(--life-font-color);
 }
 
 .villain-life-tracker-currenthealth {
@@ -51,44 +51,30 @@
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   border-radius: 0 0 100% 0;
   font-size: 50px;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  background-color: red;
-  color: aliceblue;
+  background-color: var(--life-background-color);
+    color: var(--life-font-color);
 }
 
 .villain-life-tracker-decreasehealth {
   position: absolute;
   bottom: 0px;
   right: 0px;
-  width: 150px;
-  height: 150px;
+  width: 100px;
+  height: 100px;
   border-radius: 100% 0 0 0;
   font-size: 50px;
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
-  background-color: red;
-  color: aliceblue;
+  background-color: var(--life-background-color);
+    color: var(--life-font-color);
 }
 
-.villain-life-tracker-decreasehealth:hover {
-  background-color: rgb(214, 67, 67);
-}
 
-.villain-life-tracker-decreasehealth:active {
-  background-color: darkred;
-}
-
-.villain-life-tracker-increasehealth:hover {
-  background-color: rgb(214, 67, 67);
-}
-
-.villain-life-tracker-increasehealth:active {
-  background-color: darkred;
-}
