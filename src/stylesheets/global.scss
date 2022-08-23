@@ -1,0 +1,8 @@
+@import "typography.scss";
+
+body {
+  margin: 0;
+  font-family: var(--font-title);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
