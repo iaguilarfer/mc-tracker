@@ -1,7 +1,5 @@
 import React from "react";
-import logo from "../../logo.svg";
 import styles from "./App.module.scss";
-import { Button } from "../../components/Button/Button";
 import { VillainLifeTracker } from "../../components/VillainLifeTracker/VillainLifeTracker";
 import { Villain } from "../../models/Villain";
 
@@ -11,10 +9,10 @@ function App() {
     villainName: "Rhino",
   };
 
-  const klaw: Villain = {
-    maxHealth: 16,
-    villainName: "Klaw",
-  };
+  // const klaw: Villain = {
+  //   maxHealth: 16,
+  //   villainName: "Klaw",
+  // };
 
   return (
     <div className={styles["App"]}>
