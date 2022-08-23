@@ -1,3 +1,11 @@
+# Fonts
+This is a list of the fonts used in official MC products
+- Exo2Mod-Bold.ttf -> for card titles
+- ElektraMedProMod-Bold.ttf -> for numbers (health, attack, cost, etc)
+- AvenirNextLTPro-Regular.otf -> Card text
+- KomikaTitle.ttf -> Traits
+- ChampionsIcons.ttf -> Icons
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

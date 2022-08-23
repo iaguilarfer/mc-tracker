@@ -1,4 +1,4 @@
-export interface Villain{
-    maxHealth: number;
-    villainName: string; 
+export interface Villain {
+  maxHealth: number;
+  villainName: string;
 }
