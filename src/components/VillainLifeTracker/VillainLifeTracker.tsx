@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Villain } from "../../models/Villain";
-import styles from "./VillainLifeTracker.module.css";
+import styles from "./VillainLifeTracker.module.scss";
 
 interface VillainLifeTrackerProps {
   villain: Villain;
