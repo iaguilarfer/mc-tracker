@@ -4,7 +4,7 @@ import { VillainLifeTracker } from "../../components/VillainLifeTracker/VillainL
 import { Scenario } from "../../models/Scenario";
 import styles from "./ScenarioTrackerPage.module.scss";
 
-export const ScenarioTrackerPage: React.FC = ({}) => {
+export const ScenarioTrackerPage: React.FC = () => {
   const rhino: Scenario = {
     villain: {
       maxHealth: 18,

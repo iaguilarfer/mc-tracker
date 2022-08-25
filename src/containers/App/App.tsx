@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./App.module.scss";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ScenarioTrackerPage } from "../ScenarioTrackerPage/ScenarioTrackerPage";
 
 function App() {
