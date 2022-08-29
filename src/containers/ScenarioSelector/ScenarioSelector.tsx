@@ -17,10 +17,10 @@ export const ScenarioSelector: React.FC = () => {
     { value: "4", label: "Four Players" },
   ];
 
-  const ScenarioList = () => (
+  const ScenarioSelector = () => (
     <Select options={scenarioOptions} placeholder="Select Scenario" />
   );
-  const SelectNumberOfPlayers = () => (
+  const NumberOfPlayersSelector = () => (
     <Select options={numberPlayers} placeholder="Number of Players" />
   );
 
@@ -28,10 +28,10 @@ export const ScenarioSelector: React.FC = () => {
     <div className={styles["scenario-main-container"]}>
       <div className={styles["scenario-selector-container"]}>
         <div className={styles["scenario-selector"]}>
-          <ScenarioList />
+          <ScenarioSelector />
         </div>
         <div className={styles["player-selector"]}>
-          <SelectNumberOfPlayers />
+          <NumberOfPlayersSelector />
         </div>
       </div>
 

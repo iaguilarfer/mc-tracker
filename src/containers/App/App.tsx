@@ -10,7 +10,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/scenario" element={<ScenarioTrackerPage />} />
-          <Route path="/home" element={<ScenarioSelector />} />
+          <Route path="/" element={<ScenarioSelector />} />
         </Routes>
       </BrowserRouter>
     </div>
