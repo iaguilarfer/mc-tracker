@@ -8,11 +8,12 @@
   flex-direction: column;
   padding: 20px;
   border-radius: 30px;
+  border: solid 5px var(--life-background-color);
 }
 
 .villain-image-container {
-  max-width: 110%;
-  max-height: 70%;
+  height: 100%;
+  margin-bottom: 20px;
 }
 
 .villain-image {
@@ -30,7 +31,7 @@
   justify-content: space-between;
   // width: 100%;
   border-radius: 70px;
-  border: solid var(--life-background-color) 5px;
+  border: solid 5px var(--life-background-color);
 }
 
 .villain-life-tracker-currenthealth {
@@ -38,6 +39,18 @@
   font-size: 150px;
   display: flex;
   margin: 10px;
+}
+
+@media screen and (max-height: 750px) {
+  .villain-life-tracker-currenthealth {
+    font-size: 80px;
+  }
+}
+
+@media screen and (max-height: 650px) {
+  .villain-life-tracker-currenthealth {
+    font-size: 50px;
+  }
 }
 
 .villain-life-tracker-decreasehealth {
