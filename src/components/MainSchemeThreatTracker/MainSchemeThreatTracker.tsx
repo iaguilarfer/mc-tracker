@@ -39,6 +39,7 @@ export const MainSchemeThreatTracker: React.FC<
 
   return (
     <div className={styles["scheme-threat-tracker-container"]}>
+      <div className="scheme-image-container"></div>
       <div className={styles["scheme-threat-tracker-content"]}>
         <div className={styles["scheme-threat-tracker-name-container"]}>
           <p className={styles["scheme-threat-tracker-name"]}>

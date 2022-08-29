@@ -9,7 +9,7 @@
     margin-top: 20px;
     margin-left: 40%;
     margin-right: 40%;
-    width: 20%;
+    width: 400px;
     height: 50px;
     display: flex;
     align-items: center;
@@ -46,3 +46,6 @@
     margin-right: 10%;
 }
 
+@media screen and (min-width:1200px) {
+    
+}
