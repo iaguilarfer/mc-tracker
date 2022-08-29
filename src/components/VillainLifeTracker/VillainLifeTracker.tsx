@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useStartingSetUpContext } from "../../context/startingSetUpContext/startingSetUpContext";
 import { Villain } from "../../models/Villain";
 import styles from "./VillainLifeTracker.module.scss";
 
@@ -9,14 +10,17 @@ interface VillainLifeTrackerProps {
 export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
   villain,
 }) => {
-  const [currentHealth, setCurrentHealth] = useState(villain.maxHealth);
+  const { numberOfPlayers } = useStartingSetUpContext();
+
+  const maxHealth = villain.maxHealthPerPlayer * (numberOfPlayers || 0);
+  const [currentHealth, setCurrentHealth] = useState(maxHealth);
 
   const increaseHealth = () => {
     setCurrentHealth((prevState) => {
-      if (prevState < villain.maxHealth) {
+      if (prevState < maxHealth) {
         return prevState + 1;
       } else {
-        return villain.maxHealth;
+        return maxHealth;
       }
     });
   };
@@ -40,7 +44,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
           </p>
         </div>
         <div className={styles["villain-life-tracker-maxhealth-container"]}>
-          MaxHealth:{villain.maxHealth}
+          MaxHealth:{maxHealth}
         </div>
         <div>
           <p className={styles["villain-life-tracker-currenthealth"]}>

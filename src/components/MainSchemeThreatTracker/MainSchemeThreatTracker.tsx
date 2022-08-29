@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useStartingSetUpContext } from "../../context/startingSetUpContext/startingSetUpContext";
 import { MainScheme } from "../../models/MainScheme";
 import styles from "./MainSchemeThreatTracker.module.scss";
 
@@ -9,14 +10,19 @@ interface MainSchemeThreatTrackerProps {
 export const MainSchemeThreatTracker: React.FC<
   MainSchemeThreatTrackerProps
 > = ({ mainScheme }) => {
-  const [currentThreat, setCurrentThreat] = useState(mainScheme.startingThreat);
+  const { numberOfPlayers } = useStartingSetUpContext();
+
+  const maxThreat = mainScheme.maxThreatPerPlayer * (numberOfPlayers || 0);
+  const [currentThreat, setCurrentThreat] = useState(
+    mainScheme.startingThreatPerPlayer * (numberOfPlayers || 0)
+  );
 
   const increaseThreat = () => {
     setCurrentThreat((prevState) => {
-      if (prevState < mainScheme.maxThreat) {
+      if (prevState < maxThreat) {
         return prevState + 1;
       } else {
-        return mainScheme.maxThreat;
+        return maxThreat;
       }
     });
   };
@@ -42,7 +48,7 @@ export const MainSchemeThreatTracker: React.FC<
 
         <div>
           <p className={styles["scheme-threat-tracker-currentthreat"]}>
-            {currentThreat} / {mainScheme.maxThreat}
+            {currentThreat} / {maxThreat}
           </p>
         </div>
       </div>

@@ -1,10 +1,18 @@
 import React from "react";
-import styles from "./ScenarioSelector.module.scss";
 import { Link } from "react-router-dom";
 import Select from "react-select";
-import ScenariosJson from "./Scenarios.json";
+import { useStartingSetUpContext } from "../../context/startingSetUpContext/startingSetUpContext";
+import ScenariosJson from "../../assets/data/Scenarios.json";
+import styles from "./ScenarioSelector.module.scss";
 
 export const ScenarioSelector: React.FC = () => {
+  const {
+    setScenarioValue,
+    setNumberOfPlayers,
+    numberOfPlayers,
+    scenarioValue,
+  } = useStartingSetUpContext();
+
   const scenarioOptions = ScenariosJson.mCScenarios.map((scenario) => ({
     value: scenario.scenarioValue,
     label: scenario.scenarioName,
@@ -17,11 +25,37 @@ export const ScenarioSelector: React.FC = () => {
     { value: "4", label: "Four Players" },
   ];
 
+  const selectedScenarioOption = scenarioOptions.find(
+    (option) => option.value === scenarioValue
+  );
+
+  const selectedNumberOfPlayers = numberPlayers.find(
+    (option) => +option.value === numberOfPlayers
+  );
+
   const ScenarioSelector = () => (
-    <Select options={scenarioOptions} placeholder="Select Scenario" />
+    <Select
+      value={selectedScenarioOption}
+      options={scenarioOptions}
+      placeholder="Select Scenario"
+      onChange={(option) => {
+        if (option !== null) {
+          setScenarioValue(option.value);
+        }
+      }}
+    />
   );
   const NumberOfPlayersSelector = () => (
-    <Select options={numberPlayers} placeholder="Number of Players" />
+    <Select
+      value={selectedNumberOfPlayers}
+      options={numberPlayers}
+      placeholder="Number of Players"
+      onChange={(option) => {
+        if (option !== null) {
+          setNumberOfPlayers(+option.value);
+        }
+      }}
+    />
   );
 
   return (
