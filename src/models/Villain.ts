@@ -1,4 +1,4 @@
 export interface Villain {
-  maxHealth: number;
+  maxHealthPerPlayer: number;
   villainName: string;
 }

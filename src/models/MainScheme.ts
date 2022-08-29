@@ -1,5 +1,6 @@
 export interface MainScheme {
-  maxThreat: number;
+  maxThreatPerPlayer: number;
   schemeName: string;
-  startingThreat: number;
+  startingThreatPerPlayer: number;
+  threatPerTurnPerPlayer: number;
 }
