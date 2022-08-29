@@ -15,7 +15,7 @@ export const ScenarioTrackerPage: React.FC = () => {
           <MainSchemeThreatTracker mainScheme={selectedScenario.mainScheme} />
         </>
       ) : (
-        <div>Secenario not found</div>
+        <div>Scenario not found</div>
       )}
     </div>
   );
