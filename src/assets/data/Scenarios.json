@@ -1,16 +1,24 @@
 {
   "mCScenarios": [
     {
-      "scenarioName": "Rhino",
       "scenarioValue": "rhino",
       "villain": {
-        "maxHealthPerPlayer": 18,
-        "villainName": "Rhino"
+        "maxHealthPerPlayer": 18
       },
       "mainScheme": {
         "maxThreatPerPlayer": 7,
-        "schemeName": "The Break-in!",
-        "startingThreatPerPlayer": 1,
+        "startingThreatPerPlayer": 0,
+        "threatPerTurnPerPlayer": 1
+      }
+    },
+    {
+      "scenarioValue": "klaw",
+      "villain": {
+        "maxHealthPerPlayer": 12
+      },
+      "mainScheme": {
+        "maxThreatPerPlayer": 6,
+        "startingThreatPerPlayer": 0,
         "threatPerTurnPerPlayer": 1
       }
     }

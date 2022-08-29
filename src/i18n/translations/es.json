@@ -1,0 +1,28 @@
+{
+  "scenarioSelectorPage": {
+    "startGame": "Empezar Partida",
+    "scenarioSelector": {
+      "placeholder": "Selecciona escenario"
+    },
+    "numberOfPlayersSelector": {
+      "placeholder": "Selecciona el número de jugadores",
+      "one": "Solitario",
+      "two": "Dos Jugadores",
+      "three": "Tres Jugadores",
+      "four": "Cuatro Jugadores"
+    }
+  },
+  "villainTracker": {
+    "maxHealth": "Vida Maxima"
+  },
+  "scenarios": {
+    "rhino": {
+      "villainName": "Rhino",
+      "mainSchemeName": "Allanamiento!"
+    },
+    "klaw": {
+      "villainName": "Klaw",
+      "mainSchemeName": "Distribucion Clandestina"
+    }
+  }
+}

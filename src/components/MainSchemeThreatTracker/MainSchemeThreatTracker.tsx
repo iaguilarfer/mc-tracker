@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useStartingSetUpContext } from "../../context/startingSetUpContext/startingSetUpContext";
 import { MainScheme } from "../../models/MainScheme";
 import styles from "./MainSchemeThreatTracker.module.scss";
+import { useTranslation } from "react-i18next";
 
 interface MainSchemeThreatTrackerProps {
   mainScheme: MainScheme;
@@ -10,6 +11,8 @@ interface MainSchemeThreatTrackerProps {
 export const MainSchemeThreatTracker: React.FC<
   MainSchemeThreatTrackerProps
 > = ({ mainScheme }) => {
+  const { t } = useTranslation();
+  const { selectedScenario } = useStartingSetUpContext();
   const { numberOfPlayers } = useStartingSetUpContext();
 
   const maxThreat = mainScheme.maxThreatPerPlayer * (numberOfPlayers || 0);
@@ -42,7 +45,7 @@ export const MainSchemeThreatTracker: React.FC<
       <div className={styles["scheme-threat-tracker-content"]}>
         <div className={styles["scheme-threat-tracker-name-container"]}>
           <p className={styles["scheme-threat-tracker-name"]}>
-            {mainScheme.schemeName}
+            {t(`scenarios.${selectedScenario?.scenarioValue}.mainSchemeName`)}
           </p>
         </div>
 
