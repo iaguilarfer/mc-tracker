@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./ScenarioSelector.module.scss";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Select from "react-select";
 import ScenariosJson from "./Scenarios.json";
 
