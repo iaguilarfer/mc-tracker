@@ -139,7 +139,7 @@ export const MainSchemeThreatTracker: React.FC<
             onClick={villainTurn}
             className={styles["scheme-threat-tracker-villainturn"]}
           >
-            <div>Villain Turn</div>
+            <div>Villain Turn {villainSchemeThreat}</div>
           </div>
         </div>
       </div>
