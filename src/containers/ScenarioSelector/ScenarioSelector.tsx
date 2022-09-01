@@ -4,6 +4,8 @@ import Select from "react-select";
 import { useStartingSetUpContext } from "../../context/startingSetUpContext/startingSetUpContext";
 import ScenariosJson from "../../assets/data/Scenarios.json";
 import styles from "./ScenarioSelector.module.scss";
+import { useModalContext } from "../../context/modalContext/ModalContext";
+import { Modal } from "../../components/Modal/Modal";
 
 export const ScenarioSelector: React.FC = () => {
   const {
@@ -12,6 +14,8 @@ export const ScenarioSelector: React.FC = () => {
     numberOfPlayers,
     scenarioValue,
   } = useStartingSetUpContext();
+
+  const { open, close } = useModalContext();
 
   const scenarioOptions = ScenariosJson.mCScenarios.map((scenario) => ({
     value: scenario.scenarioValue,
@@ -58,6 +62,13 @@ export const ScenarioSelector: React.FC = () => {
     />
   );
 
+  const TestModal = () => (
+    <Modal size={"large"}>
+      This is a modal
+      <button onClick={() => close()}>Close</button>
+    </Modal>
+  );
+
   return (
     <div className={styles["scenario-main-container"]}>
       <div className={styles["scenario-selector-container"]}>
@@ -74,6 +85,7 @@ export const ScenarioSelector: React.FC = () => {
           Start Game
         </Link>
       </div>
+      <button onClick={() => open(TestModal)}>Open test modal</button>
     </div>
   );
 };
