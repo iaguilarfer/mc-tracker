@@ -59,6 +59,7 @@ export const ScenarioSelector: React.FC = () => {
 
   const ScenarioSelector = () => (
     <Select
+      isSearchable={false}
       value={selectedScenarioOption}
       options={scenarioOptions}
       placeholder={t("scenarioSelectorPage.scenarioSelector.placeholder")}
@@ -72,6 +73,7 @@ export const ScenarioSelector: React.FC = () => {
 
   const NumberOfPlayersSelector = () => (
     <Select
+      isSearchable={false}
       value={selectedNumberOfPlayers}
       options={numberPlayers}
       placeholder={t(

@@ -15,6 +15,9 @@
   "villainTracker": {
     "maxHealth": "Max Health"
   },
+  "threatTracker": {
+    "villainTurn": "Villain Turn"
+  },
   "scenarios": {
     "rhino": {
       "villainName": "Rhino",

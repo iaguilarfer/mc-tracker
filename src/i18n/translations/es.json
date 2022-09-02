@@ -15,6 +15,9 @@
   "villainTracker": {
     "maxHealth": "Vida Maxima"
   },
+  "threatTracker": {
+    "villainTurn": "Turno del villano"
+  },
   "scenarios": {
     "rhino": {
       "villainName": "Rhino",

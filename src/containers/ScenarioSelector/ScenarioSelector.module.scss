@@ -7,11 +7,15 @@
 
 .scenario-button-container {
   margin-top: 20px;
+  margin-left: 40%;
+  margin-right: 40%;
+  width: 400px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: aqua;
-  padding: 10px 20px;
+  padding: 10px;
   border-radius: 10px;
 }
 
@@ -31,17 +35,11 @@
 }
 
 .scenario-selector {
-  width: 100%;
-  margin-left: 20px;
-  margin-right: 20px;
+  width: 40%;
+  margin-right: 10%;
 }
 
 .player-selector {
-  width: 100%;
-  margin-right: 20px;
-}
-
-.language-selector {
-  width: 100%;
-  margin-right: 20px;
+  width: 20%;
+  margin-right: 10%;
 }
