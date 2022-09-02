@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { villainImages } from "../../assets/images/villains";
 import { useStartingSetUpContext } from "../../context/startingSetUpContext/startingSetUpContext";
 import { Villain } from "../../models/Villain";
 import styles from "./VillainLifeTracker.module.scss";
+import { useTranslation } from "react-i18next";
 
 interface VillainLifeTrackerProps {
   villain: Villain;
@@ -10,6 +12,8 @@ interface VillainLifeTrackerProps {
 export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
   villain,
 }) => {
+  const { t } = useTranslation();
+  const { selectedScenario } = useStartingSetUpContext();
   const { numberOfPlayers } = useStartingSetUpContext();
 
   const maxHealth = villain.maxHealthPerPlayer * (numberOfPlayers || 0);
@@ -37,32 +41,36 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
 
   return (
     <div className={styles["villain-life-tracker-container"]}>
+      <div className={styles["villain-image-container"]}>
+        <img
+          className={styles["villain-image"]}
+          src={villainImages.rhino}
+          alt={t(`scenarios.${selectedScenario?.scenarioValue}.villainName`)}
+        />
+      </div>
       <div className={styles["villain-life-tracker-content"]}>
-        <div className={styles["villain-life-tracker-name-container"]}>
-          <p className={styles["villain-life-tracker-name"]}>
-            {villain.villainName}
-          </p>
+        <div
+          className={styles["villain-life-tracker-current-health-container"]}
+        >
+          <div
+            onClick={decreaseHealth}
+            className={styles["villain-life-tracker-decreasehealth"]}
+          >
+            <div className={styles["increase-decrease-buttons"]}>-1</div>
+          </div>
+          <div>
+            <p className={styles["villain-life-tracker-currenthealth"]}>
+              {currentHealth}
+            </p>
+          </div>
+          <div
+            onClick={increaseHealth}
+            className={styles["villain-life-tracker-increasehealth"]}
+          >
+            <div className={styles["increase-decrease-buttons"]}>+1</div>
+          </div>
         </div>
-        <div className={styles["villain-life-tracker-maxhealth-container"]}>
-          MaxHealth:{maxHealth}
-        </div>
-        <div>
-          <p className={styles["villain-life-tracker-currenthealth"]}>
-            {currentHealth}
-          </p>
-        </div>
-      </div>
-      <div
-        onClick={decreaseHealth}
-        className={styles["villain-life-tracker-decreasehealth"]}
-      >
-        <div>-1</div>
-      </div>
-      <div
-        onClick={increaseHealth}
-        className={styles["villain-life-tracker-increasehealth"]}
-      >
-        <div>+1</div>
+        <div>{`${t("villainTracker.maxHealth")}:${maxHealth}`}</div>
       </div>
     </div>
   );

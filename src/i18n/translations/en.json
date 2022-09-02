@@ -1,0 +1,31 @@
+{
+  "scenarioSelectorPage": {
+    "startGame": "Start Game",
+    "scenarioSelector": {
+      "placeholder": "Select scenario"
+    },
+    "numberOfPlayersSelector": {
+      "placeholder": "Select number of players",
+      "one": "Solo Game",
+      "two": "Two Players",
+      "three": "Three Players",
+      "four": "Four Players"
+    }
+  },
+  "villainTracker": {
+    "maxHealth": "Max Health"
+  },
+  "threatTracker": {
+    "villainTurn": "Villain Turn"
+  },
+  "scenarios": {
+    "rhino": {
+      "villainName": "Rhino",
+      "mainSchemeName": "The Break-In!"
+    },
+    "klaw": {
+      "villainName": "Klaw",
+      "mainSchemeName": "Underground Distribution"
+    }
+  }
+}

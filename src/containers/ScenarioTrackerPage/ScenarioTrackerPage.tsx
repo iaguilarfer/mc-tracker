@@ -10,10 +10,10 @@ export const ScenarioTrackerPage: React.FC = () => {
   return (
     <div className={styles["scenario-tracker-page"]}>
       {selectedScenario !== undefined ? (
-        <>
+        <div className={styles["scenario-tracker-page-container"]}>
           <VillainLifeTracker villain={selectedScenario.villain} />
           <MainSchemeThreatTracker mainScheme={selectedScenario.mainScheme} />
-        </>
+        </div>
       ) : (
         <div>Scenario not found</div>
       )}
