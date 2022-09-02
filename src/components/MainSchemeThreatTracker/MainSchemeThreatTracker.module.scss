@@ -62,14 +62,12 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  // width: 100%;
   border-radius: 70px;
   border: solid 5px var(--threat-background-color);
   margin-bottom: 20px;
 }
 
 .scheme-threat-tracker-currentthreat {
-  // width: 100%;
   font-size: 120px;
   display: flex;
   margin: 10px;
@@ -131,7 +129,6 @@
 }
 
 .scheme-threat-tracker-currentacceleration {
-  // width: 100%;
   font-size: 90px;
   display: flex;
   margin: 10px;

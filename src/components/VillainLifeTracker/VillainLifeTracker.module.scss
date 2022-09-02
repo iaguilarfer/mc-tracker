@@ -29,13 +29,11 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  // width: 100%;
   border-radius: 70px;
   border: solid 5px var(--life-background-color);
 }
 
 .villain-life-tracker-currenthealth {
-  // width: 100%;
   font-size: 150px;
   display: flex;
   margin: 10px;

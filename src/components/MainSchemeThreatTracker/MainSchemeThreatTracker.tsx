@@ -80,11 +80,6 @@ export const MainSchemeThreatTracker: React.FC<
         ></img>
       </div>
       <div className={styles["scheme-threat-tracker-content"]}>
-        {/* <div className={styles["scheme-threat-tracker-name-container"]}>
-          <p className={styles["scheme-threat-tracker-name"]}>
-            {mainScheme.schemeName}
-          </p>
-        </div> */}
         <div
           className={styles["scheme-threat-tracker-current-threat-container"]}
         >
