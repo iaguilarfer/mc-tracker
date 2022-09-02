@@ -46,12 +46,6 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
         ></img>
       </div>
       <div className={styles["villain-life-tracker-content"]}>
-        {/* <div className={styles["villain-life-tracker-name-container"]}>
-          <p className={styles["villain-life-tracker-name"]}>
-            {villain.villainName}
-          </p>
-        </div> */}
-
         <div
           className={styles["villain-life-tracker-current-health-container"]}
         >
