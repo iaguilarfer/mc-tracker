@@ -18,7 +18,7 @@ export const MainSchemeThreatTracker: React.FC<
     mainScheme.startingThreatPerPlayer * (numberOfPlayers || 0)
   );
 
-  const [acelerationTokens, setAcelerationTokens] = useState(0);
+  const [accelerationTokens, setAccelerationTokens] = useState(0);
 
   const increaseThreat = () => {
     setCurrentThreat((prevState) => {
@@ -50,14 +50,14 @@ export const MainSchemeThreatTracker: React.FC<
     });
   };
 
-  const increaseAceleration = () => {
-    setAcelerationTokens((prevState) => {
+  const increaseAcceleration = () => {
+    setAccelerationTokens((prevState) => {
       return prevState + 1;
     });
   };
 
-  const decreaseAceleration = () => {
-    setAcelerationTokens((prevState) => {
+  const decreaseAcceleration = () => {
+    setAccelerationTokens((prevState) => {
       if (prevState > 0) {
         return prevState - 1;
       } else {
@@ -68,7 +68,7 @@ export const MainSchemeThreatTracker: React.FC<
 
   const villainSchemeThreat =
     mainScheme.threatPerTurnPerPlayer * (numberOfPlayers || 0) +
-    acelerationTokens;
+    accelerationTokens;
 
   return (
     <div className={styles["scheme-threat-tracker-container"]}>
@@ -110,27 +110,29 @@ export const MainSchemeThreatTracker: React.FC<
 
         {/* aqui empieza el turno del villano */}
         <div
-          className={styles["scheme-threat-tracker-villainturn-supercontainer"]}
+          className={
+            styles["scheme-threat-tracker-secondary-buttons-container"]
+          }
         >
-          <div
-            className={styles["scheme-threat-tracker-villainturn-container"]}
-          >
+          <div className={styles["scheme-threat-tracker-acceleration"]}>
             <div
-              onClick={decreaseAceleration}
-              className={styles["scheme-threat-tracker-decreaseaceleration"]}
+              onClick={decreaseAcceleration}
+              className={styles["scheme-threat-tracker-decreaseacceleration"]}
             >
               <div className={styles["increase-decrease-buttons"]}>-1</div>
             </div>
             <div>
-              <p className={styles["scheme-threat-tracker-currentaceleration"]}>
-                {acelerationTokens}
-                <span className={styles["acelerationToken"]}>a</span>
+              <p
+                className={styles["scheme-threat-tracker-currentacceleration"]}
+              >
+                {accelerationTokens}
+                <span className={styles["accelerationToken"]}>a</span>
               </p>
             </div>
 
             <div
-              onClick={increaseAceleration}
-              className={styles["scheme-threat-tracker-increaseaceleration"]}
+              onClick={increaseAcceleration}
+              className={styles["scheme-threat-tracker-increaseacceleration"]}
             >
               <div className={styles["increase-decrease-buttons"]}>+1</div>
             </div>
