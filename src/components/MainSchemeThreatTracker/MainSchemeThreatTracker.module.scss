@@ -13,7 +13,7 @@
 }
 
 .scheme-image-container {
-  height: 100%;
+  max-height: 80%;
   margin-bottom: 20px;
   margin-left: 40px;
   display: flex;
@@ -88,10 +88,19 @@
   .scheme-threat-tracker-currentthreat {
     font-size: 40px;
   }
+  .scheme-threat-tracker-decreasethreat {
+    font-size: 20px;
+  }
+  .scheme-threat-tracker-increasethreat {
+    font-size: 20px;
+  }
+  .scheme-threat-tracker-container {
+    max-height: 80%;
+  }
 }
 
 .scheme-threat-tracker-decreasethreat {
-  width: 90px;
+  width: 20%;
   height: auto;
   border-radius: 15px;
   font-size: 50px;
@@ -101,7 +110,7 @@
 }
 
 .scheme-threat-tracker-increasethreat {
-  width: 90px;
+  width: 20%;
   height: auto;
   border-radius: 15px;
   font-size: 50px;
@@ -111,7 +120,7 @@
 }
 
 .scheme-threat-tracker-decreaseaceleration {
-  width: 90px;
+  width: 20%;
   height: auto;
   border-radius: 15px;
   font-size: 50px;
@@ -121,7 +130,7 @@
 }
 
 .scheme-threat-tracker-increaseaceleration {
-  width: 90px;
+  width: 20%;
   height: auto;
   border-radius: 15px;
   font-size: 50px;
@@ -151,5 +160,5 @@
 
 .acelerationToken {
   font-family: var(--font-icons);
-  margin-top: 10px;
+  margin-top: 8%;
 }
