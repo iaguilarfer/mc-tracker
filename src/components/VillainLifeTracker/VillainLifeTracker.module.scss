@@ -45,6 +45,9 @@
   .villain-life-tracker-currenthealth {
     font-size: 60px;
   }
+  .villain-life-tracker-container {
+    max-height: 80%;
+  }
 }
 
 @media screen and (max-height: 650px) {
