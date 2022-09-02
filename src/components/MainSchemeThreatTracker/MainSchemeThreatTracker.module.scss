@@ -1,5 +1,5 @@
 .scheme-threat-tracker-container {
-  max-height: 80%;
+  max-height: 100%;
   width: 60%;
   background-color: var(--threat-background-color);
   background-color: white;
@@ -70,7 +70,7 @@
 
 .scheme-threat-tracker-currentthreat {
   // width: 100%;
-  font-size: 150px;
+  font-size: 120px;
   display: flex;
   margin: 10px;
 }
@@ -79,23 +79,11 @@
   .scheme-threat-tracker-currentthreat {
     font-size: 60px;
   }
-  .scheme-threat-tracker-container {
-    max-height: 80%;
-  }
 }
 
 @media screen and (max-height: 650px) {
   .scheme-threat-tracker-currentthreat {
     font-size: 40px;
-  }
-  .scheme-threat-tracker-decreasethreat {
-    font-size: 20px;
-  }
-  .scheme-threat-tracker-increasethreat {
-    font-size: 20px;
-  }
-  .scheme-threat-tracker-container {
-    max-height: 80%;
   }
 }
 
@@ -150,11 +138,23 @@
   .scheme-threat-tracker-currentaceleration {
     font-size: 80px;
   }
+  .increase-decrease-buttons {
+    font-size: 30px;
+  }
+  .scheme-threat-tracker-villainturn {
+    font-size: 30px;
+  }
 }
 
 @media screen and (max-height: 650px) {
   .scheme-threat-tracker-currentaceleration {
     font-size: 50px;
+  }
+  .increase-decrease-buttons {
+    font-size: 20px;
+  }
+  .scheme-threat-tracker-villainturn {
+    font-size: 20px;
   }
 }
 

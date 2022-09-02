@@ -92,7 +92,7 @@ export const MainSchemeThreatTracker: React.FC<
             onClick={decreaseThreat}
             className={styles["scheme-threat-tracker-decreasethreat"]}
           >
-            <div>-1</div>
+            <div className={styles["increase-decrease-buttons"]}>-1</div>
           </div>
           <div>
             <p className={styles["scheme-threat-tracker-currentthreat"]}>
@@ -104,7 +104,7 @@ export const MainSchemeThreatTracker: React.FC<
             onClick={increaseThreat}
             className={styles["scheme-threat-tracker-increasethreat"]}
           >
-            <div>+1</div>
+            <div className={styles["increase-decrease-buttons"]}>+1</div>
           </div>
         </div>
 
@@ -119,7 +119,7 @@ export const MainSchemeThreatTracker: React.FC<
               onClick={decreaseAceleration}
               className={styles["scheme-threat-tracker-decreaseaceleration"]}
             >
-              <div>-1</div>
+              <div className={styles["increase-decrease-buttons"]}>-1</div>
             </div>
             <div>
               <p className={styles["scheme-threat-tracker-currentaceleration"]}>
@@ -132,7 +132,7 @@ export const MainSchemeThreatTracker: React.FC<
               onClick={increaseAceleration}
               className={styles["scheme-threat-tracker-increaseaceleration"]}
             >
-              <div>+1</div>
+              <div className={styles["increase-decrease-buttons"]}>+1</div>
             </div>
           </div>
           <div

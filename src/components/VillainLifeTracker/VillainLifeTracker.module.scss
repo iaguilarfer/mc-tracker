@@ -1,5 +1,5 @@
 .villain-life-tracker-container {
-  max-height: 80%;
+  max-height: 100%;
   width: 40%;
   background-color: white;
   display: flex;
@@ -41,12 +41,34 @@
   margin: 10px;
 }
 
+.increase-decrease-buttons {
+  font-size: 50px;
+}
+
+.villain-life-tracker-decreasehealth {
+  width: 90px;
+  height: auto;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.villain-life-tracker-increasehealth {
+  width: 90px;
+  height: auto;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media screen and (max-height: 750px) {
   .villain-life-tracker-currenthealth {
     font-size: 60px;
   }
-  .villain-life-tracker-container {
-    max-height: 80%;
+  .increase-decrease-buttons {
+    font-size: 30px;
   }
 }
 
@@ -57,24 +79,7 @@
   .scheme-threat-tracker-container {
     max-height: 80%;
   }
-}
-
-.villain-life-tracker-decreasehealth {
-  width: 90px;
-  height: auto;
-  border-radius: 15px;
-  font-size: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.villain-life-tracker-increasehealth {
-  width: 90px;
-  height: auto;
-  border-radius: 15px;
-  font-size: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  .increase-decrease-buttons {
+    font-size: 20px;
+  }
 }

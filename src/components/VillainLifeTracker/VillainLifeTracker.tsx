@@ -59,7 +59,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
             onClick={decreaseHealth}
             className={styles["villain-life-tracker-decreasehealth"]}
           >
-            <div>-1</div>
+            <div className={styles["increase-decrease-buttons"]}>-1</div>
           </div>
           <div>
             <p className={styles["villain-life-tracker-currenthealth"]}>
@@ -70,7 +70,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
             onClick={increaseHealth}
             className={styles["villain-life-tracker-increasehealth"]}
           >
-            <div>+1</div>
+            <div className={styles["increase-decrease-buttons"]}>+1</div>
           </div>
         </div>
         <div className={styles["villain-life-tracker-maxhealth-container"]}>
