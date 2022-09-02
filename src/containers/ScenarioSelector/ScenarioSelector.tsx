@@ -85,7 +85,7 @@ export const ScenarioSelector: React.FC = () => {
           Start Game
         </Link>
       </div>
-      <button onClick={() => open(TestModal)}>Open test modal</button>
+      <button onClick={() => open(<TestModal />)}>Open test modal</button>
     </div>
   );
 };

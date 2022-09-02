@@ -3,14 +3,14 @@ import { ModalBackdrop } from "../../components/Modal/Modal";
 
 export interface ModalContextProps {
   isOpen: boolean;
-  open: Function;
-  close: Function;
+  open: (content: ReactNode) => void;
+  close: () => void;
 }
 
 export const ModalContextDefaults: ModalContextProps = {
   isOpen: false,
-  open: Function,
-  close: Function,
+  open: () => null,
+  close: () => null,
 };
 
 export const ModalContext = React.createContext(ModalContextDefaults);
