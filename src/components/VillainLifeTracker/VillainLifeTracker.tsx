@@ -3,6 +3,7 @@ import { villainImages } from "../../assets/images/villains";
 import { useStartingSetUpContext } from "../../context/startingSetUpContext/startingSetUpContext";
 import { Villain } from "../../models/Villain";
 import styles from "./VillainLifeTracker.module.scss";
+import { useTranslation } from "react-i18next";
 
 interface VillainLifeTrackerProps {
   villain: Villain;
@@ -11,6 +12,8 @@ interface VillainLifeTrackerProps {
 export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
   villain,
 }) => {
+  const { t } = useTranslation();
+  const { selectedScenario } = useStartingSetUpContext();
   const { numberOfPlayers } = useStartingSetUpContext();
 
   const maxHealth = villain.maxHealthPerPlayer * (numberOfPlayers || 0);
@@ -42,8 +45,8 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
         <img
           className={styles["villain-image"]}
           src={villainImages.rhino}
-          alt={villain.villainName}
-        ></img>
+          alt={t(`scenarios.${selectedScenario?.scenarioValue}.villainName`)}
+        />
       </div>
       <div className={styles["villain-life-tracker-content"]}>
         <div
@@ -67,9 +70,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
             <div className={styles["increase-decrease-buttons"]}>+1</div>
           </div>
         </div>
-        <div className={styles["villain-life-tracker-maxhealth-container"]}>
-          MaxHealth:{maxHealth}
-        </div>
+        <div>{`${t("villainTracker.maxHealth")}:${maxHealth}`}</div>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { schemeImages } from "../../assets/images/schemes";
 import { useStartingSetUpContext } from "../../context/startingSetUpContext/startingSetUpContext";
 import { MainScheme } from "../../models/MainScheme";
 import styles from "./MainSchemeThreatTracker.module.scss";
+import { useTranslation } from "react-i18next";
 
 interface MainSchemeThreatTrackerProps {
   mainScheme: MainScheme;
@@ -11,6 +12,8 @@ interface MainSchemeThreatTrackerProps {
 export const MainSchemeThreatTracker: React.FC<
   MainSchemeThreatTrackerProps
 > = ({ mainScheme }) => {
+  const { t } = useTranslation();
+  const { selectedScenario } = useStartingSetUpContext();
   const { numberOfPlayers } = useStartingSetUpContext();
 
   const maxThreat = mainScheme.maxThreatPerPlayer * (numberOfPlayers || 0);
@@ -76,8 +79,8 @@ export const MainSchemeThreatTracker: React.FC<
         <img
           className={styles["scheme-image"]}
           src={schemeImages.rhino}
-          alt={mainScheme.schemeName}
-        ></img>
+          alt={t(`scenarios.${selectedScenario?.scenarioValue}.mainSchemeName`)}
+        />
       </div>
       <div className={styles["scheme-threat-tracker-content"]}>
         <div
@@ -136,7 +139,9 @@ export const MainSchemeThreatTracker: React.FC<
             onClick={villainTurn}
             className={styles["scheme-threat-tracker-villainturn"]}
           >
-            <div>Villain Turn {villainSchemeThreat}</div>
+            <div>{`${t(
+              "threatTracker.villainTurn"
+            )} ${villainSchemeThreat}`}</div>
           </div>
         </div>
       </div>
