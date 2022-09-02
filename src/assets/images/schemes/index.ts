@@ -1,1 +1,8 @@
-export const schemeImages = {rhino:require("./thebreakin.png")}
+interface SchemeImages {
+  [x: string]: string;
+}
+
+export const schemeImages: SchemeImages = {
+  rhino: require("./thebreakin.png"),
+  klaw: require("./undergroundDistribution.png"),
+};

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Select from "react-select";
-import { useStartingSetUpContext } from "../../context/startingSetUpContext/startingSetUpContext";
+import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
 import ScenariosJson from "../../assets/data/Scenarios.json";
 import styles from "./ScenarioSelector.module.scss";
 import { useModalContext } from "../../context/modalContext/ModalContext";
@@ -14,7 +14,7 @@ export const ScenarioSelector: React.FC = () => {
     setNumberOfPlayers,
     numberOfPlayers,
     scenarioValue,
-  } = useStartingSetUpContext();
+  } = useScenarioContext();
 
   const { open, close } = useModalContext();
 
@@ -93,6 +93,7 @@ export const ScenarioSelector: React.FC = () => {
 
   const LanguageSelector = () => (
     <Select
+      isSearchable={false}
       options={languages}
       defaultValue={selectedLanguage}
       onChange={(option) => i18n.changeLanguage(option?.value)}

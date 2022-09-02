@@ -2,14 +2,14 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ScenarioTrackerPage } from "../ScenarioTrackerPage/ScenarioTrackerPage";
 import { ScenarioSelector } from "../ScenarioSelector/ScenarioSelector";
-import { StartingSetUpProvider } from "../../context/startingSetUpContext/startingSetUpContext";
+import { ScenarioProvider } from "../../context/ScenarioContext/ScenarioContext";
 import "../../i18n";
 import { ModalProvider } from "../../context/modalContext/ModalContext";
 
 function App() {
   return (
     <ModalProvider>
-      <StartingSetUpProvider>
+      <ScenarioProvider>
         <div>
           <BrowserRouter>
             <Routes>
@@ -18,7 +18,7 @@ function App() {
             </Routes>
           </BrowserRouter>
         </div>
-      </StartingSetUpProvider>
+      </ScenarioProvider>
     </ModalProvider>
   );
 }
