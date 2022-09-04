@@ -27,5 +27,8 @@
       "villainName": "Klaw",
       "mainSchemeName": "Underground Distribution"
     }
+  },
+  "victoryMessage": {
+    "victoryMessage": "Victory!"
   }
 }

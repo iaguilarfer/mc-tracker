@@ -5,9 +5,14 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useTranslation } from "react-i18next";
+// import { useTranslation } from "react-i18next";
 import ScenariosJson from "../../assets/data/Scenarios.json";
+import { Modal } from "../../components/Modal/Modal";
 import { Scenario } from "../../models/Scenario";
 import { Villain } from "../../models/Villain";
+import { useModalContext } from "../modalContext/ModalContext";
+import styles from "./ScenarioContext.module.scss";
 
 interface ScenarioContextProps {
   scenarioValue: string | undefined;
@@ -18,6 +23,7 @@ interface ScenarioContextProps {
   currentVillain: Villain | undefined;
   setCurrentVillain: (currentVillain: Villain) => void;
   advanceStage: () => void;
+  VictoryMessage: () => void;
 }
 
 export const ScenarioContextDefaults: ScenarioContextProps = {
@@ -29,6 +35,7 @@ export const ScenarioContextDefaults: ScenarioContextProps = {
   currentVillain: undefined,
   setCurrentVillain: () => null,
   advanceStage: () => null,
+  VictoryMessage: () => null,
 };
 
 const ScenarioContext = createContext(ScenarioContextDefaults);
@@ -49,11 +56,27 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   const [villainDeck, setVillainDeck] = useState<Array<Villain>>();
   const [currentStageIndex, setCurrentStageIndex] = useState<number>(0);
 
+  const { open, close } = useModalContext();
+  const { t } = useTranslation();
+
+  // const { t } = useTranslation();
+  const VictoryMessage = () => (
+    <Modal size={"large"}>
+      <div className={styles["victory-message"]}>
+        {t("victoryMessage.victoryMessage")}
+      </div>
+      <button onClick={() => close()}>Close</button>
+    </Modal>
+  );
+
   const advanceStage = () => {
     if (villainDeck) {
-      setCurrentVillain(villainDeck[currentStageIndex + 1]);
-      setCurrentStageIndex((prevState) => prevState + 1);
-      console.log("hola");
+      if (currentStageIndex === 0) {
+        setCurrentVillain(villainDeck[currentStageIndex + 1]);
+        setCurrentStageIndex((prevState) => prevState + 1);
+      } else {
+        open(<VictoryMessage />);
+      }
     }
   };
 
@@ -76,6 +99,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         currentVillain,
         setCurrentVillain,
         advanceStage,
+        VictoryMessage,
       }}
     >
       {children}

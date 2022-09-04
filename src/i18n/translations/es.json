@@ -27,5 +27,8 @@
       "villainName": "Klaw",
       "mainSchemeName": "Distribucion Clandestina"
     }
+  },
+  "victoryMessage": {
+    "victoryMessage": "¡Victoria!"
   }
 }
