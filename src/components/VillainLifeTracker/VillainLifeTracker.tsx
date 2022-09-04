@@ -21,7 +21,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
 
   useEffect(() => {
     setCurrentHealth(maxHealth);
-  }, [villain]);
+  }, [villain, maxHealth]);
 
   const increaseHealth = () => {
     setCurrentHealth((prevState) => {
