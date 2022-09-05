@@ -65,7 +65,9 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
       <div className={styles["victory-message"]}>
         {t("victoryMessage.victoryMessage")}
       </div>
-      <button onClick={() => close()}>Close</button>
+      <div>
+        <button onClick={() => close()}>Close</button>
+      </div>
     </Modal>
   );
 
