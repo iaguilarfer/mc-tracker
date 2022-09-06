@@ -1,0 +1,18 @@
+.victory-modal {
+  display: flex;
+  flex-direction: column;
+}
+
+.victory-message {
+  font-size: 100px;
+  color: red;
+}
+
+.modal-buttons {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}

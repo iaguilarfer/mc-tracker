@@ -27,5 +27,10 @@
       "villainName": "Klaw",
       "mainSchemeName": "Underground Distribution"
     }
+  },
+  "victoryModal": {
+    "victoryMessage": "Victory!",
+    "closeButton": "Close",
+    "newGameButton": "New Game"
   }
 }

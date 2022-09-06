@@ -27,5 +27,10 @@
       "villainName": "Klaw",
       "mainSchemeName": "Distribucion Clandestina"
     }
+  },
+  "victoryModal": {
+    "victoryMessage": "¡Victoria!",
+    "closeButton": "Cerrar",
+    "newGameButton": "Nueva Partida"
   }
 }

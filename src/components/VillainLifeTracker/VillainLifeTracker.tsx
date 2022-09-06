@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { villainImages } from "../../assets/images/villains";
-import { useStartingSetUpContext } from "../../context/startingSetUpContext/startingSetUpContext";
+import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
 import { Villain } from "../../models/Villain";
 import styles from "./VillainLifeTracker.module.scss";
 import { useTranslation } from "react-i18next";
@@ -13,11 +13,15 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
   villain,
 }) => {
   const { t } = useTranslation();
-  const { selectedScenario } = useStartingSetUpContext();
-  const { numberOfPlayers } = useStartingSetUpContext();
+  const { selectedScenario, numberOfPlayers, advanceStage } =
+    useScenarioContext();
 
   const maxHealth = villain.maxHealthPerPlayer * (numberOfPlayers || 0);
   const [currentHealth, setCurrentHealth] = useState(maxHealth);
+
+  useEffect(() => {
+    setCurrentHealth(maxHealth);
+  }, [villain, maxHealth]);
 
   const increaseHealth = () => {
     setCurrentHealth((prevState) => {
@@ -30,6 +34,10 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
   };
 
   const decreaseHealth = () => {
+    if (currentHealth === 1) {
+      advanceStage();
+    }
+
     setCurrentHealth((prevState) => {
       if (prevState > 0) {
         return prevState - 1;
@@ -44,7 +52,9 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
       <div className={styles["villain-image-container"]}>
         <img
           className={styles["villain-image"]}
-          src={villainImages.rhino}
+          src={
+            villainImages[selectedScenario!.scenarioValue][villain.stage - 1]
+          }
           alt={t(`scenarios.${selectedScenario?.scenarioValue}.villainName`)}
         />
       </div>

@@ -1,12 +1,10 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import Select from "react-select";
-import { useStartingSetUpContext } from "../../context/startingSetUpContext/startingSetUpContext";
 import ScenariosJson from "../../assets/data/Scenarios.json";
+import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
 import styles from "./ScenarioSelector.module.scss";
-import { useModalContext } from "../../context/modalContext/ModalContext";
-import { Modal } from "../../components/Modal/Modal";
-import { useTranslation } from "react-i18next";
 
 export const ScenarioSelector: React.FC = () => {
   const {
@@ -14,9 +12,7 @@ export const ScenarioSelector: React.FC = () => {
     setNumberOfPlayers,
     numberOfPlayers,
     scenarioValue,
-  } = useStartingSetUpContext();
-
-  const { open, close } = useModalContext();
+  } = useScenarioContext();
 
   const { t, i18n } = useTranslation();
 
@@ -93,17 +89,11 @@ export const ScenarioSelector: React.FC = () => {
 
   const LanguageSelector = () => (
     <Select
+      isSearchable={false}
       options={languages}
       defaultValue={selectedLanguage}
       onChange={(option) => i18n.changeLanguage(option?.value)}
     />
-  );
-
-  const TestModal = () => (
-    <Modal size={"large"}>
-      This is a modal
-      <button onClick={() => close()}>Close</button>
-    </Modal>
   );
 
   return (
@@ -125,7 +115,6 @@ export const ScenarioSelector: React.FC = () => {
           {t("scenarioSelectorPage.startGame")}
         </Link>
       </div>
-      <button onClick={() => open(<TestModal />)}>Open test modal</button>
     </div>
   );
 };

@@ -1,17 +1,17 @@
 import React from "react";
 import { MainSchemeThreatTracker } from "../../components/MainSchemeThreatTracker/MainSchemeThreatTracker";
 import { VillainLifeTracker } from "../../components/VillainLifeTracker/VillainLifeTracker";
-import { useStartingSetUpContext } from "../../context/startingSetUpContext/startingSetUpContext";
+import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
 import styles from "./ScenarioTrackerPage.module.scss";
 
 export const ScenarioTrackerPage: React.FC = () => {
-  const { selectedScenario } = useStartingSetUpContext();
+  const { selectedScenario, currentVillain } = useScenarioContext();
 
   return (
     <div className={styles["scenario-tracker-page"]}>
-      {selectedScenario !== undefined ? (
+      {selectedScenario !== undefined && currentVillain !== undefined ? (
         <div className={styles["scenario-tracker-page-container"]}>
-          <VillainLifeTracker villain={selectedScenario.villain} />
+          <VillainLifeTracker villain={currentVillain} />
           <MainSchemeThreatTracker mainScheme={selectedScenario.mainScheme} />
         </div>
       ) : (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { schemeImages } from "../../assets/images/schemes";
-import { useStartingSetUpContext } from "../../context/startingSetUpContext/startingSetUpContext";
+import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
 import { MainScheme } from "../../models/MainScheme";
 import styles from "./MainSchemeThreatTracker.module.scss";
 import { useTranslation } from "react-i18next";
@@ -13,8 +13,8 @@ export const MainSchemeThreatTracker: React.FC<
   MainSchemeThreatTrackerProps
 > = ({ mainScheme }) => {
   const { t } = useTranslation();
-  const { selectedScenario } = useStartingSetUpContext();
-  const { numberOfPlayers } = useStartingSetUpContext();
+  const { selectedScenario } = useScenarioContext();
+  const { numberOfPlayers } = useScenarioContext();
 
   const maxThreat = mainScheme.maxThreatPerPlayer * (numberOfPlayers || 0);
   const [currentThreat, setCurrentThreat] = useState(
@@ -78,7 +78,7 @@ export const MainSchemeThreatTracker: React.FC<
       <div className={styles["scheme-image-container"]}>
         <img
           className={styles["scheme-image"]}
-          src={schemeImages.rhino}
+          src={schemeImages[selectedScenario!.scenarioValue]}
           alt={t(`scenarios.${selectedScenario?.scenarioValue}.mainSchemeName`)}
         />
       </div>
