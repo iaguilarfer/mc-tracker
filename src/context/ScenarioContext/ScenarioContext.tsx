@@ -7,7 +7,6 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-// import { useTranslation } from "react-i18next";
 import ScenariosJson from "../../assets/data/Scenarios.json";
 import { Modal } from "../../components/Modal/Modal";
 import { Scenario } from "../../models/Scenario";
@@ -62,7 +61,6 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  // const { t } = useTranslation();
   const VictoryMessage = () => (
     <Modal modalClassname={styles["victory-modal"]} size={"large"}>
       <div className={styles["victory-message"]}>

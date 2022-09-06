@@ -7,8 +7,6 @@ import styles from "./ScenarioTrackerPage.module.scss";
 export const ScenarioTrackerPage: React.FC = () => {
   const { selectedScenario, currentVillain } = useScenarioContext();
 
-  console.log(currentVillain, selectedScenario);
-
   return (
     <div className={styles["scenario-tracker-page"]}>
       {selectedScenario !== undefined && currentVillain !== undefined ? (
