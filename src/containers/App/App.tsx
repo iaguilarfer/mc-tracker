@@ -8,18 +8,18 @@ import { ModalProvider } from "../../context/modalContext/ModalContext";
 
 function App() {
   return (
-    <ModalProvider>
-      <ScenarioProvider>
-        <div>
-          <BrowserRouter>
+    <BrowserRouter>
+      <ModalProvider>
+        <ScenarioProvider>
+          <div>
             <Routes>
               <Route path="/scenario" element={<ScenarioTrackerPage />} />
               <Route path="/" element={<ScenarioSelector />} />
             </Routes>
-          </BrowserRouter>
-        </div>
-      </ScenarioProvider>
-    </ModalProvider>
+          </div>
+        </ScenarioProvider>
+      </ModalProvider>
+    </BrowserRouter>
   );
 }
 

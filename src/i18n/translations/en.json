@@ -28,7 +28,9 @@
       "mainSchemeName": "Underground Distribution"
     }
   },
-  "victoryMessage": {
-    "victoryMessage": "Victory!"
+  "victoryModal": {
+    "victoryMessage": "Victory!",
+    "closeButton": "Close",
+    "newGameButton": "New Game"
   }
 }

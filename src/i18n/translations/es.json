@@ -28,7 +28,9 @@
       "mainSchemeName": "Distribucion Clandestina"
     }
   },
-  "victoryMessage": {
-    "victoryMessage": "¡Victoria!"
+  "victoryModal": {
+    "victoryMessage": "¡Victoria!",
+    "closeButton": "Cerrar",
+    "newGameButton": "Nueva Partida"
   }
 }

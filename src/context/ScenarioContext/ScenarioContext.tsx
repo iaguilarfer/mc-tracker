@@ -6,6 +6,7 @@ import {
   useState,
 } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 // import { useTranslation } from "react-i18next";
 import ScenariosJson from "../../assets/data/Scenarios.json";
 import { Modal } from "../../components/Modal/Modal";
@@ -13,6 +14,7 @@ import { Scenario } from "../../models/Scenario";
 import { Villain } from "../../models/Villain";
 import { useModalContext } from "../modalContext/ModalContext";
 import styles from "./ScenarioContext.module.scss";
+import cs from "classnames";
 
 interface ScenarioContextProps {
   scenarioValue: string | undefined;
@@ -58,15 +60,30 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
 
   const { open, close } = useModalContext();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   // const { t } = useTranslation();
   const VictoryMessage = () => (
-    <Modal size={"large"}>
+    <Modal modalClassname={styles["victory-modal"]} size={"large"}>
       <div className={styles["victory-message"]}>
-        {t("victoryMessage.victoryMessage")}
+        {t("victoryModal.victoryMessage")}
       </div>
-      <div>
-        <button onClick={() => close()}>Close</button>
+      <div className={styles["modal-buttons"]}>
+        <button
+          className={cs(styles["newGame-button"], styles["button"])}
+          onClick={() => {
+            navigate("/");
+            close();
+          }}
+        >
+          {t("victoryModal.newGameButton")}
+        </button>
+        <button
+          className={cs(styles["close-button"], styles["button"])}
+          onClick={() => close()}
+        >
+          {t("victoryModal.closeButton")}
+        </button>
       </div>
     </Modal>
   );
