@@ -13,7 +13,7 @@ import { Scenario } from "../../models/Scenario";
 import { Villain } from "../../models/Villain";
 import { useModalContext } from "../modalContext/ModalContext";
 import styles from "./ScenarioContext.module.scss";
-import cs from "classnames";
+import { Button } from "../../components/Button/Button";
 
 interface ScenarioContextProps {
   scenarioValue: string | undefined;
@@ -67,21 +67,20 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         {t("victoryModal.victoryMessage")}
       </div>
       <div className={styles["modal-buttons"]}>
-        <button
-          className={cs(styles["newGame-button"], styles["button"])}
+        <Button
+          text={t("victoryModal.newGameButton")}
           onClick={() => {
             navigate("/");
             close();
           }}
-        >
-          {t("victoryModal.newGameButton")}
-        </button>
-        <button
-          className={cs(styles["close-button"], styles["button"])}
-          onClick={() => close()}
-        >
-          {t("victoryModal.closeButton")}
-        </button>
+        />
+
+        <Button
+          text={t("victoryModal.closeButton")}
+          onClick={() => {
+            close();
+          }}
+        />
       </div>
     </Modal>
   );

@@ -1,12 +1,11 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import Select from "react-select";
-import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
 import ScenariosJson from "../../assets/data/Scenarios.json";
-import styles from "./ScenarioSelector.module.scss";
 import { useModalContext } from "../../context/modalContext/ModalContext";
-import { Modal } from "../../components/Modal/Modal";
-import { useTranslation } from "react-i18next";
+import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
+import styles from "./ScenarioSelector.module.scss";
 
 export const ScenarioSelector: React.FC = () => {
   const {
@@ -100,13 +99,6 @@ export const ScenarioSelector: React.FC = () => {
     />
   );
 
-  const TestModal = () => (
-    <Modal size={"large"}>
-      This is a modal
-      <button onClick={() => close()}>Close</button>
-    </Modal>
-  );
-
   return (
     <div className={styles["scenario-main-container"]}>
       <div className={styles["scenario-selector-container"]}>
@@ -126,7 +118,6 @@ export const ScenarioSelector: React.FC = () => {
           {t("scenarioSelectorPage.startGame")}
         </Link>
       </div>
-      <button onClick={() => open(<TestModal />)}>Open test modal</button>
     </div>
   );
 };
