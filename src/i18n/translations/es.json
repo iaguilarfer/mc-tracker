@@ -25,11 +25,12 @@
     },
     "klaw": {
       "villainName": "Klaw",
-      "mainSchemeName": "Distribucion Clandestina"
+      "mainSchemeName": ["Distribucion Clandestina", "Reunion Secreta"]
     }
   },
-  "victoryModal": {
+  "endGameModal": {
     "victoryMessage": "¡Victoria!",
+    "defeatMessage": "¡Derrota!",
     "closeButton": "Cerrar",
     "newGameButton": "Nueva Partida"
   }

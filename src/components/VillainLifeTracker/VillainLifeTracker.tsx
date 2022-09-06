@@ -13,7 +13,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
   villain,
 }) => {
   const { t } = useTranslation();
-  const { selectedScenario, numberOfPlayers, advanceStage } =
+  const { selectedScenario, numberOfPlayers, advanceVillainStage } =
     useScenarioContext();
 
   const maxHealth = villain.maxHealthPerPlayer * (numberOfPlayers || 0);
@@ -35,7 +35,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
 
   const decreaseHealth = () => {
     if (currentHealth === 1) {
-      advanceStage();
+      advanceVillainStage();
     }
 
     setCurrentHealth((prevState) => {

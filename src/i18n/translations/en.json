@@ -25,11 +25,12 @@
     },
     "klaw": {
       "villainName": "Klaw",
-      "mainSchemeName": "Underground Distribution"
+      "mainSchemeName": ["Underground Distribution", "Secret Rendezvous"]
     }
   },
-  "victoryModal": {
+  "endGameModal": {
     "victoryMessage": "Victory!",
+    "defeatMessage": "Defeat!",
     "closeButton": "Close",
     "newGameButton": "New Game"
   }

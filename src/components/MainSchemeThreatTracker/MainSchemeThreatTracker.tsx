@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { schemeImages } from "../../assets/images/schemes";
 import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
 import { MainScheme } from "../../models/MainScheme";
@@ -13,13 +13,23 @@ export const MainSchemeThreatTracker: React.FC<
   MainSchemeThreatTrackerProps
 > = ({ mainScheme }) => {
   const { t } = useTranslation();
-  const { selectedScenario } = useScenarioContext();
-  const { numberOfPlayers } = useScenarioContext();
+  const { selectedScenario, numberOfPlayers, advanceSchemeStage } =
+    useScenarioContext();
 
+  const initialThreat =
+    mainScheme.startingThreatPerPlayer * (numberOfPlayers || 0);
   const maxThreat = mainScheme.maxThreatPerPlayer * (numberOfPlayers || 0);
-  const [currentThreat, setCurrentThreat] = useState(
-    mainScheme.startingThreatPerPlayer * (numberOfPlayers || 0)
-  );
+  const [currentThreat, setCurrentThreat] = useState(initialThreat);
+
+  useEffect(() => {
+    setCurrentThreat(initialThreat);
+  }, [mainScheme, maxThreat]);
+
+  useEffect(() => {
+    if (currentThreat >= maxThreat) {
+      advanceSchemeStage();
+    }
+  }, [currentThreat]);
 
   const [accelerationTokens, setAccelerationTokens] = useState(0);
 
@@ -78,7 +88,9 @@ export const MainSchemeThreatTracker: React.FC<
       <div className={styles["scheme-image-container"]}>
         <img
           className={styles["scheme-image"]}
-          src={schemeImages[selectedScenario!.scenarioValue]}
+          src={
+            schemeImages[selectedScenario!.scenarioValue][mainScheme.stage - 1]
+          }
           alt={t(`scenarios.${selectedScenario?.scenarioValue}.mainSchemeName`)}
         />
       </div>

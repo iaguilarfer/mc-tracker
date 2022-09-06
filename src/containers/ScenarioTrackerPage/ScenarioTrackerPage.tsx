@@ -5,14 +5,17 @@ import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContex
 import styles from "./ScenarioTrackerPage.module.scss";
 
 export const ScenarioTrackerPage: React.FC = () => {
-  const { selectedScenario, currentVillain } = useScenarioContext();
+  const { selectedScenario, currentVillain, currentMainScheme } =
+    useScenarioContext();
 
   return (
     <div className={styles["scenario-tracker-page"]}>
-      {selectedScenario !== undefined && currentVillain !== undefined ? (
+      {selectedScenario !== undefined &&
+      currentVillain !== undefined &&
+      currentMainScheme !== undefined ? (
         <div className={styles["scenario-tracker-page-container"]}>
           <VillainLifeTracker villain={currentVillain} />
-          <MainSchemeThreatTracker mainScheme={selectedScenario.mainScheme} />
+          <MainSchemeThreatTracker mainScheme={currentMainScheme} />
         </div>
       ) : (
         <div>Scenario not found</div>

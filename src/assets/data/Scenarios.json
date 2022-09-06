@@ -7,11 +7,14 @@
         { "maxHealthPerPlayer": 15, "stage": 2 },
         { "maxHealthPerPlayer": 16, "stage": 3 }
       ],
-      "mainScheme": {
-        "maxThreatPerPlayer": 7,
-        "startingThreatPerPlayer": 0,
-        "threatPerTurnPerPlayer": 1
-      }
+      "mainSchemeDeck": [
+        {
+          "maxThreatPerPlayer": 7,
+          "startingThreatPerPlayer": 0,
+          "threatPerTurnPerPlayer": 1,
+          "stage": 1
+        }
+      ]
     },
     {
       "scenarioValue": "klaw",
@@ -20,11 +23,20 @@
         { "maxHealthPerPlayer": 18, "stage": 2 },
         { "maxHealthPerPlayer": 22, "stage": 3 }
       ],
-      "mainScheme": {
-        "maxThreatPerPlayer": 6,
-        "startingThreatPerPlayer": 0,
-        "threatPerTurnPerPlayer": 1
-      }
+      "mainSchemeDeck": [
+        {
+          "maxThreatPerPlayer": 6,
+          "startingThreatPerPlayer": 0,
+          "threatPerTurnPerPlayer": 1,
+          "stage": 1
+        },
+        {
+          "maxThreatPerPlayer": 8,
+          "startingThreatPerPlayer": 0,
+          "threatPerTurnPerPlayer": 1,
+          "stage": 2
+        }
+      ]
     }
   ]
 }
