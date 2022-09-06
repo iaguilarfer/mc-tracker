@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import ScenariosJson from "../../assets/data/Scenarios.json";
-import { useModalContext } from "../../context/modalContext/ModalContext";
 import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
 import styles from "./ScenarioSelector.module.scss";
 
@@ -14,8 +13,6 @@ export const ScenarioSelector: React.FC = () => {
     numberOfPlayers,
     scenarioValue,
   } = useScenarioContext();
-
-  const { open, close } = useModalContext();
 
   const { t, i18n } = useTranslation();
 
