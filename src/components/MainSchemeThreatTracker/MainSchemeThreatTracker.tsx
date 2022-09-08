@@ -29,7 +29,7 @@ export const MainSchemeThreatTracker: React.FC<
     if (currentThreat >= maxThreat) {
       advanceSchemeStage();
     }
-  }, [currentThreat, maxThreat]);
+  }, [currentThreat, maxThreat, advanceSchemeStage]);
 
   const [accelerationTokens, setAccelerationTokens] = useState(0);
 
