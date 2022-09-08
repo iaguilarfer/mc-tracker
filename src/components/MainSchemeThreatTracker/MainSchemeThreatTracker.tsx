@@ -23,13 +23,13 @@ export const MainSchemeThreatTracker: React.FC<
 
   useEffect(() => {
     setCurrentThreat(initialThreat);
-  }, [mainScheme, maxThreat]);
+  }, [mainScheme, initialThreat]);
 
   useEffect(() => {
     if (currentThreat >= maxThreat) {
       advanceSchemeStage();
     }
-  }, [currentThreat]);
+  }, [currentThreat, maxThreat]);
 
   const [accelerationTokens, setAccelerationTokens] = useState(0);
 
