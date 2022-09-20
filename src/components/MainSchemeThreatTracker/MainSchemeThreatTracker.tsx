@@ -28,6 +28,7 @@ export const MainSchemeThreatTracker: React.FC<
   useEffect(() => {
     if (currentThreat >= maxThreat) {
       advanceSchemeStage();
+      setCurrentThreat(0);
     }
   }, [currentThreat, maxThreat, advanceSchemeStage]);
 

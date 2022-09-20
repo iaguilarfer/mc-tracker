@@ -91,7 +91,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         setCurrentMainSchemeStage((prevState) => prevState + 1);
       }
     }
-  }, [currentMainSchemeStage, selectedScenario, open]);
+  }, [currentMainSchemeStage, selectedScenario, open, t]);
 
   useEffect(() => {
     if (selectedScenario) {
