@@ -21,7 +21,8 @@
   "scenarios": {
     "rhino": {
       "villainName": "Rhino",
-      "mainSchemeName": "Allanamiento!"
+      "mainSchemeName": "Allanamiento!",
+      "rhinoImage1": "./rhino1es.png"
     },
     "klaw": {
       "villainName": "Klaw",

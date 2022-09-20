@@ -21,7 +21,8 @@
   "scenarios": {
     "rhino": {
       "villainName": "Rhino",
-      "mainSchemeName": "The Break-In!"
+      "mainSchemeName": "The Break-In!",
+      "rhinoImage1": "./rhino1en.png"
     },
     "klaw": {
       "villainName": "Klaw",

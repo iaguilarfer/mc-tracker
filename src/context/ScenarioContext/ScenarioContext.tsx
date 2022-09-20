@@ -1,6 +1,7 @@
 import {
   createContext,
   PropsWithChildren,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -76,7 +77,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
     }
   };
 
-  const advanceSchemeStage = () => {
+  const advanceSchemeStage = useCallback(() => {
     if (selectedScenario) {
       if (
         currentMainSchemeStage ===
@@ -90,7 +91,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         setCurrentMainSchemeStage((prevState) => prevState + 1);
       }
     }
-  };
+  }, [currentMainSchemeStage, selectedScenario, open]);
 
   useEffect(() => {
     if (selectedScenario) {
