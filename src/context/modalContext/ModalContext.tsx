@@ -1,4 +1,9 @@
-import React, { PropsWithChildren, ReactNode, useState } from "react";
+import React, {
+  PropsWithChildren,
+  ReactNode,
+  useCallback,
+  useState,
+} from "react";
 import { ModalBackdrop } from "../../components/Modal/Modal";
 
 export interface ModalContextProps {
@@ -24,15 +29,15 @@ export const ModalProvider: React.FC<PropsWithChildren<{}>> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [content, setContent] = useState<ReactNode>();
 
-  const open = (someContent: ReactNode) => {
+  const open = useCallback((someContent: ReactNode) => {
     setIsOpen(true);
     setContent(someContent);
-  };
+  }, []);
 
-  const close = () => {
+  const close = useCallback(() => {
     setIsOpen(false);
     setContent(undefined);
-  };
+  }, []);
 
   return (
     <ModalContext.Provider

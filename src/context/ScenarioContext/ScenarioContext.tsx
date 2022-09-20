@@ -1,19 +1,18 @@
 import {
   createContext,
   PropsWithChildren,
+  useCallback,
   useContext,
   useEffect,
   useState,
 } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
 import ScenariosJson from "../../assets/data/Scenarios.json";
-import { Modal } from "../../components/Modal/Modal";
+import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Scenario } from "../../models/Scenario";
 import { Villain } from "../../models/Villain";
 import { useModalContext } from "../modalContext/ModalContext";
-import styles from "./ScenarioContext.module.scss";
-import { Button } from "../../components/Button/Button";
+import { useTranslation } from "react-i18next";
+import { MainScheme } from "../../models/MainScheme";
 
 interface ScenarioContextProps {
   scenarioValue: string | undefined;
@@ -23,8 +22,9 @@ interface ScenarioContextProps {
   selectedScenario: Scenario | undefined;
   currentVillain: Villain | undefined;
   setCurrentVillain: (currentVillain: Villain) => void;
-  advanceStage: () => void;
-  VictoryMessage: () => void;
+  advanceVillainStage: () => void;
+  advanceSchemeStage: () => void;
+  currentMainScheme: MainScheme | undefined;
 }
 
 export const ScenarioContextDefaults: ScenarioContextProps = {
@@ -35,8 +35,9 @@ export const ScenarioContextDefaults: ScenarioContextProps = {
   selectedScenario: undefined,
   currentVillain: undefined,
   setCurrentVillain: () => null,
-  advanceStage: () => null,
-  VictoryMessage: () => null,
+  advanceVillainStage: () => null,
+  advanceSchemeStage: () => null,
+  currentMainScheme: undefined,
 };
 
 const ScenarioContext = createContext(ScenarioContextDefaults);
@@ -54,53 +55,50 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
     (scenario) => scenario.scenarioValue === scenarioValue
   );
   const [currentVillain, setCurrentVillain] = useState<Villain>();
+  const [currentMainScheme, setCurrentMainScheme] = useState<MainScheme>();
   const [villainDeck, setVillainDeck] = useState<Array<Villain>>();
-  const [currentStageIndex, setCurrentStageIndex] = useState<number>(0);
+  const [currentVillainStage, setCurrentVillainStage] = useState<number>(0);
+  const [currentMainSchemeStage, setCurrentMainSchemeStage] =
+    useState<number>(0);
 
-  const { open, close } = useModalContext();
+  const { open } = useModalContext();
   const { t } = useTranslation();
-  const navigate = useNavigate();
 
-  const VictoryMessage = () => (
-    <Modal modalClassname={styles["victory-modal"]} size={"large"}>
-      <div className={styles["victory-message"]}>
-        {t("victoryModal.victoryMessage")}
-      </div>
-      <div className={styles["modal-buttons"]}>
-        <Button
-          text={t("victoryModal.newGameButton")}
-          onClick={() => {
-            navigate("/");
-            close();
-          }}
-        />
-
-        <Button
-          text={t("victoryModal.closeButton")}
-          onClick={() => {
-            close();
-          }}
-        />
-      </div>
-    </Modal>
-  );
-
-  const advanceStage = () => {
+  const advanceVillainStage = () => {
     if (villainDeck) {
-      if (currentStageIndex === 0) {
-        setCurrentVillain(villainDeck[currentStageIndex + 1]);
-        setCurrentStageIndex((prevState) => prevState + 1);
+      if (currentVillainStage === 0) {
+        setCurrentVillain(villainDeck[currentVillainStage + 1]);
+        setCurrentVillainStage((prevState) => prevState + 1);
       } else {
-        open(<VictoryMessage />);
+        open(
+          <EndGameModal endGameMessage={t("endGameModal.victoryMessage")} />
+        );
       }
     }
   };
+
+  const advanceSchemeStage = useCallback(() => {
+    if (selectedScenario) {
+      if (
+        currentMainSchemeStage ===
+        selectedScenario.mainSchemeDeck.length - 1
+      ) {
+        open(<EndGameModal endGameMessage={t("endGameModal.defeatMessage")} />);
+      } else {
+        setCurrentMainScheme(
+          selectedScenario.mainSchemeDeck[currentMainSchemeStage + 1]
+        );
+        setCurrentMainSchemeStage((prevState) => prevState + 1);
+      }
+    }
+  }, [currentMainSchemeStage, selectedScenario, open, t]);
 
   useEffect(() => {
     if (selectedScenario) {
       setVillainDeck(selectedScenario.villainDeck.slice(0, 2));
       setCurrentVillain(selectedScenario!.villainDeck[0]);
-      setCurrentStageIndex(0);
+      setCurrentVillainStage(0);
+      setCurrentMainScheme(selectedScenario.mainSchemeDeck[0]);
     }
   }, [selectedScenario]);
 
@@ -114,8 +112,9 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         selectedScenario,
         currentVillain,
         setCurrentVillain,
-        advanceStage,
-        VictoryMessage,
+        advanceVillainStage,
+        advanceSchemeStage,
+        currentMainScheme,
       }}
     >
       {children}

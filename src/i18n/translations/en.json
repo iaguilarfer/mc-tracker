@@ -21,15 +21,17 @@
   "scenarios": {
     "rhino": {
       "villainName": "Rhino",
-      "mainSchemeName": "The Break-In!"
+      "mainSchemeName": "The Break-In!",
+      "rhinoImage1": "./rhino1en.png"
     },
     "klaw": {
       "villainName": "Klaw",
-      "mainSchemeName": "Underground Distribution"
+      "mainSchemeName": ["Underground Distribution", "Secret Rendezvous"]
     }
   },
-  "victoryModal": {
+  "endGameModal": {
     "victoryMessage": "Victory!",
+    "defeatMessage": "Defeat!",
     "closeButton": "Close",
     "newGameButton": "New Game"
   }

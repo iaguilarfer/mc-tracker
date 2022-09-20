@@ -4,13 +4,13 @@ interface VillainImages {
 
 export const villainImages: VillainImages = {
   rhino: [
-    require("./rhino1.png"),
-    require("./rhino2.png"),
-    require("./rhino3.png"),
+    require("./rhino1en.png"),
+    require("./rhino2en.png"),
+    require("./rhino3en.png"),
   ],
   klaw: [
-    require("./klaw1.png"),
-    require("./klaw2.png"),
-    require("./klaw3.png"),
+    require("./klaw1en.png"),
+    require("./klaw2en.png"),
+    require("./klaw3en.png"),
   ],
 };
