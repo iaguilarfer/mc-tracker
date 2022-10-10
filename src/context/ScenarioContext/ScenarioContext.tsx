@@ -25,6 +25,7 @@ interface ScenarioContextProps {
   advanceVillainStage: () => void;
   advanceSchemeStage: () => void;
   currentMainScheme: MainScheme | undefined;
+  cleanUp: () => void;
 }
 
 export const ScenarioContextDefaults: ScenarioContextProps = {
@@ -38,6 +39,7 @@ export const ScenarioContextDefaults: ScenarioContextProps = {
   advanceVillainStage: () => null,
   advanceSchemeStage: () => null,
   currentMainScheme: undefined,
+  cleanUp: () => null,
 };
 
 const ScenarioContext = createContext(ScenarioContextDefaults);
@@ -51,9 +53,8 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   const [scenarioValue, setScenarioValue] = useState<string>();
   const [numberOfPlayers, setNumberOfPlayers] = useState<number>();
   const scenarios: Array<Scenario> = ScenariosJson.mCScenarios;
-  const selectedScenario = scenarios.find(
-    (scenario) => scenario.scenarioValue === scenarioValue
-  );
+  const [selectedScenario, setSelectedScenario] = useState<Scenario>();
+
   const [currentVillain, setCurrentVillain] = useState<Villain>();
   const [currentMainScheme, setCurrentMainScheme] = useState<MainScheme>();
   const [villainDeck, setVillainDeck] = useState<Array<Villain>>();
@@ -63,6 +64,17 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
 
   const { open } = useModalContext();
   const { t } = useTranslation();
+
+  const cleanUp = useCallback(() => {
+    setScenarioValue(undefined);
+    setSelectedScenario(undefined);
+    setVillainDeck(undefined);
+    setCurrentVillain(undefined);
+    setCurrentVillainStage(0);
+    setCurrentMainScheme(undefined);
+    setNumberOfPlayers(undefined);
+    setCurrentMainSchemeStage(0);
+  }, []);
 
   const advanceVillainStage = () => {
     if (villainDeck) {
@@ -94,6 +106,12 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   }, [currentMainSchemeStage, selectedScenario, open, t]);
 
   useEffect(() => {
+    setSelectedScenario(
+      scenarios.find((scenario) => scenario.scenarioValue === scenarioValue)
+    );
+  }, [scenarioValue]);
+
+  useEffect(() => {
     if (selectedScenario) {
       setVillainDeck(selectedScenario.villainDeck.slice(0, 2));
       setCurrentVillain(selectedScenario!.villainDeck[0]);
@@ -115,6 +133,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         advanceVillainStage,
         advanceSchemeStage,
         currentMainScheme,
+        cleanUp,
       }}
     >
       {children}
