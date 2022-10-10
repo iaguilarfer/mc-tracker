@@ -17,7 +17,7 @@ export const ScenarioSelector: React.FC = () => {
 
   useEffect(() => {
     cleanUp();
-  }, []);
+  }, [cleanUp]);
 
   const { t, i18n } = useTranslation();
 

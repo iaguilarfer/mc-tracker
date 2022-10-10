@@ -52,7 +52,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
 }) => {
   const [scenarioValue, setScenarioValue] = useState<string>();
   const [numberOfPlayers, setNumberOfPlayers] = useState<number>();
-  const scenarios: Array<Scenario> = ScenariosJson.mCScenarios;
+
   const [selectedScenario, setSelectedScenario] = useState<Scenario>();
 
   const [currentVillain, setCurrentVillain] = useState<Villain>();
@@ -106,6 +106,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   }, [currentMainSchemeStage, selectedScenario, open, t]);
 
   useEffect(() => {
+    const scenarios: Array<Scenario> = ScenariosJson.mCScenarios;
     setSelectedScenario(
       scenarios.find((scenario) => scenario.scenarioValue === scenarioValue)
     );
