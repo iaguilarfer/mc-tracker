@@ -1,9 +1,9 @@
+import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
+import { useModalContext } from "../../context/modalContext/ModalContext";
 import { Button } from "../Button/Button";
 import { Modal } from "../Modal/Modal";
 import styles from "./EndGameModal.module.scss";
-import { useNavigate } from "react-router";
-import { useTranslation } from "react-i18next";
-import { useModalContext } from "../../context/modalContext/ModalContext";
 
 interface EndGameModalProps {
   endGameMessage: string;
