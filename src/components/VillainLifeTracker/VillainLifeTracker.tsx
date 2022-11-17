@@ -16,8 +16,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
   villain,
 }) => {
   const { t } = useTranslation();
-  const { selectedScenario, numberOfPlayers, advanceVillainStage } =
-    useScenarioContext();
+  const { selectedScenario } = useScenarioContext();
   const { open } = useModalContext();
   const {
     decreaseCurrentHealth,
