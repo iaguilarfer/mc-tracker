@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { villainImages } from "../../assets/images/villains";
 import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
 import { Villain } from "../../models/Villain";

@@ -10,8 +10,7 @@ import { useVillainHealthContext } from "../../context/VillainHealthContext/Vill
 
 interface VillainModalProps {}
 
-export const VillainModal: React.FC<VillainModalProps> = ({}) => {
-  const navigate = useNavigate();
+export const VillainModal: React.FC<VillainModalProps> = () => {
   const { t } = useTranslation();
   const { close } = useModalContext();
   const { currentVillain, selectedScenario } = useScenarioContext();
