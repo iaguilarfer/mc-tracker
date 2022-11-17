@@ -2,7 +2,7 @@ import { MainScheme } from "./MainScheme";
 import { Villain } from "./Villain";
 
 export interface Scenario {
-  villainDeck: Array<Villain>;
+  villains: Array<Villain>;
   mainSchemeDeck: Array<MainScheme>;
   scenarioValue: string;
 }

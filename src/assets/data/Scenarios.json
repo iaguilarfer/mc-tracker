@@ -2,10 +2,27 @@
   "mCScenarios": [
     {
       "scenarioValue": "rhino",
-      "villainDeck": [
-        { "maxHealthPerPlayer": 14, "stage": 1 },
-        { "maxHealthPerPlayer": 15, "stage": 2 },
-        { "maxHealthPerPlayer": 16, "stage": 3 }
+      "villains": [
+        {
+          "villainDeck": [
+            {
+              "maxHealthPerPlayer": 14,
+              "stage": 1,
+              "onDefeat": "MoveToNextStage"
+            },
+            {
+              "maxHealthPerPlayer": 15,
+              "stage": 2,
+              "onDefeat": "MoveToNextStage"
+            },
+            {
+              "maxHealthPerPlayer": 16,
+              "stage": 3,
+              "onDefeat": "MoveToNextStage"
+            }
+          ],
+          "villainValue": "rhino"
+        }
       ],
       "mainSchemeDeck": [
         {
@@ -16,6 +33,7 @@
         }
       ]
     },
+
     {
       "scenarioValue": "klaw",
       "villainDeck": [
