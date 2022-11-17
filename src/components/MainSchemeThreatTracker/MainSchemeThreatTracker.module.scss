@@ -28,6 +28,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 .scheme-threat-tracker-acceleration {
@@ -132,6 +133,10 @@
   font-size: 90px;
   display: flex;
   margin: 10px;
+}
+
+.increase-decrease-buttons {
+  cursor: pointer;
 }
 
 @media screen and (max-height: 750px) {

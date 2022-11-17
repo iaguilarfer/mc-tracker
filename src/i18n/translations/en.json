@@ -10,6 +10,10 @@
       "two": "Two Players",
       "three": "Three Players",
       "four": "Four Players"
+    },
+    "scenarioDificulty": {
+      "easy": "Normal",
+      "expert": "Expert"
     }
   },
   "villainTracker": {
