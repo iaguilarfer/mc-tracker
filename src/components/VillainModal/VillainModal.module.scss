@@ -1,0 +1,41 @@
+.villain-modal-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  width: 1500px;
+}
+
+.villain-image {
+  height: 100%;
+}
+
+.villain-button-close {
+  position: fixed;
+  bottom: 5px;
+  right: 5px;
+}
+
+.current-max-health {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 30px;
+  margin: 15px;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.buttons {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+}

@@ -4,6 +4,9 @@ import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContex
 import { Villain } from "../../models/Villain";
 import styles from "./VillainLifeTracker.module.scss";
 import { useTranslation } from "react-i18next";
+import { useModalContext } from "../../context/modalContext/ModalContext";
+import { VillainModal } from "../VillainModal/VillainModal";
+import { useVillainHealthContext } from "../../context/VillainHealthContext/VillainHealthContext";
 
 interface VillainLifeTrackerProps {
   villain: Villain;
@@ -15,42 +18,19 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
   const { t } = useTranslation();
   const { selectedScenario, numberOfPlayers, advanceVillainStage } =
     useScenarioContext();
-
-  const maxHealth = villain.maxHealthPerPlayer * (numberOfPlayers || 0);
-  const [currentHealth, setCurrentHealth] = useState(maxHealth);
-
-  useEffect(() => {
-    setCurrentHealth(maxHealth);
-  }, [villain, maxHealth]);
-
-  const increaseHealth = () => {
-    setCurrentHealth((prevState) => {
-      if (prevState < maxHealth) {
-        return prevState + 1;
-      } else {
-        return maxHealth;
-      }
-    });
-  };
-
-  const decreaseHealth = () => {
-    if (currentHealth === 1) {
-      advanceVillainStage();
-    }
-
-    setCurrentHealth((prevState) => {
-      if (prevState > 0) {
-        return prevState - 1;
-      } else {
-        return 0;
-      }
-    });
-  };
+  const { open } = useModalContext();
+  const {
+    decreaseCurrentHealth,
+    increaseCurrentHealth,
+    currentHealth,
+    maxHealth,
+  } = useVillainHealthContext();
 
   return (
     <div className={styles["villain-life-tracker-container"]}>
       <div className={styles["villain-image-container"]}>
         <img
+          onClick={() => open(<VillainModal />)}
           className={styles["villain-image"]}
           src={
             villainImages[selectedScenario!.scenarioValue][villain.stage - 1]
@@ -63,7 +43,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
           className={styles["villain-life-tracker-current-health-container"]}
         >
           <div
-            onClick={decreaseHealth}
+            onClick={() => decreaseCurrentHealth()}
             className={styles["villain-life-tracker-decreasehealth"]}
           >
             <div className={styles["increase-decrease-buttons"]}>-1</div>
@@ -74,7 +54,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
             </p>
           </div>
           <div
-            onClick={increaseHealth}
+            onClick={() => increaseCurrentHealth()}
             className={styles["villain-life-tracker-increasehealth"]}
           >
             <div className={styles["increase-decrease-buttons"]}>+1</div>
