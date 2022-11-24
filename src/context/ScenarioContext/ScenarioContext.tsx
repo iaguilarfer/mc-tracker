@@ -23,9 +23,12 @@ interface ScenarioContextProps {
   currentVillain: Villain | undefined;
   setCurrentVillain: (currentVillain: Villain) => void;
   advanceVillainStage: () => void;
+  isThisLastStage: () => boolean;
   advanceSchemeStage: () => void;
   currentMainScheme: MainScheme | undefined;
   cleanUp: () => void;
+  hasGameStarted: boolean;
+  setHasGameStarted: (hasGameStarted: boolean) => void;
 }
 
 export const ScenarioContextDefaults: ScenarioContextProps = {
@@ -37,9 +40,12 @@ export const ScenarioContextDefaults: ScenarioContextProps = {
   currentVillain: undefined,
   setCurrentVillain: () => null,
   advanceVillainStage: () => null,
+  isThisLastStage: () => false,
   advanceSchemeStage: () => null,
   currentMainScheme: undefined,
   cleanUp: () => null,
+  hasGameStarted: false,
+  setHasGameStarted: () => null,
 };
 
 const ScenarioContext = createContext(ScenarioContextDefaults);
@@ -74,6 +80,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
     setCurrentMainScheme(undefined);
     setNumberOfPlayers(undefined);
     setCurrentMainSchemeStage(0);
+    setHasGameStarted(false);
   }, []);
 
   const advanceVillainStage = () => {
@@ -89,12 +96,21 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
     }
   };
 
+  const [hasGameStarted, setHasGameStarted] = useState(false);
+
+  const isThisLastStage = () => {
+    if (selectedScenario) {
+      return (
+        currentMainSchemeStage === selectedScenario.mainSchemeDeck.length - 1
+      );
+    } else {
+      return false;
+    }
+  };
+
   const advanceSchemeStage = useCallback(() => {
     if (selectedScenario) {
-      if (
-        currentMainSchemeStage ===
-        selectedScenario.mainSchemeDeck.length - 1
-      ) {
+      if (isThisLastStage()) {
         open(<EndGameModal endGameMessage={t("endGameModal.defeatMessage")} />);
       } else {
         setCurrentMainScheme(
@@ -132,9 +148,12 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         currentVillain,
         setCurrentVillain,
         advanceVillainStage,
+        isThisLastStage,
         advanceSchemeStage,
         currentMainScheme,
         cleanUp,
+        hasGameStarted,
+        setHasGameStarted,
       }}
     >
       {children}

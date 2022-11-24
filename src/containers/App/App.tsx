@@ -6,6 +6,7 @@ import { ScenarioProvider } from "../../context/ScenarioContext/ScenarioContext"
 import "../../i18n";
 import { ModalProvider } from "../../context/modalContext/ModalContext";
 import { VillainHealthContextProvider } from "../../context/VillainHealthContext/VillainHealthContext";
+import { MainSchemeThreatContextProvider } from "../../context/MainSchemeThreatContext/MainSchemeThreatContext";
 
 function App() {
   return (
@@ -13,14 +14,16 @@ function App() {
       <ModalProvider>
         <ScenarioProvider>
           <VillainHealthContextProvider>
-            <ModalProvider>
-              <div>
-                <Routes>
-                  <Route path="/scenario" element={<ScenarioTrackerPage />} />
-                  <Route path="/" element={<ScenarioSelector />} />
-                </Routes>
-              </div>
-            </ModalProvider>
+            <MainSchemeThreatContextProvider>
+              <ModalProvider>
+                <div>
+                  <Routes>
+                    <Route path="/scenario" element={<ScenarioTrackerPage />} />
+                    <Route path="/" element={<ScenarioSelector />} />
+                  </Routes>
+                </div>
+              </ModalProvider>
+            </MainSchemeThreatContextProvider>
           </VillainHealthContextProvider>
         </ScenarioProvider>
       </ModalProvider>

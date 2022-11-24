@@ -4,6 +4,9 @@ import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContex
 import { MainScheme } from "../../models/MainScheme";
 import styles from "./MainSchemeThreatTracker.module.scss";
 import { useTranslation } from "react-i18next";
+import { useMainSchemeThreatContext } from "../../context/MainSchemeThreatContext/MainSchemeThreatContext";
+import { SchemeModal } from "../SchemeModal/SchemeModal";
+import { useModalContext } from "../../context/modalContext/ModalContext";
 
 interface MainSchemeThreatTrackerProps {
   mainScheme: MainScheme;
@@ -13,81 +16,27 @@ export const MainSchemeThreatTracker: React.FC<
   MainSchemeThreatTrackerProps
 > = ({ mainScheme }) => {
   const { t } = useTranslation();
-  const { selectedScenario, numberOfPlayers, advanceSchemeStage } =
-    useScenarioContext();
+  const { selectedScenario } = useScenarioContext();
+  const { open } = useModalContext();
 
-  const initialThreat =
-    mainScheme.startingThreatPerPlayer * (numberOfPlayers || 0);
-  const maxThreat = mainScheme.maxThreatPerPlayer * (numberOfPlayers || 0);
-  const [currentThreat, setCurrentThreat] = useState(initialThreat);
-
-  useEffect(() => {
-    setCurrentThreat(initialThreat);
-  }, [mainScheme, initialThreat]);
-
-  useEffect(() => {
-    if (currentThreat >= maxThreat) {
-      advanceSchemeStage();
-      setCurrentThreat(0);
-    }
-  }, [currentThreat, maxThreat, advanceSchemeStage]);
-
-  const [accelerationTokens, setAccelerationTokens] = useState(0);
-
-  const increaseThreat = () => {
-    setCurrentThreat((prevState) => {
-      if (prevState < maxThreat) {
-        return prevState + 1;
-      } else {
-        return maxThreat;
-      }
-    });
-  };
-
-  const decreaseThreat = () => {
-    setCurrentThreat((prevState) => {
-      if (prevState > 0) {
-        return prevState - 1;
-      } else {
-        return 0;
-      }
-    });
-  };
-
-  const villainTurn = () => {
-    setCurrentThreat((prevState) => {
-      if (prevState < maxThreat) {
-        return prevState + villainSchemeThreat;
-      } else {
-        return maxThreat;
-      }
-    });
-  };
-
-  const increaseAcceleration = () => {
-    setAccelerationTokens((prevState) => {
-      return prevState + 1;
-    });
-  };
-
-  const decreaseAcceleration = () => {
-    setAccelerationTokens((prevState) => {
-      if (prevState > 0) {
-        return prevState - 1;
-      } else {
-        return 0;
-      }
-    });
-  };
-
-  const villainSchemeThreat =
-    mainScheme.threatPerTurnPerPlayer * (numberOfPlayers || 0) +
-    accelerationTokens;
+  const {
+    increaseCurrentThreat,
+    increaseMaxThreat,
+    decreaseCurrentThreat,
+    decreaseMaxThreat,
+    increaseAccelerationTokens,
+    decreaseAccelerationTokens,
+    startVillainTurn,
+    threat,
+    currentThreat,
+    maxThreat,
+  } = useMainSchemeThreatContext();
 
   return (
     <div className={styles["scheme-threat-tracker-container"]}>
       <div className={styles["scheme-image-container"]}>
         <img
+          onClick={() => open(<SchemeModal />)}
           className={styles["scheme-image"]}
           src={
             schemeImages[selectedScenario!.scenarioValue][mainScheme.stage - 1]
@@ -100,7 +49,7 @@ export const MainSchemeThreatTracker: React.FC<
           className={styles["scheme-threat-tracker-current-threat-container"]}
         >
           <div
-            onClick={decreaseThreat}
+            onClick={() => decreaseCurrentThreat()}
             className={styles["scheme-threat-tracker-decreasethreat"]}
           >
             <div className={styles["increase-decrease-buttons"]}>-1</div>
@@ -112,7 +61,7 @@ export const MainSchemeThreatTracker: React.FC<
           </div>
 
           <div
-            onClick={increaseThreat}
+            onClick={() => increaseCurrentThreat()}
             className={styles["scheme-threat-tracker-increasethreat"]}
           >
             <div className={styles["increase-decrease-buttons"]}>+1</div>
@@ -127,7 +76,7 @@ export const MainSchemeThreatTracker: React.FC<
         >
           <div className={styles["scheme-threat-tracker-acceleration"]}>
             <div
-              onClick={decreaseAcceleration}
+              onClick={() => decreaseAccelerationTokens()}
               className={styles["scheme-threat-tracker-decreaseacceleration"]}
             >
               <div className={styles["increase-decrease-buttons"]}>-1</div>
@@ -136,25 +85,25 @@ export const MainSchemeThreatTracker: React.FC<
               <p
                 className={styles["scheme-threat-tracker-currentacceleration"]}
               >
-                {accelerationTokens}
+                {threat.accelerationTokens}
                 <span className={styles["accelerationToken"]}>a</span>
               </p>
             </div>
 
             <div
-              onClick={increaseAcceleration}
+              onClick={() => increaseAccelerationTokens()}
               className={styles["scheme-threat-tracker-increaseacceleration"]}
             >
               <div className={styles["increase-decrease-buttons"]}>+1</div>
             </div>
           </div>
           <div
-            onClick={villainTurn}
+            onClick={() => startVillainTurn()}
             className={styles["scheme-threat-tracker-villainturn"]}
           >
-            <div>{`${t(
-              "threatTracker.villainTurn"
-            )} ${villainSchemeThreat}`}</div>
+            <div>{`${t("threatTracker.villainTurn")} ${
+              threat.threatPerTurn
+            }`}</div>
           </div>
         </div>
       </div>
