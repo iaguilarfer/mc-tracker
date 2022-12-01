@@ -30,6 +30,7 @@
     "currentAccelerationTokens": "Contadores de Aceleracion Actuales",
     "currentModifier": "Actual {{modifier}}",
     "maxModifier": "Max {{modifier}}",
+    "accelerationModifier": "Acelerador {{modifier}}",
     "closeButton": "Cerrar",
     "camioncito": "Bajo Vigilancia"
   },

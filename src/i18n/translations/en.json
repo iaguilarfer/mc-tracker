@@ -29,6 +29,7 @@
     "currentThreat": "Current Threat",
     "currentModifier": "Current {{modifier}}",
     "maxModifier": "Max {{modifier}}",
+    "accelerationModifier": "Acceleration {{modifier}}",
     "closeButton": "Close",
     "camioncito": "Under Surveillance"
   },

@@ -88,11 +88,15 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
             </div>
             <div className={styles["buttons"]}>
               <Button
-                text={t("threatTracker.currentModifier", { modifier: "+1" })}
+                text={t("threatTracker.accelerationModifier", {
+                  modifier: "+1",
+                })}
                 onClick={() => increaseAccelerationTokens()}
               />
               <Button
-                text={t("threatTracker.currentModifier", { modifier: "-1" })}
+                text={t("threatTracker.accelerationModifier", {
+                  modifier: "-1",
+                })}
                 onClick={() => decreaseAccelerationTokens()}
               />
             </div>
