@@ -36,7 +36,7 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
 
   return (
     <Modal modalClassname={styles["scheme-modal"]} size={"large"}>
-      <div>
+      <div className={styles["scheme-modal-container"]}>
         <div className={styles["scheme-image-container"]}>
           <img
             className={styles["scheme-image"]}
@@ -54,38 +54,45 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
         </div>
         <div className={styles["scheme-button-container"]}>
           <div className={styles["current-max-threat"]}>
-            Current Threat: {currentThreat}/ Max Threat: {maxThreat}
+            {t("threatTracker.currentThreat")}: {currentThreat}/{" "}
+            {t("threatTracker.maxThreat")}: {maxThreat}
           </div>
           <div className={styles["current-acceleration-tokens"]}>
-            Current Acceleration Tokens: {accelerationTokens}
+            {t("threatTracker.currentAccelerationTokens")}: {accelerationTokens}
           </div>
           <div className={styles["buttons-container"]}>
             <div className={styles["buttons"]}>
               <Button
-                text={"Current +1"}
+                text={t("threatTracker.currentModifier", { modifier: "+1" })}
                 onClick={() => increaseCurrentThreat()}
               />
               <Button
-                text={"Current -1"}
+                text={t("threatTracker.currentModifier", { modifier: "-1" })}
                 onClick={() => decreaseCurrentThreat()}
               />
             </div>
             <div className={styles["buttons"]}>
-              <Button text={"Max +1"} onClick={() => increaseMaxThreat()} />
-              <Button text={"Max -1"} onClick={() => decreaseMaxThreat()} />
+              <Button
+                text={t("threatTracker.maxModifier", { modifier: "+1" })}
+                onClick={() => increaseMaxThreat()}
+              />
+              <Button
+                text={t("threatTracker.maxModifier", { modifier: "-1" })}
+                onClick={() => decreaseMaxThreat()}
+              />
 
               <Button
-                text={"Camioncito"}
+                text={t("threatTracker.camioncito")}
                 onClick={() => increaseMaxThreat(4)}
               />
             </div>
             <div className={styles["buttons"]}>
               <Button
-                text={"Current +1"}
+                text={t("threatTracker.currentModifier", { modifier: "+1" })}
                 onClick={() => increaseAccelerationTokens()}
               />
               <Button
-                text={"Current -1"}
+                text={t("threatTracker.currentModifier", { modifier: "-1" })}
                 onClick={() => decreaseAccelerationTokens()}
               />
             </div>
@@ -95,7 +102,7 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
 
       <Button
         className={styles["scheme-button-close"]}
-        text={"Close"}
+        text={t("threatTracker.closeButton")}
         onClick={close}
       />
     </Modal>

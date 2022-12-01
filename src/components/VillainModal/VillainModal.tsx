@@ -40,33 +40,46 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
         </div>
         <div className={styles["villain-button-container"]}>
           <div className={styles["current-max-health"]}>
-            Current Health: {currentHealth} / Max Health:{maxHealth}
+            {t("villainTracker.currentHealth")}: {currentHealth} /{" "}
+            {t("villainTracker.maxHealth")}:{maxHealth}
           </div>
           <div className={styles["buttons-container"]}>
             <div className={styles["buttons"]}>
               <Button
-                text={"Current +1"}
+                text={t("villainTracker.currentModifier", { modifier: "+1" })}
                 onClick={() => increaseCurrentHealth()}
               />
               <Button
-                text={"Current -1"}
+                text={t("villainTracker.currentModifier", { modifier: "-1" })}
                 onClick={() => decreaseCurrentHealth()}
               />
             </div>
             <div className={styles["buttons"]}>
-              <Button text={"Max +1"} onClick={() => increaseMaxHealth()} />
-              <Button text={"Max -1"} onClick={() => decreaseMaxHealth()} />
+              <Button
+                text={t("villainTracker.maxModifier", { modifier: "+1" })}
+                onClick={() => increaseMaxHealth()}
+              />
+              <Button
+                text={t("villainTracker.maxModifier", { modifier: "-1" })}
+                onClick={() => decreaseMaxHealth()}
+              />
             </div>
             <div className={styles["buttons"]}>
-              <Button text={"Max +10"} onClick={() => increaseMaxHealth(10)} />
-              <Button text={"Max -10"} onClick={() => decreaseMaxHealth(10)} />
+              <Button
+                text={t("villainTracker.maxModifier", { modifier: "+10" })}
+                onClick={() => increaseMaxHealth(10)}
+              />
+              <Button
+                text={t("villainTracker.maxModifier", { modifier: "-10" })}
+                onClick={() => decreaseMaxHealth(10)}
+              />
             </div>
           </div>
         </div>
       </div>
       <Button
         className={styles["villain-button-close"]}
-        text={"Close"}
+        text={t("villainTracker.closeButton")}
         onClick={close}
       />
     </Modal>

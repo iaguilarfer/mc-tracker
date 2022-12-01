@@ -29,6 +29,7 @@ interface ScenarioContextProps {
   cleanUp: () => void;
   hasGameStarted: boolean;
   setHasGameStarted: (hasGameStarted: boolean) => void;
+  isStartingPoint: boolean;
 }
 
 export const ScenarioContextDefaults: ScenarioContextProps = {
@@ -46,6 +47,7 @@ export const ScenarioContextDefaults: ScenarioContextProps = {
   cleanUp: () => null,
   hasGameStarted: false,
   setHasGameStarted: () => null,
+  isStartingPoint: false,
 };
 
 const ScenarioContext = createContext(ScenarioContextDefaults);
@@ -68,6 +70,8 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   const [currentMainSchemeStage, setCurrentMainSchemeStage] =
     useState<number>(0);
 
+  const isStartingPoint =
+    currentMainSchemeStage === 0 && currentVillainStage === 0;
   const { open } = useModalContext();
   const { t } = useTranslation();
 
@@ -154,6 +158,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         cleanUp,
         hasGameStarted,
         setHasGameStarted,
+        isStartingPoint,
       }}
     >
       {children}

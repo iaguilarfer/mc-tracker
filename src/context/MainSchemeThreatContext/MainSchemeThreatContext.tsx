@@ -57,6 +57,7 @@ export const MainSchemeThreatContextProvider: React.FC<
     currentMainScheme,
     hasGameStarted,
     isThisLastStage,
+    isStartingPoint,
   } = useScenarioContext();
 
   const [threat, setThreat] = useState<MainSchemeThreat>({
@@ -94,8 +95,9 @@ export const MainSchemeThreatContextProvider: React.FC<
         ? threat.accelerationTokens +
           currentMainScheme?.threatPerTurnPerPlayer * (numberOfPlayers || 0)
         : 0,
+      accelerationTokens: isStartingPoint ? 0 : prevState.accelerationTokens,
     }));
-  }, [currentMainScheme, numberOfPlayers]);
+  }, [currentMainScheme, numberOfPlayers, isStartingPoint]);
 
   const increaseCurrentThreat = (value: number = 1) => {
     setThreat((prevState) => {
@@ -159,7 +161,10 @@ export const MainSchemeThreatContextProvider: React.FC<
 
   const startVillainTurn = () => {
     setThreat((prevState) => {
-      return { ...prevState, maxThreat: prevState.maxThreat };
+      return {
+        ...prevState,
+        currentThreat: prevState.currentThreat + prevState.threatPerTurn,
+      };
     });
   };
 
