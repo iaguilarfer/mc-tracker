@@ -11,22 +11,20 @@ import { MainSchemeThreatContextProvider } from "../../context/MainSchemeThreatC
 function App() {
   return (
     <BrowserRouter>
-      <ModalProvider>
-        <ScenarioProvider>
-          <VillainHealthContextProvider>
-            <MainSchemeThreatContextProvider>
-              <ModalProvider>
-                <div>
-                  <Routes>
-                    <Route path="/scenario" element={<ScenarioTrackerPage />} />
-                    <Route path="/" element={<ScenarioSelector />} />
-                  </Routes>
-                </div>
-              </ModalProvider>
-            </MainSchemeThreatContextProvider>
-          </VillainHealthContextProvider>
-        </ScenarioProvider>
-      </ModalProvider>
+      <ScenarioProvider>
+        <VillainHealthContextProvider>
+          <MainSchemeThreatContextProvider>
+            <ModalProvider>
+              <div>
+                <Routes>
+                  <Route path="/scenario" element={<ScenarioTrackerPage />} />
+                  <Route path="/" element={<ScenarioSelector />} />
+                </Routes>
+              </div>
+            </ModalProvider>
+          </MainSchemeThreatContextProvider>
+        </VillainHealthContextProvider>
+      </ScenarioProvider>
     </BrowserRouter>
   );
 }

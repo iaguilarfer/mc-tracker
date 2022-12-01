@@ -68,7 +68,6 @@ export const MainSchemeThreatContextProvider: React.FC<
   });
 
   useEffect(() => {
-    console.log(threat);
     if (threat.currentThreat >= threat.maxThreat && hasGameStarted) {
       if (!isThisLastStage()) {
         setThreat((prevState) => ({ ...prevState, currentThreat: 0 }));

@@ -30,6 +30,8 @@ interface ScenarioContextProps {
   hasGameStarted: boolean;
   setHasGameStarted: (hasGameStarted: boolean) => void;
   isStartingPoint: boolean;
+  setOnVictoryCallback: (callback: () => void) => void;
+  setOnDefeatCallback: (callback: () => void) => void;
 }
 
 export const ScenarioContextDefaults: ScenarioContextProps = {
@@ -48,6 +50,8 @@ export const ScenarioContextDefaults: ScenarioContextProps = {
   hasGameStarted: false,
   setHasGameStarted: () => null,
   isStartingPoint: false,
+  setOnVictoryCallback: () => null,
+  setOnDefeatCallback: () => null,
 };
 
 const ScenarioContext = createContext(ScenarioContextDefaults);
@@ -75,6 +79,9 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   const { open } = useModalContext();
   const { t } = useTranslation();
 
+  const [onVictoryCallback, setOnVictoryCallback] = useState<() => void>();
+  const [onDefeatCallback, setOnDefeatCallback] = useState<() => void>();
+
   const cleanUp = useCallback(() => {
     setScenarioValue(undefined);
     setSelectedScenario(undefined);
@@ -93,9 +100,9 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         setCurrentVillain(villainDeck[currentVillainStage + 1]);
         setCurrentVillainStage((prevState) => prevState + 1);
       } else {
-        open(
-          <EndGameModal endGameMessage={t("endGameModal.victoryMessage")} />
-        );
+        if (onVictoryCallback) {
+          onVictoryCallback();
+        }
       }
     }
   };
@@ -115,7 +122,9 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   const advanceSchemeStage = useCallback(() => {
     if (selectedScenario) {
       if (isThisLastStage()) {
-        open(<EndGameModal endGameMessage={t("endGameModal.defeatMessage")} />);
+        if (onDefeatCallback) {
+          onDefeatCallback();
+        }
       } else {
         setCurrentMainScheme(
           selectedScenario.mainSchemeDeck[currentMainSchemeStage + 1]
@@ -159,6 +168,8 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         hasGameStarted,
         setHasGameStarted,
         isStartingPoint,
+        setOnVictoryCallback,
+        setOnDefeatCallback,
       }}
     >
       {children}
