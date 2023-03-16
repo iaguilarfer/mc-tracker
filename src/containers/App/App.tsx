@@ -6,13 +6,14 @@ import { ScenarioProvider } from "../../context/ScenarioContext/ScenarioContext"
 import "../../i18n";
 import { ModalProvider } from "../../context/modalContext/ModalContext";
 import { VillainHealthContextProvider } from "../../context/VillainHealthContext/VillainHealthContext";
+import { MainSchemeThreatContextProvider } from "../../context/MainSchemeThreatContext/MainSchemeThreatContext";
 
 function App() {
   return (
     <BrowserRouter>
-      <ModalProvider>
-        <ScenarioProvider>
-          <VillainHealthContextProvider>
+      <ScenarioProvider>
+        <VillainHealthContextProvider>
+          <MainSchemeThreatContextProvider>
             <ModalProvider>
               <div>
                 <Routes>
@@ -21,9 +22,9 @@ function App() {
                 </Routes>
               </div>
             </ModalProvider>
-          </VillainHealthContextProvider>
-        </ScenarioProvider>
-      </ModalProvider>
+          </MainSchemeThreatContextProvider>
+        </VillainHealthContextProvider>
+      </ScenarioProvider>
     </BrowserRouter>
   );
 }

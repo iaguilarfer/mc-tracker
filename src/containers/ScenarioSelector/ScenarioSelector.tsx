@@ -13,6 +13,7 @@ export const ScenarioSelector: React.FC = () => {
     numberOfPlayers,
     scenarioValue,
     cleanUp,
+    setHasGameStarted,
   } = useScenarioContext();
 
   useEffect(() => {
@@ -116,7 +117,11 @@ export const ScenarioSelector: React.FC = () => {
       </div>
 
       <div className={styles["scenario-button-container"]}>
-        <Link className={styles["scenario-button-link"]} to={"/scenario"}>
+        <Link
+          onClick={() => setHasGameStarted(true)}
+          className={styles["scenario-button-link"]}
+          to={"/scenario"}
+        >
           {t("scenarioSelectorPage.startGame")}
         </Link>
       </div>

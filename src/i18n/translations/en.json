@@ -17,10 +17,21 @@
     }
   },
   "villainTracker": {
-    "maxHealth": "Max Health"
+    "maxHealth": "Max Health",
+    "currentHealth": "Current Health",
+    "currentModifier": "Current {{modifier}}",
+    "maxModifier": "Max {{modifier}}",
+    "closeButton": "Close"
   },
   "threatTracker": {
-    "villainTurn": "Villain Turn"
+    "villainTurn": "Villain Turn",
+    "maxThreat": "Max Threat",
+    "currentThreat": "Current Threat",
+    "currentModifier": "Current {{modifier}}",
+    "maxModifier": "Max {{modifier}}",
+    "accelerationModifier": "Acceleration {{modifier}}",
+    "closeButton": "Close",
+    "camioncito": "Under Surveillance"
   },
   "scenarios": {
     "rhino": {
