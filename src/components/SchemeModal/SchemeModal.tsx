@@ -4,7 +4,7 @@ import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContex
 import { Button } from "../Button/Button";
 import { Modal } from "../Modal/Modal";
 import styles from "./SchemeModal.module.scss";
-import { useVillainHealthContext } from "../../context/VillainHealthContext/VillainHealthContext";
+
 import { schemeImages } from "../../assets/images/schemes";
 import { useMainSchemeThreatContext } from "../../context/MainSchemeThreatContext/MainSchemeThreatContext";
 
@@ -13,12 +13,7 @@ interface SchemeModalProps {}
 export const SchemeModal: React.FC<SchemeModalProps> = () => {
   const { t } = useTranslation();
   const { close } = useModalContext();
-  const {
-    selectedScenario,
-    numberOfPlayers,
-    advanceSchemeStage,
-    currentMainScheme,
-  } = useScenarioContext();
+  const { selectedScenario, currentMainScheme } = useScenarioContext();
 
   const {
     increaseCurrentThreat,
@@ -98,6 +93,12 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
                   modifier: "-1",
                 })}
                 onClick={() => decreaseAccelerationTokens()}
+              />
+              <Button
+                text={`${t("threatTracker.villainTurn")} ${
+                  threat.threatPerTurn
+                }`}
+                onClick={() => startVillainTurn()}
               />
             </div>
           </div>

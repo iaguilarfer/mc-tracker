@@ -79,6 +79,7 @@ export const MainSchemeThreatContextProvider: React.FC<
     threat.maxThreat,
     advanceSchemeStage,
     hasGameStarted,
+    isThisLastStage,
   ]);
 
   useEffect(() => {
@@ -91,7 +92,7 @@ export const MainSchemeThreatContextProvider: React.FC<
         ? currentMainScheme.maxThreatPerPlayer * (numberOfPlayers || 0)
         : 0,
       threatPerTurn: currentMainScheme
-        ? threat.accelerationTokens +
+        ? prevState.accelerationTokens +
           currentMainScheme?.threatPerTurnPerPlayer * (numberOfPlayers || 0)
         : 0,
       accelerationTokens: isStartingPoint ? 0 : prevState.accelerationTokens,

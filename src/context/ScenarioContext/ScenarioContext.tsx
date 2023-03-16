@@ -7,11 +7,8 @@ import {
   useState,
 } from "react";
 import ScenariosJson from "../../assets/data/Scenarios.json";
-import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Scenario } from "../../models/Scenario";
 import { Villain } from "../../models/Villain";
-import { useModalContext } from "../modalContext/ModalContext";
-import { useTranslation } from "react-i18next";
 import { MainScheme } from "../../models/MainScheme";
 
 interface ScenarioContextProps {
@@ -76,8 +73,6 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
 
   const isStartingPoint =
     currentMainSchemeStage === 0 && currentVillainStage === 0;
-  const { open } = useModalContext();
-  const { t } = useTranslation();
 
   const [onVictoryCallback, setOnVictoryCallback] = useState<() => void>();
   const [onDefeatCallback, setOnDefeatCallback] = useState<() => void>();
@@ -109,7 +104,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
 
   const [hasGameStarted, setHasGameStarted] = useState(false);
 
-  const isThisLastStage = () => {
+  const isThisLastStage = useCallback(() => {
     if (selectedScenario) {
       return (
         currentMainSchemeStage === selectedScenario.mainSchemeDeck.length - 1
@@ -117,7 +112,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
     } else {
       return false;
     }
-  };
+  }, [currentMainSchemeStage, selectedScenario]);
 
   const advanceSchemeStage = useCallback(() => {
     if (selectedScenario) {
@@ -132,7 +127,13 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         setCurrentMainSchemeStage((prevState) => prevState + 1);
       }
     }
-  }, [currentMainSchemeStage, selectedScenario, open, t]);
+  }, [
+    currentMainSchemeStage,
+    selectedScenario,
+
+    isThisLastStage,
+    onDefeatCallback,
+  ]);
 
   useEffect(() => {
     const scenarios: Array<Scenario> = ScenariosJson.mCScenarios;

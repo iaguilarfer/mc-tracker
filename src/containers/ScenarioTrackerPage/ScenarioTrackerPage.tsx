@@ -27,7 +27,7 @@ export const ScenarioTrackerPage: React.FC = () => {
       () => () =>
         open(<EndGameModal endGameMessage={t("endGameModal.defeatMessage")} />)
     );
-  }, []);
+  }, [open, setOnDefeatCallback, setOnVictoryCallback, t]);
 
   return (
     <div className={styles["scenario-tracker-page"]}>

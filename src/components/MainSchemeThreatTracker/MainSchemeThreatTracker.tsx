@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { schemeImages } from "../../assets/images/schemes";
 import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
 import { MainScheme } from "../../models/MainScheme";
@@ -21,9 +21,7 @@ export const MainSchemeThreatTracker: React.FC<
 
   const {
     increaseCurrentThreat,
-    increaseMaxThreat,
     decreaseCurrentThreat,
-    decreaseMaxThreat,
     increaseAccelerationTokens,
     decreaseAccelerationTokens,
     startVillainTurn,
