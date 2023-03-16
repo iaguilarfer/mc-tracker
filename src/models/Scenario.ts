@@ -3,6 +3,6 @@ import { Villain } from "./Villain";
 
 export interface Scenario {
   villains: Array<Villain>;
-  mainSchemeDeck: Array<MainScheme>;
+  mainSchemes: Array<MainScheme>;
   scenarioValue: string;
 }

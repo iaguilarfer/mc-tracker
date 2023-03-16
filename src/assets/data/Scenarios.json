@@ -24,12 +24,18 @@
           "villainValue": "rhino"
         }
       ],
-      "mainSchemeDeck": [
+      "mainSchemes": [
         {
-          "maxThreatPerPlayer": 7,
-          "startingThreatPerPlayer": 0,
-          "threatPerTurnPerPlayer": 1,
-          "stage": 1
+          "stages": [
+            {
+              "maxThreatPerPlayer": 7,
+              "startingThreatPerPlayer": 0,
+              "threatPerTurnPerPlayer": 1,
+              "onThreatGetToZero": "Nothing",
+              "onThreatGetToMax": "MoveToNextStage",
+              "stage": 1
+            }
+          ]
         }
       ]
     },
@@ -41,18 +47,26 @@
         { "maxHealthPerPlayer": 18, "stage": 2 },
         { "maxHealthPerPlayer": 22, "stage": 3 }
       ],
-      "mainSchemeDeck": [
+      "mainSchemes": [
         {
-          "maxThreatPerPlayer": 6,
-          "startingThreatPerPlayer": 0,
-          "threatPerTurnPerPlayer": 1,
-          "stage": 1
-        },
-        {
-          "maxThreatPerPlayer": 8,
-          "startingThreatPerPlayer": 0,
-          "threatPerTurnPerPlayer": 1,
-          "stage": 2
+          "stages": [
+            {
+              "maxThreatPerPlayer": 6,
+              "startingThreatPerPlayer": 0,
+              "threatPerTurnPerPlayer": 1,
+              "stage": 1,
+              "onThreatGetToZero": "Nothing",
+              "onThreatGetToMax": "MoveToNextStage"
+            },
+            {
+              "maxThreatPerPlayer": 8,
+              "startingThreatPerPlayer": 0,
+              "threatPerTurnPerPlayer": 1,
+              "stage": 2,
+              "onThreatGetToZero": "Nothing",
+              "onThreatGetToMax": "MoveToNextStage"
+            }
+          ]
         }
       ]
     }
