@@ -17,10 +17,22 @@
     }
   },
   "villainTracker": {
-    "maxHealth": "Vida Maxima"
+    "maxHealth": "Vida Maxima",
+    "currentHealth": "Vida Actual",
+    "currentModifier": "Actual {{modifier}}",
+    "maxModifier": "Max {{modifier}}",
+    "closeButton": "Cerrar"
   },
   "threatTracker": {
-    "villainTurn": "Turno del villano"
+    "villainTurn": "Turno del villano",
+    "maxThreat": "Amenaza Maxima",
+    "currentThreat": "Amenaza Actual",
+    "currentAccelerationTokens": "Contadores de Aceleracion Actuales",
+    "currentModifier": "Actual {{modifier}}",
+    "maxModifier": "Max {{modifier}}",
+    "accelerationModifier": "Acelerador {{modifier}}",
+    "closeButton": "Cerrar",
+    "camioncito": "Bajo Vigilancia"
   },
   "scenarios": {
     "rhino": {

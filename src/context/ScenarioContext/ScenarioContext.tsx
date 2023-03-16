@@ -7,11 +7,8 @@ import {
   useState,
 } from "react";
 import ScenariosJson from "../../assets/data/Scenarios.json";
-import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Scenario } from "../../models/Scenario";
 import { Villain } from "../../models/Villain";
-import { useModalContext } from "../modalContext/ModalContext";
-import { useTranslation } from "react-i18next";
 import { MainScheme } from "../../models/MainScheme";
 
 interface ScenarioContextProps {
@@ -23,9 +20,15 @@ interface ScenarioContextProps {
   currentVillain: Villain | undefined;
   setCurrentVillain: (currentVillain: Villain) => void;
   advanceVillainStage: () => void;
+  isThisLastStage: () => boolean;
   advanceSchemeStage: () => void;
   currentMainScheme: MainScheme | undefined;
   cleanUp: () => void;
+  hasGameStarted: boolean;
+  setHasGameStarted: (hasGameStarted: boolean) => void;
+  isStartingPoint: boolean;
+  setOnVictoryCallback: (callback: () => void) => void;
+  setOnDefeatCallback: (callback: () => void) => void;
 }
 
 export const ScenarioContextDefaults: ScenarioContextProps = {
@@ -37,9 +40,15 @@ export const ScenarioContextDefaults: ScenarioContextProps = {
   currentVillain: undefined,
   setCurrentVillain: () => null,
   advanceVillainStage: () => null,
+  isThisLastStage: () => false,
   advanceSchemeStage: () => null,
   currentMainScheme: undefined,
   cleanUp: () => null,
+  hasGameStarted: false,
+  setHasGameStarted: () => null,
+  isStartingPoint: false,
+  setOnVictoryCallback: () => null,
+  setOnDefeatCallback: () => null,
 };
 
 const ScenarioContext = createContext(ScenarioContextDefaults);
@@ -62,8 +71,11 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   const [currentMainSchemeStage, setCurrentMainSchemeStage] =
     useState<number>(0);
 
-  const { open } = useModalContext();
-  const { t } = useTranslation();
+  const isStartingPoint =
+    currentMainSchemeStage === 0 && currentVillainStage === 0;
+
+  const [onVictoryCallback, setOnVictoryCallback] = useState<() => void>();
+  const [onDefeatCallback, setOnDefeatCallback] = useState<() => void>();
 
   const cleanUp = useCallback(() => {
     setScenarioValue(undefined);
@@ -74,6 +86,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
     setCurrentMainScheme(undefined);
     setNumberOfPlayers(undefined);
     setCurrentMainSchemeStage(0);
+    setHasGameStarted(false);
   }, []);
 
   const advanceVillainStage = () => {
@@ -82,20 +95,31 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         setCurrentVillain(villainDeck[currentVillainStage + 1]);
         setCurrentVillainStage((prevState) => prevState + 1);
       } else {
-        open(
-          <EndGameModal endGameMessage={t("endGameModal.victoryMessage")} />
-        );
+        if (onVictoryCallback) {
+          onVictoryCallback();
+        }
       }
     }
   };
 
+  const [hasGameStarted, setHasGameStarted] = useState(false);
+
+  const isThisLastStage = useCallback(() => {
+    if (selectedScenario) {
+      return (
+        currentMainSchemeStage === selectedScenario.mainSchemeDeck.length - 1
+      );
+    } else {
+      return false;
+    }
+  }, [currentMainSchemeStage, selectedScenario]);
+
   const advanceSchemeStage = useCallback(() => {
     if (selectedScenario) {
-      if (
-        currentMainSchemeStage ===
-        selectedScenario.mainSchemeDeck.length - 1
-      ) {
-        open(<EndGameModal endGameMessage={t("endGameModal.defeatMessage")} />);
+      if (isThisLastStage()) {
+        if (onDefeatCallback) {
+          onDefeatCallback();
+        }
       } else {
         setCurrentMainScheme(
           selectedScenario.mainSchemeDeck[currentMainSchemeStage + 1]
@@ -103,7 +127,13 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         setCurrentMainSchemeStage((prevState) => prevState + 1);
       }
     }
-  }, [currentMainSchemeStage, selectedScenario, open, t]);
+  }, [
+    currentMainSchemeStage,
+    selectedScenario,
+
+    isThisLastStage,
+    onDefeatCallback,
+  ]);
 
   useEffect(() => {
     const scenarios: Array<Scenario> = ScenariosJson.mCScenarios;
@@ -132,9 +162,15 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         currentVillain,
         setCurrentVillain,
         advanceVillainStage,
+        isThisLastStage,
         advanceSchemeStage,
         currentMainScheme,
         cleanUp,
+        hasGameStarted,
+        setHasGameStarted,
+        isStartingPoint,
+        setOnVictoryCallback,
+        setOnDefeatCallback,
       }}
     >
       {children}

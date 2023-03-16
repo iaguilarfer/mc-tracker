@@ -5,3 +5,8 @@
   border: solid black 2px;
   border-radius: 10px;
 }
+
+.button:active {
+  background-color: darkgray;
+  border: solid white 2px;
+}
