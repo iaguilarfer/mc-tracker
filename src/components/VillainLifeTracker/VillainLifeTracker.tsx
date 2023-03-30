@@ -9,21 +9,20 @@ import { VillainModal } from "../VillainModal/VillainModal";
 import { useVillainHealthContext } from "../../context/VillainHealthContext/VillainHealthContext";
 
 interface VillainLifeTrackerProps {
-  villain: Villain;
+  villainIndex: number;
 }
 
 export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
-  villain,
+  villainIndex,
 }) => {
   const { t } = useTranslation();
-  const { selectedScenario } = useScenarioContext();
+  const { selectedScenario, getVillainStage } = useScenarioContext();
   const { open } = useModalContext();
-  const {
-    decreaseCurrentHealth,
-    increaseCurrentHealth,
-    currentHealth,
-    maxHealth,
-  } = useVillainHealthContext();
+  const { decreaseCurrentHealth, increaseCurrentHealth, getVillainHealth } =
+    useVillainHealthContext();
+
+  const villainStage = getVillainStage(villainIndex);
+  const { currentHealth, maxHealth } = getVillainHealth(villainIndex);
 
   return (
     <div className={styles["villain-life-tracker-container"]}>
@@ -32,7 +31,9 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
           onClick={() => open(<VillainModal />)}
           className={styles["villain-image"]}
           src={
-            villainImages[selectedScenario!.scenarioValue][villain.stage - 1]
+            villainImages[selectedScenario!.scenarioValue][
+              villainStage.stage - 1
+            ]
           }
           alt={t(`scenarios.${selectedScenario?.scenarioValue}.villainName`)}
         />
@@ -42,7 +43,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
           className={styles["villain-life-tracker-current-health-container"]}
         >
           <div
-            onClick={() => decreaseCurrentHealth()}
+            onClick={() => decreaseCurrentHealth(villainIndex)}
             className={styles["villain-life-tracker-decreasehealth"]}
           >
             <div className={styles["increase-decrease-buttons"]}>-1</div>
@@ -53,7 +54,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
             </p>
           </div>
           <div
-            onClick={() => increaseCurrentHealth()}
+            onClick={() => increaseCurrentHealth(villainIndex)}
             className={styles["villain-life-tracker-increasehealth"]}
           >
             <div className={styles["increase-decrease-buttons"]}>+1</div>

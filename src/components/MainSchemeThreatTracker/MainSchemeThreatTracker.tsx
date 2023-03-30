@@ -9,14 +9,14 @@ import { SchemeModal } from "../SchemeModal/SchemeModal";
 import { useModalContext } from "../../context/modalContext/ModalContext";
 
 interface MainSchemeThreatTrackerProps {
-  mainScheme: MainScheme;
+  mainSchemeIndex: number;
 }
 
 export const MainSchemeThreatTracker: React.FC<
   MainSchemeThreatTrackerProps
-> = ({ mainScheme }) => {
+> = ({ mainSchemeIndex }) => {
   const { t } = useTranslation();
-  const { selectedScenario } = useScenarioContext();
+  const { selectedScenario, getMainSchemeStage } = useScenarioContext();
   const { open } = useModalContext();
 
   const {
@@ -30,6 +30,8 @@ export const MainSchemeThreatTracker: React.FC<
     maxThreat,
   } = useMainSchemeThreatContext();
 
+  const mainSchemeStage = getMainSchemeStage(mainSchemeIndex);
+
   return (
     <div className={styles["scheme-threat-tracker-container"]}>
       <div className={styles["scheme-image-container"]}>
@@ -37,7 +39,9 @@ export const MainSchemeThreatTracker: React.FC<
           onClick={() => open(<SchemeModal />)}
           className={styles["scheme-image"]}
           src={
-            schemeImages[selectedScenario!.scenarioValue][mainScheme.stage - 1]
+            schemeImages[selectedScenario!.scenarioValue][
+              mainSchemeStage.stage - 1
+            ]
           }
           alt={t(`scenarios.${selectedScenario?.scenarioValue}.mainSchemeName`)}
         />

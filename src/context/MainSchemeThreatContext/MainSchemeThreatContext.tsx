@@ -9,17 +9,14 @@ export interface MainSchemeThreat {
 }
 
 export interface MainSchemeThreatContextProps {
-  increaseCurrentThreat: (value?: number) => void;
-  decreaseCurrentThreat: (value?: number) => void;
-  increaseMaxThreat: (value?: number) => void;
-  decreaseMaxThreat: (value?: number) => void;
-  increaseAccelerationTokens: (value?: number) => void;
-  decreaseAccelerationTokens: (value?: number) => void;
+  increaseCurrentThreat: (mainSchemeIndex: number, value?: number) => void;
+  decreaseCurrentThreat: (mainSchemeIndex: number, value?: number) => void;
+  increaseMaxThreat: (mainSchemeIndex: number, value?: number) => void;
+  decreaseMaxThreat: (mainSchemeIndex: number, value?: number) => void;
+  increaseAccelerationTokens: (mainSchemeIndex: number, value?: number) => void;
+  decreaseAccelerationTokens: (mainSchemeIndex: number, value?: number) => void;
   startVillainTurn: () => void;
-  currentThreat: number;
-  maxThreat: number;
-  threat: MainSchemeThreat;
-  accelerationTokens: number;
+  getThreat: (mainSchemeIndex: number) => MainSchemeThreat;
 }
 
 export const MainSchemeThreatContextDefaults: MainSchemeThreatContextProps = {
@@ -30,15 +27,7 @@ export const MainSchemeThreatContextDefaults: MainSchemeThreatContextProps = {
   increaseAccelerationTokens: () => null,
   decreaseAccelerationTokens: () => null,
   startVillainTurn: () => null,
-  currentThreat: 0,
-  maxThreat: 0,
-  accelerationTokens: 0,
-  threat: {
-    currentThreat: 0,
-    maxThreat: 0,
-    accelerationTokens: 0,
-    threatPerTurn: 0,
-  },
+  getThreat: () => ({} as MainSchemeThreat),
 };
 
 export const MainSchemeThreatContext = React.createContext(
@@ -53,51 +42,36 @@ export const MainSchemeThreatContextProvider: React.FC<
 > = ({ children }) => {
   const {
     numberOfPlayers,
-    advanceSchemeStage,
-    currentMainScheme,
     hasGameStarted,
-    isThisLastStage,
     isStartingPoint,
+    selectedScenario,
+    getMainSchemeStage,
   } = useScenarioContext();
 
-  const [threat, setThreat] = useState<MainSchemeThreat>({
-    currentThreat: 0,
-    maxThreat: 0,
-    accelerationTokens: 0,
-    threatPerTurn: 0,
-  });
+  const [threats, setThreats] = useState<Array<MainSchemeThreat>>([]);
 
   useEffect(() => {
-    if (threat.currentThreat >= threat.maxThreat && hasGameStarted) {
-      if (!isThisLastStage()) {
-        setThreat((prevState) => ({ ...prevState, currentThreat: 0 }));
-      }
-      advanceSchemeStage();
+    if (isStartingPoint) {
+      const results =
+        selectedScenario?.mainSchemes.map((res, index) => {
+          const mainSchemeStage = getMainSchemeStage(index);
+          return {
+            currentThreat: mainSchemeStage
+              ? mainSchemeStage.startingThreatPerPlayer * (numberOfPlayers || 0)
+              : 0,
+            maxThreat: mainSchemeStage
+              ? mainSchemeStage.maxThreatPerPlayer * (numberOfPlayers || 0)
+              : 0,
+            threatPerTurn: mainSchemeStage
+              ? mainSchemeStage?.threatPerTurnPerPlayer * (numberOfPlayers || 0)
+              : 0,
+            accelerationTokens: 0,
+          };
+        }) || [];
+
+      setThreats(results);
     }
-  }, [
-    threat.currentThreat,
-    threat.maxThreat,
-    advanceSchemeStage,
-    hasGameStarted,
-    isThisLastStage,
-  ]);
-
-  useEffect(() => {
-    setThreat((prevState) => ({
-      ...prevState,
-      currentThreat: currentMainScheme
-        ? currentMainScheme.startingThreatPerPlayer * (numberOfPlayers || 0)
-        : 0,
-      maxThreat: currentMainScheme
-        ? currentMainScheme.maxThreatPerPlayer * (numberOfPlayers || 0)
-        : 0,
-      threatPerTurn: currentMainScheme
-        ? prevState.accelerationTokens +
-          currentMainScheme?.threatPerTurnPerPlayer * (numberOfPlayers || 0)
-        : 0,
-      accelerationTokens: isStartingPoint ? 0 : prevState.accelerationTokens,
-    }));
-  }, [currentMainScheme, numberOfPlayers, isStartingPoint]);
+  }, [numberOfPlayers, isStartingPoint, selectedScenario, getMainSchemeStage]);
 
   const increaseCurrentThreat = (value: number = 1) => {
     setThreat((prevState) => {

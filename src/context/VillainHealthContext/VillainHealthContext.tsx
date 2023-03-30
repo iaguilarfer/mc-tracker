@@ -6,23 +6,19 @@ export interface VillainHealth {
   maxHealth: number;
 }
 export interface VillainHealthContextProps {
-  increaseCurrentHealth: (value?: number) => void;
-  decreaseCurrentHealth: (value?: number) => void;
-  increaseMaxHealth: (value?: number) => void;
-  decreaseMaxHealth: (value?: number) => void;
-  currentHealth: number;
-  maxHealth: number;
-  health: VillainHealth;
+  increaseCurrentHealth: (villainIndex: number, value?: number) => void;
+  decreaseCurrentHealth: (villainIndex: number, value?: number) => void;
+  increaseMaxHealth: (villainIndex: number, value?: number) => void;
+  decreaseMaxHealth: (villainIndex: number, value?: number) => void;
+  getVillainHealth: (villainIndex: number) => VillainHealth;
 }
 
 export const VillainHealthContextDefaults: VillainHealthContextProps = {
-  increaseCurrentHealth: () => null,
-  decreaseCurrentHealth: () => null,
-  increaseMaxHealth: () => null,
-  decreaseMaxHealth: () => null,
-  currentHealth: 0,
-  maxHealth: 0,
-  health: { currentHealth: 0, maxHealth: 0 },
+  increaseCurrentHealth: (villainIndex) => null,
+  decreaseCurrentHealth: (villainIndex) => null,
+  increaseMaxHealth: (villainIndex) => null,
+  decreaseMaxHealth: (villainIndex) => null,
+  getVillainHealth: () => ({} as VillainHealth),
 };
 
 export const VillainHealthContext = React.createContext(
@@ -35,82 +31,86 @@ export const useVillainHealthContext = (): VillainHealthContextProps =>
 export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
   children,
 }) => {
-  const { currentVillain, numberOfPlayers, advanceVillainStage } =
-    useScenarioContext();
+  const {
+    numberOfPlayers,
+    selectedScenario,
+    getVillainStage,
+    isStartingPoint,
+  } = useScenarioContext();
+  const [healths, setHealths] = useState<Array<VillainHealth>>([]);
 
-  const [health, setHealth] = useState<VillainHealth>({
-    currentHealth: 0,
-    maxHealth: 0,
-  });
   useEffect(() => {
-    const temporaryHealth = currentVillain
-      ? currentVillain.maxHealthPerPlayer * (numberOfPlayers || 0)
-      : 0;
-    setHealth({ currentHealth: temporaryHealth, maxHealth: temporaryHealth });
-  }, [currentVillain, numberOfPlayers]);
+    if (isStartingPoint) {
+      const results =
+        selectedScenario?.villains.map((res, index) => {
+          const villainStage = getVillainStage(index);
 
-  const increaseCurrentHealth = (value: number = 1) => {
-    setHealth((prevState) => {
-      if (prevState.currentHealth < prevState.maxHealth) {
-        return {
-          ...prevState,
-          currentHealth: prevState.currentHealth + value,
-        };
+          const temporaryHealth =
+            villainStage.maxHealthPerPlayer * (numberOfPlayers || 0);
+          return { currentHealth: temporaryHealth, maxHealth: temporaryHealth };
+        }) || [];
+
+      setHealths(results);
+    }
+  }, [numberOfPlayers, selectedScenario, isStartingPoint, getVillainStage]);
+
+  const getVillainHealth = (villainIndex: number) => {
+    return healths[villainIndex];
+  };
+
+  const increaseCurrentHealth = (villainIndex: number, value: number = 1) => {
+    setHealths((prevState) => {
+      const results = [...prevState];
+      if (
+        results[villainIndex].currentHealth < results[villainIndex].maxHealth
+      ) {
+        results[villainIndex].currentHealth += value;
       } else {
-        return {
-          ...prevState,
-          currentHealth: prevState.maxHealth,
-        };
+        results[villainIndex].currentHealth = results[villainIndex].maxHealth;
       }
+      return results;
     });
   };
 
-  const increaseMaxHealth = (value: number = 1) => {
-    setHealth((prevState) => {
-      return {
-        maxHealth: prevState.maxHealth + value,
-        currentHealth: prevState.currentHealth + value,
-      };
+  const decreaseCurrentHealth = (villainIndex: number, value: number = 1) => {
+    setHealths((prevState) => {
+      const results = [...prevState];
+      if (results[villainIndex].currentHealth > value) {
+        results[villainIndex].currentHealth -= value;
+      } else {
+        results[villainIndex].currentHealth = 0;
+      }
+      return results;
     });
   };
 
-  const decreaseMaxHealth = (value: number = 1) => {
-    if (health.currentHealth <= value) {
-      advanceVillainStage();
+  const increaseMaxHealth = (villainIndex: number, value: number = 1) => {
+    setHealths((prevState) => {
+      const results = [...prevState];
+      results[villainIndex].maxHealth += value;
+      results[villainIndex].currentHealth += value;
+
+      return results;
+    });
+  };
+
+  const decreaseMaxHealth = (villainIndex: number, value: number = 1) => {
+    if (healths[villainIndex].currentHealth <= value) {
+      //defeatVillain(villainIndex);
     }
 
-    setHealth((prevState) => {
-      if (prevState.currentHealth > value) {
-        return {
-          maxHealth: prevState.maxHealth - value,
-          currentHealth: prevState.currentHealth - value,
-        };
-      } else {
-        return {
-          maxHealth: 0,
-          currentHealth: 0,
-        };
-      }
-    });
-  };
+    setHealths((prevState) => {
+      const results = [...prevState];
 
-  const decreaseCurrentHealth = (value: number = 1) => {
-    if (health.currentHealth <= value) {
-      advanceVillainStage();
-    }
-
-    setHealth((prevState) => {
-      if (prevState.currentHealth > value) {
-        return {
-          ...prevState,
-          currentHealth: prevState.currentHealth - value,
-        };
+      if (results[villainIndex].currentHealth > value) {
+        results[villainIndex].maxHealth -= value;
+        results[villainIndex].currentHealth -= value;
       } else {
-        return {
-          ...prevState,
-          currentHealth: 0,
-        };
+        results[villainIndex].maxHealth = 0;
+        results[villainIndex].currentHealth = 0;
       }
+
+      return results;
     });
   };
 
@@ -121,9 +121,7 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
         decreaseCurrentHealth,
         increaseMaxHealth,
         decreaseMaxHealth,
-        health,
-        currentHealth: health.currentHealth,
-        maxHealth: health.maxHealth,
+        getVillainHealth,
       }}
     >
       {children}
