@@ -42,10 +42,15 @@
 
     {
       "scenarioValue": "klaw",
-      "villainDeck": [
-        { "maxHealthPerPlayer": 12, "stage": 1 },
-        { "maxHealthPerPlayer": 18, "stage": 2 },
-        { "maxHealthPerPlayer": 22, "stage": 3 }
+      "villains": [
+        {
+          "villainDeck": [
+            { "maxHealthPerPlayer": 12, "stage": 1 },
+            { "maxHealthPerPlayer": 18, "stage": 2 },
+            { "maxHealthPerPlayer": 22, "stage": 3 }
+          ],
+          "villainValue": "klaw"
+        }
       ],
       "mainSchemes": [
         {

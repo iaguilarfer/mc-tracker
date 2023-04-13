@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import { useScenarioContext } from "../ScenarioContext/ScenarioContext";
+import cloneDeep from "lodash/cloneDeep";
 
 export interface MainSchemeThreat {
   currentThreat: number;
@@ -17,6 +18,7 @@ export interface MainSchemeThreatContextProps {
   decreaseAccelerationTokens: (mainSchemeIndex: number, value?: number) => void;
   startVillainTurn: () => void;
   getThreat: (mainSchemeIndex: number) => MainSchemeThreat;
+  hasLoadedThreat: boolean;
 }
 
 export const MainSchemeThreatContextDefaults: MainSchemeThreatContextProps = {
@@ -28,6 +30,7 @@ export const MainSchemeThreatContextDefaults: MainSchemeThreatContextProps = {
   decreaseAccelerationTokens: () => null,
   startVillainTurn: () => null,
   getThreat: () => ({} as MainSchemeThreat),
+  hasLoadedThreat: false,
 };
 
 export const MainSchemeThreatContext = React.createContext(
@@ -49,11 +52,12 @@ export const MainSchemeThreatContextProvider: React.FC<
   } = useScenarioContext();
 
   const [threats, setThreats] = useState<Array<MainSchemeThreat>>([]);
-
+  const [hasLoadedThreat, setHasLoadedThreat] = useState<boolean>(false);
   useEffect(() => {
     if (isStartingPoint) {
       const results =
         selectedScenario?.mainSchemes.map((res, index) => {
+          console.warn("mainSchemeContext");
           const mainSchemeStage = getMainSchemeStage(index);
           return {
             currentThreat: mainSchemeStage
@@ -70,75 +74,95 @@ export const MainSchemeThreatContextProvider: React.FC<
         }) || [];
 
       setThreats(results);
+      setHasLoadedThreat(true);
     }
   }, [numberOfPlayers, isStartingPoint, selectedScenario, getMainSchemeStage]);
 
-  const increaseCurrentThreat = (value: number = 1) => {
-    setThreat((prevState) => {
-      if (prevState.currentThreat < prevState.maxThreat) {
-        return { ...prevState, currentThreat: prevState.currentThreat + value };
+  const getThreat = (index: number) => {
+    console.warn("getThreat");
+    console.warn(threats);
+    return threats[index];
+  };
+
+  const increaseCurrentThreat = (index: number, value: number = 1) => {
+    setThreats((prevState) => {
+      const results = cloneDeep(prevState);
+      if (results[index].currentThreat < results[index].maxThreat) {
+        results[index].currentThreat += value;
       } else {
-        return { ...prevState, currentThreat: prevState.maxThreat };
+        results[index].currentThreat = results[index].maxThreat;
       }
+
+      return results;
     });
   };
 
-  const decreaseCurrentThreat = (value: number = 1) => {
-    setThreat((prevState) => {
-      if (prevState.currentThreat <= value) {
-        return { ...prevState, currentThreat: 0 };
+  const decreaseCurrentThreat = (index: number, value: number = 1) => {
+    setThreats((prevState) => {
+      const results = cloneDeep(prevState);
+      if (results[index].currentThreat <= value) {
+        results[index].currentThreat = 0;
       } else {
-        return { ...prevState, currentThreat: prevState.currentThreat - value };
+        results[index].currentThreat -= value;
       }
+      return results;
     });
   };
 
-  const increaseMaxThreat = (value: number = 1) => {
-    setThreat((prevState) => {
-      return { ...prevState, maxThreat: prevState.maxThreat + value };
+  const increaseMaxThreat = (index: number, value: number = 1) => {
+    setThreats((prevState) => {
+      const results = cloneDeep(prevState);
+      results[index].maxThreat += value;
+      return results;
     });
   };
 
-  const decreaseMaxThreat = (value: number = 1) => {
-    setThreat((prevState) => {
-      return { ...prevState, maxThreat: prevState.maxThreat - value };
-    });
-  };
-
-  const increaseAccelerationTokens = (value: number = 1) => {
-    setThreat((prevState) => {
-      return {
-        ...prevState,
-        accelerationTokens: prevState.accelerationTokens + value,
-        threatPerTurn: prevState.threatPerTurn + value,
-      };
-    });
-  };
-
-  const decreaseAccelerationTokens = (value: number = 1) => {
-    setThreat((prevState) => {
-      if (prevState.accelerationTokens <= value) {
-        return {
-          ...prevState,
-          accelerationTokens: 0,
-          threatPerTurn: prevState.threatPerTurn - prevState.accelerationTokens,
-        };
+  const decreaseMaxThreat = (index: number, value: number = 1) => {
+    setThreats((prevState) => {
+      const results = cloneDeep(prevState);
+      if (results[index].maxThreat <= value) {
+        results[index].maxThreat = 0;
       } else {
-        return {
-          ...prevState,
-          accelerationTokens: prevState.accelerationTokens - value,
-          threatPerTurn: prevState.threatPerTurn - value,
-        };
+        results[index].maxThreat -= value;
       }
+      return results;
+    });
+  };
+
+  const increaseAccelerationTokens = (index: number, value: number = 1) => {
+    setThreats((prevState) => {
+      const results = cloneDeep(prevState);
+
+      results[index].accelerationTokens += value;
+      results[index].threatPerTurn += value;
+
+      return results;
+    });
+  };
+
+  const decreaseAccelerationTokens = (index: number, value: number = 1) => {
+    setThreats((prevState) => {
+      const results = cloneDeep(prevState);
+
+      if (results[index].accelerationTokens <= value) {
+        results[index].accelerationTokens = 0;
+        results[index].threatPerTurn -= prevState[index].accelerationTokens;
+      } else {
+        results[index].accelerationTokens -= value;
+        results[index].threatPerTurn -= value;
+      }
+
+      return results;
     });
   };
 
   const startVillainTurn = () => {
-    setThreat((prevState) => {
-      return {
-        ...prevState,
-        currentThreat: prevState.currentThreat + prevState.threatPerTurn,
-      };
+    setThreats((prevState) => {
+      return prevState.map((threat) => {
+        const results = { ...threat };
+        results.currentThreat += results.threatPerTurn;
+        return results;
+      });
     });
   };
 
@@ -152,10 +176,8 @@ export const MainSchemeThreatContextProvider: React.FC<
         increaseAccelerationTokens,
         decreaseAccelerationTokens,
         startVillainTurn,
-        threat,
-        currentThreat: threat.currentThreat,
-        maxThreat: threat.maxThreat,
-        accelerationTokens: threat.accelerationTokens,
+        getThreat,
+        hasLoadedThreat,
       }}
     >
       {children}

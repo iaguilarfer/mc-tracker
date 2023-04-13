@@ -12,15 +12,19 @@ interface VillainModalProps {}
 export const VillainModal: React.FC<VillainModalProps> = () => {
   const { t } = useTranslation();
   const { close } = useModalContext();
-  const { currentVillain, selectedScenario } = useScenarioContext();
+  const { activeVillainIndex, selectedScenario, getVillainStage } =
+    useScenarioContext();
   const {
     increaseCurrentHealth,
     decreaseCurrentHealth,
     increaseMaxHealth,
     decreaseMaxHealth,
-    currentHealth,
-    maxHealth,
+    getVillainHealth,
   } = useVillainHealthContext();
+
+  const { currentHealth, maxHealth } = getVillainHealth(activeVillainIndex);
+
+  const villainStage = getVillainStage(activeVillainIndex);
 
   return (
     <Modal modalClassname={styles["villain-modal"]} size={"large"}>
@@ -29,9 +33,9 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
           <img
             className={styles["villain-image"]}
             src={
-              selectedScenario && currentVillain
+              selectedScenario
                 ? villainImages[selectedScenario.scenarioValue][
-                    currentVillain.stage - 1
+                    villainStage.stage - 1
                   ]
                 : ""
             }
@@ -47,21 +51,24 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
             <div className={styles["buttons"]}>
               <Button
                 text={t("villainTracker.currentModifier", { modifier: "+1" })}
-                onClick={() => increaseCurrentHealth()}
+                onClick={() => increaseCurrentHealth(activeVillainIndex)}
               />
               <Button
                 text={t("villainTracker.currentModifier", { modifier: "-1" })}
-                onClick={() => decreaseCurrentHealth()}
+                onClick={() => {
+                  console.warn("onClickModal");
+                  decreaseCurrentHealth(activeVillainIndex);
+                }}
               />
             </div>
             <div className={styles["buttons"]}>
               <Button
                 text={t("villainTracker.maxModifier", { modifier: "+1" })}
-                onClick={() => increaseMaxHealth()}
+                onClick={() => increaseMaxHealth(activeVillainIndex)}
               />
               <Button
                 text={t("villainTracker.maxModifier", { modifier: "-1" })}
-                onClick={() => decreaseMaxHealth()}
+                onClick={() => decreaseMaxHealth(activeVillainIndex)}
               />
             </div>
             <div className={styles["buttons"]}>

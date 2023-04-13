@@ -43,7 +43,10 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
           className={styles["villain-life-tracker-current-health-container"]}
         >
           <div
-            onClick={() => decreaseCurrentHealth(villainIndex)}
+            onClick={() => {
+              console.warn("onCLick");
+              decreaseCurrentHealth(villainIndex);
+            }}
             className={styles["villain-life-tracker-decreasehealth"]}
           >
             <div className={styles["increase-decrease-buttons"]}>-1</div>

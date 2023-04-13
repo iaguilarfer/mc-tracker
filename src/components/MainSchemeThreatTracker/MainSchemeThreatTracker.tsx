@@ -25,12 +25,13 @@ export const MainSchemeThreatTracker: React.FC<
     increaseAccelerationTokens,
     decreaseAccelerationTokens,
     startVillainTurn,
-    threat,
-    currentThreat,
-    maxThreat,
+    getThreat,
   } = useMainSchemeThreatContext();
 
   const mainSchemeStage = getMainSchemeStage(mainSchemeIndex);
+
+  const { currentThreat, maxThreat, threatPerTurn, accelerationTokens } =
+    getThreat(mainSchemeIndex);
 
   return (
     <div className={styles["scheme-threat-tracker-container"]}>
@@ -51,7 +52,7 @@ export const MainSchemeThreatTracker: React.FC<
           className={styles["scheme-threat-tracker-current-threat-container"]}
         >
           <div
-            onClick={() => decreaseCurrentThreat()}
+            onClick={() => decreaseCurrentThreat(mainSchemeIndex)}
             className={styles["scheme-threat-tracker-decreasethreat"]}
           >
             <div className={styles["increase-decrease-buttons"]}>-1</div>
@@ -63,7 +64,7 @@ export const MainSchemeThreatTracker: React.FC<
           </div>
 
           <div
-            onClick={() => increaseCurrentThreat()}
+            onClick={() => increaseCurrentThreat(mainSchemeIndex)}
             className={styles["scheme-threat-tracker-increasethreat"]}
           >
             <div className={styles["increase-decrease-buttons"]}>+1</div>
@@ -78,7 +79,7 @@ export const MainSchemeThreatTracker: React.FC<
         >
           <div className={styles["scheme-threat-tracker-acceleration"]}>
             <div
-              onClick={() => decreaseAccelerationTokens()}
+              onClick={() => decreaseAccelerationTokens(mainSchemeIndex)}
               className={styles["scheme-threat-tracker-decreaseacceleration"]}
             >
               <div className={styles["increase-decrease-buttons"]}>-1</div>
@@ -87,13 +88,13 @@ export const MainSchemeThreatTracker: React.FC<
               <p
                 className={styles["scheme-threat-tracker-currentacceleration"]}
               >
-                {threat.accelerationTokens}
+                {accelerationTokens}
                 <span className={styles["accelerationToken"]}>a</span>
               </p>
             </div>
 
             <div
-              onClick={() => increaseAccelerationTokens()}
+              onClick={() => increaseAccelerationTokens(mainSchemeIndex)}
               className={styles["scheme-threat-tracker-increaseacceleration"]}
             >
               <div className={styles["increase-decrease-buttons"]}>+1</div>
@@ -103,9 +104,7 @@ export const MainSchemeThreatTracker: React.FC<
             onClick={() => startVillainTurn()}
             className={styles["scheme-threat-tracker-villainturn"]}
           >
-            <div>{`${t("threatTracker.villainTurn")} ${
-              threat.threatPerTurn
-            }`}</div>
+            <div>{`${t("threatTracker.villainTurn")} ${threatPerTurn}`}</div>
           </div>
         </div>
       </div>

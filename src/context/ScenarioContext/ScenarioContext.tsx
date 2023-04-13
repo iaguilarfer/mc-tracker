@@ -79,14 +79,14 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   const [mainSchemeStageIndexes, setMainSchemeStageIndexes] = useState<
     Array<number>
   >([]);
-
+  const [hasGameStarted, setHasGameStarted] = useState(false);
   const isStartingPoint = useMemo(
     () =>
       villainStageIndexes.every((a) => a === 0) &&
-      mainSchemeStageIndexes.every((a) => a === 0),
-    [villainStageIndexes, mainSchemeStageIndexes]
+      mainSchemeStageIndexes.every((a) => a === 0) &&
+      hasGameStarted,
+    [villainStageIndexes, mainSchemeStageIndexes, hasGameStarted]
   );
-  const [hasGameStarted, setHasGameStarted] = useState(false);
 
   const [onVictoryCallback, setOnVictoryCallback] = useState<() => void>();
   const [onDefeatCallback, setOnDefeatCallback] = useState<() => void>();
@@ -129,6 +129,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   }, [scenarioValue]);
 
   useEffect(() => {
+    console.warn("selectedScenario");
     if (selectedScenario) {
       setVillainGroup(
         selectedScenario.villains.map((villain) => {
@@ -138,6 +139,8 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         })
       );
       setVillainStageIndexes(Array(selectedScenario.villains.length).fill(0));
+      console.warn("selectedScenarioInside");
+      console.warn(selectedScenario);
       setMainSchemeGroup(selectedScenario.mainSchemes);
       setMainSchemeStageIndexes(
         Array(selectedScenario.mainSchemes.length).fill(0)
@@ -168,6 +171,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
 
   const getMainSchemeStage = useCallback(
     (index: number) => {
+      console.warn(mainSchemeGroup);
       return mainSchemeGroup[index].stages[mainSchemeStageIndexes[index]];
     },
     [mainSchemeGroup, mainSchemeStageIndexes]
