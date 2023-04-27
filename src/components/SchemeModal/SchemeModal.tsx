@@ -81,7 +81,7 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
 
               <Button
                 text={t("threatTracker.camioncito")}
-                onClick={() => increaseMaxThreat(4)}
+                onClick={() => increaseMaxThreat(activeMainSchemeIndex, 4)}
               />
             </div>
             <div className={styles["buttons"]}>

@@ -57,7 +57,6 @@ export const MainSchemeThreatContextProvider: React.FC<
     if (isStartingPoint) {
       const results =
         selectedScenario?.mainSchemes.map((res, index) => {
-          console.warn("mainSchemeContext");
           const mainSchemeStage = getMainSchemeStage(index);
           return {
             currentThreat: mainSchemeStage
@@ -79,8 +78,6 @@ export const MainSchemeThreatContextProvider: React.FC<
   }, [numberOfPlayers, isStartingPoint, selectedScenario, getMainSchemeStage]);
 
   const getThreat = (index: number) => {
-    console.warn("getThreat");
-    console.warn(threats);
     return threats[index];
   };
 

@@ -1,6 +1,12 @@
-import React, { PropsWithChildren, useEffect, useState } from "react";
+import React, {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useScenarioContext } from "../ScenarioContext/ScenarioContext";
 import cloneDeep from "lodash/cloneDeep";
+import { OnDefeatOption } from "../../models/Villain";
 
 export interface VillainHealth {
   currentHealth: number;
@@ -39,26 +45,37 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
     selectedScenario,
     getVillainStage,
     isStartingPoint,
+    moveToNextVillainStage,
+    moveToNextSchemeStage,
+    isVillainInLastStage,
+    onVictoryCallback,
   } = useScenarioContext();
   const [healths, setHealths] = useState<Array<VillainHealth>>([]);
 
   const [hasLoadedHealth, setHasLoadedHealth] = useState<boolean>(false);
+  const [villainIndexToReset, setVillainIndexToReset] = useState<number>();
+
+  const getInitialHealth = useCallback(
+    (villainIndex: number) => {
+      const villainStage = getVillainStage(villainIndex);
+      const temporaryHealth =
+        villainStage.maxHealthPerPlayer * (numberOfPlayers || 0);
+      return { currentHealth: temporaryHealth, maxHealth: temporaryHealth };
+    },
+    [getVillainStage, numberOfPlayers]
+  );
 
   useEffect(() => {
     if (isStartingPoint) {
       const results =
         selectedScenario?.villains.map((res, index) => {
-          const villainStage = getVillainStage(index);
-
-          const temporaryHealth =
-            villainStage.maxHealthPerPlayer * (numberOfPlayers || 0);
-          return { currentHealth: temporaryHealth, maxHealth: temporaryHealth };
+          return getInitialHealth(index);
         }) || [];
 
       setHealths(results);
       setHasLoadedHealth(true);
     }
-  }, [numberOfPlayers, selectedScenario, isStartingPoint, getVillainStage]);
+  }, [getInitialHealth, selectedScenario, isStartingPoint]);
 
   const getVillainHealth = (villainIndex: number) => {
     return healths[villainIndex];
@@ -79,7 +96,6 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
   };
 
   const decreaseCurrentHealth = (villainIndex: number, value: number = 1) => {
-    console.warn("decreaseOutside");
     setHealths((prevState) => {
       const results = cloneDeep(prevState);
       if (results[villainIndex].currentHealth > value) {
@@ -87,7 +103,6 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
       } else {
         results[villainIndex].currentHealth = 0;
       }
-      console.warn("una vez?");
       return results;
     });
   };
@@ -103,10 +118,6 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
   };
 
   const decreaseMaxHealth = (villainIndex: number, value: number = 1) => {
-    if (healths[villainIndex].currentHealth <= value) {
-      //defeatVillain(villainIndex);
-    }
-
     setHealths((prevState) => {
       const results = cloneDeep(prevState);
 
@@ -121,6 +132,40 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
       return results;
     });
   };
+
+  const defeat = (villainIndex: number) => {
+    const onDefeat = getVillainStage(villainIndex).onDefeat;
+    switch (onDefeat) {
+      case OnDefeatOption.MoveToNextStage: {
+        if (isVillainInLastStage(villainIndex)) {
+          onVictoryCallback();
+        } else {
+          moveToNextVillainStage(villainIndex);
+          setVillainIndexToReset(villainIndex);
+        }
+        break;
+      }
+    }
+  };
+
+  useEffect(() => {
+    healths.forEach((health, index) => {
+      if (health.currentHealth <= 0) {
+        defeat(index);
+      }
+    });
+  }, [healths]);
+
+  useEffect(() => {
+    if (villainIndexToReset !== undefined) {
+      setHealths((prevState) => {
+        const results = cloneDeep(prevState);
+        results[villainIndexToReset] = getInitialHealth(villainIndexToReset);
+        return results;
+      });
+      setVillainIndexToReset(undefined);
+    }
+  }, [villainIndexToReset]);
 
   return (
     <VillainHealthContext.Provider

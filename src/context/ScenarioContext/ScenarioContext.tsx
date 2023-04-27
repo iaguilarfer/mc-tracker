@@ -11,6 +11,7 @@ import ScenariosJson from "../../assets/data/Scenarios.json";
 import { Scenario } from "../../models/Scenario";
 import { Villain, VillainStage } from "../../models/Villain";
 import { MainScheme, MainSchemeStage } from "../../models/MainScheme";
+import { cloneDeep } from "lodash";
 
 interface ScenarioContextProps {
   scenarioValue: string | undefined;
@@ -25,13 +26,16 @@ interface ScenarioContextProps {
   setHasGameStarted: (hasGameStarted: boolean) => void;
   isStartingPoint: boolean;
   setOnVictoryCallback: (callback: () => void) => void;
+  onVictoryCallback: () => void;
   setOnDefeatCallback: (callback: () => void) => void;
+  onDefeatCallback: () => void;
   getVillain: (villainIndex: number) => Villain;
   getMainScheme: (schemeIndex: number) => MainScheme;
   activeVillainIndex: number;
   activeMainSchemeIndex: number;
   getVillainStage: (villainIndex: number) => VillainStage;
   getMainSchemeStage: (mainSchemeIndex: number) => MainSchemeStage;
+  isVillainInLastStage: (villainIndex: number) => boolean;
 }
 
 export const ScenarioContextDefaults: ScenarioContextProps = {
@@ -45,7 +49,9 @@ export const ScenarioContextDefaults: ScenarioContextProps = {
   setHasGameStarted: () => null,
   isStartingPoint: false,
   setOnVictoryCallback: () => null,
+  onVictoryCallback: () => null,
   setOnDefeatCallback: () => null,
+  onDefeatCallback: () => null,
   moveToNextVillainStage: (villainIndex: number) => null,
   moveToNextSchemeStage: (schemeIndex: number) => null,
   getVillain: () => ({} as Villain),
@@ -54,6 +60,7 @@ export const ScenarioContextDefaults: ScenarioContextProps = {
   activeMainSchemeIndex: 0,
   getVillainStage: (villainIndex: number) => ({} as VillainStage),
   getMainSchemeStage: (mainSchemeIndex: number) => ({} as MainSchemeStage),
+  isVillainInLastStage: (villainIndex: number) => false,
 };
 
 const ScenarioContext = createContext(ScenarioContextDefaults);
@@ -88,8 +95,12 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
     [villainStageIndexes, mainSchemeStageIndexes, hasGameStarted]
   );
 
-  const [onVictoryCallback, setOnVictoryCallback] = useState<() => void>();
-  const [onDefeatCallback, setOnDefeatCallback] = useState<() => void>();
+  const [onVictoryCallback, setOnVictoryCallback] = useState<() => void>(
+    () => null
+  );
+  const [onDefeatCallback, setOnDefeatCallback] = useState<() => void>(
+    () => null
+  );
 
   const cleanUp = useCallback(() => {
     setScenarioValue(undefined);
@@ -106,7 +117,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
 
   const moveToNextVillainStage = (villainIndex: number) => {
     setVillainStageIndexes((prevState) => {
-      const result = [...prevState];
+      const result = cloneDeep(prevState);
       result[villainIndex]++;
       return result;
     });
@@ -114,7 +125,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
 
   const moveToNextSchemeStage = (schemeIndex: number) => {
     setMainSchemeStageIndexes((prevState) => {
-      const result = [...prevState];
+      const result = cloneDeep(prevState);
       result[schemeIndex]++;
       return result;
     });
@@ -164,6 +175,10 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
 
   const getVillainStage = useCallback(
     (index: number) => {
+      console.warn("getVillainStage");
+      console.warn(villainGroup);
+      console.warn(index);
+      console.warn(villainStageIndexes);
       return villainGroup[index].villainDeck[villainStageIndexes[index]];
     },
     [villainGroup, villainStageIndexes]
@@ -176,6 +191,17 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
     },
     [mainSchemeGroup, mainSchemeStageIndexes]
   );
+
+  const isVillainInLastStage = (villainIndex: number) => {
+    if (
+      villainStageIndexes[villainIndex] ===
+      villainGroup[villainIndex].villainDeck.length - 1
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return (
     <ScenarioContext.Provider
@@ -199,6 +225,9 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         getMainScheme,
         getVillainStage,
         getMainSchemeStage,
+        isVillainInLastStage,
+        onVictoryCallback,
+        onDefeatCallback,
       }}
     >
       {children}

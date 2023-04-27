@@ -24,6 +24,11 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
   const villainStage = getVillainStage(villainIndex);
   const { currentHealth, maxHealth } = getVillainHealth(villainIndex);
 
+  console.warn("VillainLifeTracker");
+  console.warn(villainImages);
+  console.warn(selectedScenario);
+  console.warn(villainStage);
+
   return (
     <div className={styles["villain-life-tracker-container"]}>
       <div className={styles["villain-image-container"]}>
