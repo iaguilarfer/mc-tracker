@@ -33,17 +33,18 @@ export const MainSchemeThreatTracker: React.FC<
   const { currentThreat, maxThreat, threatPerTurn, accelerationTokens } =
     getThreat(mainSchemeIndex);
 
+  const imageKey = t(
+    `scenarios.${selectedScenario?.scenarioValue}.mainSchemeImages`,
+    { returnObjects: true }
+  )[mainSchemeIndex];
+
   return (
     <div className={styles["scheme-threat-tracker-container"]}>
       <div className={styles["scheme-image-container"]}>
         <img
           onClick={() => open(<SchemeModal />)}
           className={styles["scheme-image"]}
-          src={
-            schemeImages[selectedScenario!.scenarioValue][
-              mainSchemeStage.stage - 1
-            ]
-          }
+          src={schemeImages[imageKey][mainSchemeStage.stage - 1]}
           alt={t(`scenarios.${selectedScenario?.scenarioValue}.mainSchemeName`)}
         />
       </div>

@@ -30,6 +30,7 @@
     "currentModifier": "Current {{modifier}}",
     "maxModifier": "Max {{modifier}}",
     "accelerationModifier": "Acceleration {{modifier}}",
+    "currentAccelerationTokens": "Current Acceleration Tokens",
     "closeButton": "Close",
     "camioncito": "Under Surveillance"
   },
@@ -37,11 +38,14 @@
     "rhino": {
       "villainName": "Rhino",
       "mainSchemeName": "The Break-In!",
-      "rhinoImage1": "./rhino1en.png"
+      "villainImages": ["rhinoEN"],
+      "mainSchemeImages": ["rhinoEN"]
     },
     "klaw": {
       "villainName": "Klaw",
-      "mainSchemeName": ["Underground Distribution", "Secret Rendezvous"]
+      "mainSchemeName": ["Underground Distribution", "Secret Rendezvous"],
+      "villainImages": ["klawEN"],
+      "mainSchemeImages": ["klawEN"]
     }
   },
   "endGameModal": {

@@ -26,6 +26,11 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
 
   const villainStage = getVillainStage(activeVillainIndex);
 
+  const imageKey = t(
+    `scenarios.${selectedScenario?.scenarioValue}.villainImages`,
+    { returnObjects: true }
+  )[activeVillainIndex];
+
   return (
     <Modal modalClassname={styles["villain-modal"]} size={"large"}>
       <div className={styles["villain-modal-container"]}>
@@ -34,9 +39,7 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
             className={styles["villain-image"]}
             src={
               selectedScenario
-                ? villainImages[selectedScenario.scenarioValue][
-                    villainStage.stage - 1
-                  ]
+                ? villainImages[imageKey][villainStage.stage - 1]
                 : ""
             }
             alt={t(`scenarios.${selectedScenario?.scenarioValue}.villainName`)}
@@ -56,7 +59,6 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
               <Button
                 text={t("villainTracker.currentModifier", { modifier: "-1" })}
                 onClick={() => {
-                  console.warn("onClickModal");
                   decreaseCurrentHealth(activeVillainIndex);
                 }}
               />
@@ -74,11 +76,11 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
             <div className={styles["buttons"]}>
               <Button
                 text={t("villainTracker.maxModifier", { modifier: "+10" })}
-                onClick={() => increaseMaxHealth(10)}
+                onClick={() => increaseMaxHealth(activeVillainIndex, 10)}
               />
               <Button
                 text={t("villainTracker.maxModifier", { modifier: "-10" })}
-                onClick={() => decreaseMaxHealth(10)}
+                onClick={() => decreaseMaxHealth(activeVillainIndex, 10)}
               />
             </div>
           </div>

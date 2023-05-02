@@ -3,9 +3,17 @@ interface SchemeImages {
 }
 
 export const schemeImages: SchemeImages = {
-  rhino: [require("./thebreakin.png")],
-  klaw: [
-    require("./undergroundDistribution.png"),
-    require("./secretRendezvous.png"),
+  // ENGLISH
+  rhinoEN: [require("./thebreakinEN.png")],
+  klawEN: [
+    require("./undergroundDistributionEN.png"),
+    require("./secretRendezvousEN.png"),
+  ],
+
+  // ESPAÑOL
+  rhinoES: [require("./thebreakinEN.png")],
+  klawES: [
+    require("./undergroundDistributionEN.png"),
+    require("./secretRendezvousEN.png"),
   ],
 };

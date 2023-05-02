@@ -3,14 +3,26 @@ interface VillainImages {
 }
 
 export const villainImages: VillainImages = {
-  rhino: [
-    require("./rhino1en.png"),
-    require("./rhino2en.png"),
-    require("./rhino3en.png"),
+  //ENGLISH
+  rhinoEN: [
+    require("./rhino1EN.png"),
+    require("./rhino2EN.png"),
+    require("./rhino3EN.png"),
   ],
-  klaw: [
-    require("./klaw1en.png"),
-    require("./klaw2en.png"),
-    require("./klaw3en.png"),
+  klawEN: [
+    require("./klaw1EN.png"),
+    require("./klaw2EN.png"),
+    require("./klaw3EN.png"),
+  ],
+  // ESPAÑOL
+  rhinoES: [
+    require("./rhino1ES.png"),
+    require("./rhino2EN.png"),
+    require("./rhino3EN.png"),
+  ],
+  klawES: [
+    require("./klaw1EN.png"),
+    require("./klaw2EN.png"),
+    require("./klaw3EN.png"),
   ],
 };

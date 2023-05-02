@@ -36,6 +36,7 @@ interface ScenarioContextProps {
   getVillainStage: (villainIndex: number) => VillainStage;
   getMainSchemeStage: (mainSchemeIndex: number) => MainSchemeStage;
   isVillainInLastStage: (villainIndex: number) => boolean;
+  isMainSchemeInLastStage: (mainSchemeIndex: number) => boolean;
 }
 
 export const ScenarioContextDefaults: ScenarioContextProps = {
@@ -61,6 +62,7 @@ export const ScenarioContextDefaults: ScenarioContextProps = {
   getVillainStage: (villainIndex: number) => ({} as VillainStage),
   getMainSchemeStage: (mainSchemeIndex: number) => ({} as MainSchemeStage),
   isVillainInLastStage: (villainIndex: number) => false,
+  isMainSchemeInLastStage: (mainSchemeIndex: number) => false,
 };
 
 const ScenarioContext = createContext(ScenarioContextDefaults);
@@ -140,7 +142,6 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   }, [scenarioValue]);
 
   useEffect(() => {
-    console.warn("selectedScenario");
     if (selectedScenario) {
       setVillainGroup(
         selectedScenario.villains.map((villain) => {
@@ -150,8 +151,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         })
       );
       setVillainStageIndexes(Array(selectedScenario.villains.length).fill(0));
-      console.warn("selectedScenarioInside");
-      console.warn(selectedScenario);
+
       setMainSchemeGroup(selectedScenario.mainSchemes);
       setMainSchemeStageIndexes(
         Array(selectedScenario.mainSchemes.length).fill(0)
@@ -175,10 +175,6 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
 
   const getVillainStage = useCallback(
     (index: number) => {
-      console.warn("getVillainStage");
-      console.warn(villainGroup);
-      console.warn(index);
-      console.warn(villainStageIndexes);
       return villainGroup[index].villainDeck[villainStageIndexes[index]];
     },
     [villainGroup, villainStageIndexes]
@@ -186,7 +182,6 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
 
   const getMainSchemeStage = useCallback(
     (index: number) => {
-      console.warn(mainSchemeGroup);
       return mainSchemeGroup[index].stages[mainSchemeStageIndexes[index]];
     },
     [mainSchemeGroup, mainSchemeStageIndexes]
@@ -196,6 +191,17 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
     if (
       villainStageIndexes[villainIndex] ===
       villainGroup[villainIndex].villainDeck.length - 1
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const isMainSchemeInLastStage = (mainSchemeIndex: number) => {
+    if (
+      mainSchemeStageIndexes[mainSchemeIndex] ===
+      mainSchemeGroup[mainSchemeIndex].stages.length - 1
     ) {
       return true;
     } else {
@@ -226,6 +232,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         getVillainStage,
         getMainSchemeStage,
         isVillainInLastStage,
+        isMainSchemeInLastStage,
         onVictoryCallback,
         onDefeatCallback,
       }}

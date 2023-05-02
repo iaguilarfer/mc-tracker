@@ -1,6 +1,7 @@
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import { useScenarioContext } from "../ScenarioContext/ScenarioContext";
 import cloneDeep from "lodash/cloneDeep";
+import { onThreatGetToMaxOption } from "../../models/MainScheme";
 
 export interface MainSchemeThreat {
   currentThreat: number;
@@ -49,33 +50,46 @@ export const MainSchemeThreatContextProvider: React.FC<
     isStartingPoint,
     selectedScenario,
     getMainSchemeStage,
+    isMainSchemeInLastStage,
+    moveToNextSchemeStage,
+    onDefeatCallback,
   } = useScenarioContext();
 
   const [threats, setThreats] = useState<Array<MainSchemeThreat>>([]);
   const [hasLoadedThreat, setHasLoadedThreat] = useState<boolean>(false);
+  const [mainSchemeIndexToReset, setMainSchemeIndexToReset] =
+    useState<number>();
+
   useEffect(() => {
     if (isStartingPoint) {
       const results =
         selectedScenario?.mainSchemes.map((res, index) => {
-          const mainSchemeStage = getMainSchemeStage(index);
-          return {
-            currentThreat: mainSchemeStage
-              ? mainSchemeStage.startingThreatPerPlayer * (numberOfPlayers || 0)
-              : 0,
-            maxThreat: mainSchemeStage
-              ? mainSchemeStage.maxThreatPerPlayer * (numberOfPlayers || 0)
-              : 0,
-            threatPerTurn: mainSchemeStage
-              ? mainSchemeStage?.threatPerTurnPerPlayer * (numberOfPlayers || 0)
-              : 0,
-            accelerationTokens: 0,
-          };
+          return getInitialThreat(index);
         }) || [];
-
       setThreats(results);
       setHasLoadedThreat(true);
     }
   }, [numberOfPlayers, isStartingPoint, selectedScenario, getMainSchemeStage]);
+
+  const getInitialThreat = (
+    mainSchemeIndex: number,
+    accelerationTokens: number = 0
+  ) => {
+    const mainSchemeStage = getMainSchemeStage(mainSchemeIndex);
+    return {
+      currentThreat: mainSchemeStage
+        ? mainSchemeStage.startingThreatPerPlayer * (numberOfPlayers || 0)
+        : 0,
+      maxThreat: mainSchemeStage
+        ? mainSchemeStage.maxThreatPerPlayer * (numberOfPlayers || 0)
+        : 0,
+      threatPerTurn: mainSchemeStage
+        ? mainSchemeStage?.threatPerTurnPerPlayer * (numberOfPlayers || 0) +
+          accelerationTokens
+        : 0,
+      accelerationTokens: accelerationTokens,
+    };
+  };
 
   const getThreat = (index: number) => {
     return threats[index];
@@ -162,6 +176,44 @@ export const MainSchemeThreatContextProvider: React.FC<
       });
     });
   };
+
+  useEffect(() => {
+    if (mainSchemeIndexToReset !== undefined) {
+      setThreats((prevState) => {
+        const results = cloneDeep(prevState);
+        results[mainSchemeIndexToReset] = getInitialThreat(
+          mainSchemeIndexToReset,
+          prevState[mainSchemeIndexToReset].accelerationTokens
+        );
+        return results;
+      });
+      setMainSchemeIndexToReset(undefined);
+    }
+  }, [mainSchemeIndexToReset]);
+
+  const threatGetToMax = (mainSchemeIndex: number) => {
+    const onThreatGetToMax =
+      getMainSchemeStage(mainSchemeIndex).onThreatGetToMax;
+    switch (onThreatGetToMax) {
+      case onThreatGetToMaxOption.MoveToNextStage: {
+        if (isMainSchemeInLastStage(mainSchemeIndex)) {
+          onDefeatCallback();
+        } else {
+          moveToNextSchemeStage(mainSchemeIndex);
+          setMainSchemeIndexToReset(mainSchemeIndex);
+        }
+        break;
+      }
+    }
+  };
+
+  useEffect(() => {
+    threats.forEach((threat, index) => {
+      if (threat.currentThreat >= threat.maxThreat) {
+        threatGetToMax(index);
+      }
+    });
+  }, [threats]);
 
   return (
     <MainSchemeThreatContext.Provider

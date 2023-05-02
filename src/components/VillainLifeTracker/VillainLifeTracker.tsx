@@ -1,12 +1,11 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { villainImages } from "../../assets/images/villains";
 import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
-import { Villain } from "../../models/Villain";
-import styles from "./VillainLifeTracker.module.scss";
-import { useTranslation } from "react-i18next";
+import { useVillainHealthContext } from "../../context/VillainHealthContext/VillainHealthContext";
 import { useModalContext } from "../../context/modalContext/ModalContext";
 import { VillainModal } from "../VillainModal/VillainModal";
-import { useVillainHealthContext } from "../../context/VillainHealthContext/VillainHealthContext";
+import styles from "./VillainLifeTracker.module.scss";
 
 interface VillainLifeTrackerProps {
   villainIndex: number;
@@ -23,23 +22,17 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
 
   const villainStage = getVillainStage(villainIndex);
   const { currentHealth, maxHealth } = getVillainHealth(villainIndex);
-
-  console.warn("VillainLifeTracker");
-  console.warn(villainImages);
-  console.warn(selectedScenario);
-  console.warn(villainStage);
-
+  const imageKey = t(
+    `scenarios.${selectedScenario?.scenarioValue}.villainImages`,
+    { returnObjects: true }
+  )[villainIndex];
   return (
     <div className={styles["villain-life-tracker-container"]}>
       <div className={styles["villain-image-container"]}>
         <img
           onClick={() => open(<VillainModal />)}
           className={styles["villain-image"]}
-          src={
-            villainImages[selectedScenario!.scenarioValue][
-              villainStage.stage - 1
-            ]
-          }
+          src={villainImages[imageKey][villainStage.stage - 1]}
           alt={t(`scenarios.${selectedScenario?.scenarioValue}.villainName`)}
         />
       </div>
@@ -49,7 +42,6 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
         >
           <div
             onClick={() => {
-              console.warn("onCLick");
               decreaseCurrentHealth(villainIndex);
             }}
             className={styles["villain-life-tracker-decreasehealth"]}

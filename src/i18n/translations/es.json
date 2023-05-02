@@ -38,11 +38,14 @@
     "rhino": {
       "villainName": "Rhino",
       "mainSchemeName": "Allanamiento!",
-      "rhinoImage1": "./rhino1es.png"
+      "villainImages": ["rhinoES"],
+      "mainSchemeImages": ["rhinoES"]
     },
     "klaw": {
       "villainName": "Klaw",
-      "mainSchemeName": ["Distribucion Clandestina", "Reunion Secreta"]
+      "mainSchemeName": ["Distribucion Clandestina", "Reunion Secreta"],
+      "villainImages": ["klawES"],
+      "mainSchemeImages": ["klawES"]
     }
   },
   "endGameModal": {
