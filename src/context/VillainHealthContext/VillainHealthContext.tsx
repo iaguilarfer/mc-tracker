@@ -46,7 +46,6 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
     getVillainStage,
     isStartingPoint,
     moveToNextVillainStage,
-    moveToNextSchemeStage,
     isVillainInLastStage,
     onVictoryCallback,
   } = useScenarioContext();
@@ -133,20 +132,28 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
     });
   };
 
-  const defeat = (villainIndex: number) => {
-    const onDefeat = getVillainStage(villainIndex).onDefeat;
-    switch (onDefeat) {
-      case OnDefeatOption.MoveToNextStage: {
-        if (isVillainInLastStage(villainIndex)) {
-          onVictoryCallback();
-        } else {
-          moveToNextVillainStage(villainIndex);
-          setVillainIndexToReset(villainIndex);
+  const defeat = useCallback(
+    (villainIndex: number) => {
+      const onDefeat = getVillainStage(villainIndex).onDefeat;
+      switch (onDefeat) {
+        case OnDefeatOption.MoveToNextStage: {
+          if (isVillainInLastStage(villainIndex)) {
+            onVictoryCallback();
+          } else {
+            moveToNextVillainStage(villainIndex);
+            setVillainIndexToReset(villainIndex);
+          }
+          break;
         }
-        break;
       }
-    }
-  };
+    },
+    [
+      getVillainStage,
+      onVictoryCallback,
+      moveToNextVillainStage,
+      isVillainInLastStage,
+    ]
+  );
 
   useEffect(() => {
     healths.forEach((health, index) => {
@@ -154,7 +161,7 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
         defeat(index);
       }
     });
-  }, [healths]);
+  }, [healths, defeat]);
 
   useEffect(() => {
     if (villainIndexToReset !== undefined) {
@@ -165,7 +172,7 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
       });
       setVillainIndexToReset(undefined);
     }
-  }, [villainIndexToReset]);
+  }, [villainIndexToReset, getInitialHealth]);
 
   return (
     <VillainHealthContext.Provider

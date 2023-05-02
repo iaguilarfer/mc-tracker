@@ -46,6 +46,26 @@
       "mainSchemeName": ["Underground Distribution", "Secret Rendezvous"],
       "villainImages": ["klawEN"],
       "mainSchemeImages": ["klawEN"]
+    },
+    "ultron": {
+      "villainName": "Ultron",
+      "mainSchemeName": [
+        "The Crimsom Cowl",
+        "Assault on NORAD",
+        "Countdown to Oblivion"
+      ],
+      "villainImages": ["ultronEN"],
+      "mainSchemeImages": ["ultronEN"]
+    },
+    "crossbones": {
+      "villainName": "Crossbones",
+      "mainSchemeName": [
+        "Atack on Mount Athena",
+        "The Infinity Stone",
+        "The Getaway"
+      ],
+      "villainImages": ["crossbonesEN"],
+      "mainSchemeImages": ["crossbonesEN"]
     }
   },
   "endGameModal": {

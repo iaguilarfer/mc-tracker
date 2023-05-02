@@ -1,4 +1,9 @@
-import React, { PropsWithChildren, useEffect, useState } from "react";
+import React, {
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useScenarioContext } from "../ScenarioContext/ScenarioContext";
 import cloneDeep from "lodash/cloneDeep";
 import { onThreatGetToMaxOption } from "../../models/MainScheme";
@@ -46,7 +51,6 @@ export const MainSchemeThreatContextProvider: React.FC<
 > = ({ children }) => {
   const {
     numberOfPlayers,
-    hasGameStarted,
     isStartingPoint,
     selectedScenario,
     getMainSchemeStage,
@@ -60,6 +64,26 @@ export const MainSchemeThreatContextProvider: React.FC<
   const [mainSchemeIndexToReset, setMainSchemeIndexToReset] =
     useState<number>();
 
+  const getInitialThreat = useCallback(
+    (mainSchemeIndex: number, accelerationTokens: number = 0) => {
+      const mainSchemeStage = getMainSchemeStage(mainSchemeIndex);
+      return {
+        currentThreat: mainSchemeStage
+          ? mainSchemeStage.startingThreatPerPlayer * (numberOfPlayers || 0)
+          : 0,
+        maxThreat: mainSchemeStage
+          ? mainSchemeStage.maxThreatPerPlayer * (numberOfPlayers || 0)
+          : 0,
+        threatPerTurn: mainSchemeStage
+          ? mainSchemeStage?.threatPerTurnPerPlayer * (numberOfPlayers || 0) +
+            accelerationTokens
+          : 0,
+        accelerationTokens: accelerationTokens,
+      };
+    },
+    [getMainSchemeStage, numberOfPlayers]
+  );
+
   useEffect(() => {
     if (isStartingPoint) {
       const results =
@@ -69,27 +93,7 @@ export const MainSchemeThreatContextProvider: React.FC<
       setThreats(results);
       setHasLoadedThreat(true);
     }
-  }, [numberOfPlayers, isStartingPoint, selectedScenario, getMainSchemeStage]);
-
-  const getInitialThreat = (
-    mainSchemeIndex: number,
-    accelerationTokens: number = 0
-  ) => {
-    const mainSchemeStage = getMainSchemeStage(mainSchemeIndex);
-    return {
-      currentThreat: mainSchemeStage
-        ? mainSchemeStage.startingThreatPerPlayer * (numberOfPlayers || 0)
-        : 0,
-      maxThreat: mainSchemeStage
-        ? mainSchemeStage.maxThreatPerPlayer * (numberOfPlayers || 0)
-        : 0,
-      threatPerTurn: mainSchemeStage
-        ? mainSchemeStage?.threatPerTurnPerPlayer * (numberOfPlayers || 0) +
-          accelerationTokens
-        : 0,
-      accelerationTokens: accelerationTokens,
-    };
-  };
+  }, [isStartingPoint, selectedScenario, getInitialThreat]);
 
   const getThreat = (index: number) => {
     return threats[index];
@@ -189,23 +193,31 @@ export const MainSchemeThreatContextProvider: React.FC<
       });
       setMainSchemeIndexToReset(undefined);
     }
-  }, [mainSchemeIndexToReset]);
+  }, [mainSchemeIndexToReset, getInitialThreat]);
 
-  const threatGetToMax = (mainSchemeIndex: number) => {
-    const onThreatGetToMax =
-      getMainSchemeStage(mainSchemeIndex).onThreatGetToMax;
-    switch (onThreatGetToMax) {
-      case onThreatGetToMaxOption.MoveToNextStage: {
-        if (isMainSchemeInLastStage(mainSchemeIndex)) {
-          onDefeatCallback();
-        } else {
-          moveToNextSchemeStage(mainSchemeIndex);
-          setMainSchemeIndexToReset(mainSchemeIndex);
+  const threatGetToMax = useCallback(
+    (mainSchemeIndex: number) => {
+      const onThreatGetToMax =
+        getMainSchemeStage(mainSchemeIndex).onThreatGetToMax;
+      switch (onThreatGetToMax) {
+        case onThreatGetToMaxOption.MoveToNextStage: {
+          if (isMainSchemeInLastStage(mainSchemeIndex)) {
+            onDefeatCallback();
+          } else {
+            moveToNextSchemeStage(mainSchemeIndex);
+            setMainSchemeIndexToReset(mainSchemeIndex);
+          }
+          break;
         }
-        break;
       }
-    }
-  };
+    },
+    [
+      getMainSchemeStage,
+      isMainSchemeInLastStage,
+      moveToNextSchemeStage,
+      onDefeatCallback,
+    ]
+  );
 
   useEffect(() => {
     threats.forEach((threat, index) => {
@@ -213,7 +225,7 @@ export const MainSchemeThreatContextProvider: React.FC<
         threatGetToMax(index);
       }
     });
-  }, [threats]);
+  }, [threats, threatGetToMax]);
 
   return (
     <MainSchemeThreatContext.Provider

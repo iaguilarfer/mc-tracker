@@ -1,7 +1,6 @@
 import React from "react";
 import { schemeImages } from "../../assets/images/schemes";
 import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
-import { MainScheme } from "../../models/MainScheme";
 import styles from "./MainSchemeThreatTracker.module.scss";
 import { useTranslation } from "react-i18next";
 import { useMainSchemeThreatContext } from "../../context/MainSchemeThreatContext/MainSchemeThreatContext";

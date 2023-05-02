@@ -14,6 +14,16 @@ export const villainImages: VillainImages = {
     require("./klaw2EN.png"),
     require("./klaw3EN.png"),
   ],
+  ultronEN: [
+    require("./ultron1EN.png"),
+    require("./ultron2EN.png"),
+    require("./ultron3EN.png"),
+  ],
+  crossbonesEN: [
+    require("./crossbones1EN.jpg"),
+    require("./crossbones2EN.png"),
+    require("./crossbones3EN.png"),
+  ],
   // ESPAÑOL
   rhinoES: [
     require("./rhino1ES.png"),
@@ -24,5 +34,15 @@ export const villainImages: VillainImages = {
     require("./klaw1EN.png"),
     require("./klaw2EN.png"),
     require("./klaw3EN.png"),
+  ],
+  ultronES: [
+    require("./ultron1EN.png"),
+    require("./ultron2EN.png"),
+    require("./ultron3EN.png"),
+  ],
+  crossbonesES: [
+    require("./crossbones1EN.jpg"),
+    require("./crossbones2EN.png"),
+    require("./crossbones3EN.png"),
   ],
 };
