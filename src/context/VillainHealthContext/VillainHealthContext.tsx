@@ -5,8 +5,9 @@ import React, {
   useState,
 } from "react";
 import { useScenarioContext } from "../ScenarioContext/ScenarioContext";
-import cloneDeep from "lodash/cloneDeep";
+
 import { OnDefeatOption } from "../../models/Villain";
+import cloneDeep from "lodash/cloneDeep";
 
 export interface VillainHealth {
   currentHealth: number;
