@@ -5,11 +5,13 @@ import {
   useContext,
   useEffect,
   useState,
+  useMemo,
 } from "react";
 import ScenariosJson from "../../assets/data/Scenarios.json";
 import { Scenario } from "../../models/Scenario";
-import { Villain } from "../../models/Villain";
-import { MainScheme } from "../../models/MainScheme";
+import { Villain, VillainStage } from "../../models/Villain";
+import { MainScheme, MainSchemeStage } from "../../models/MainScheme";
+import { cloneDeep } from "lodash";
 
 interface ScenarioContextProps {
   scenarioValue: string | undefined;
@@ -17,18 +19,24 @@ interface ScenarioContextProps {
   numberOfPlayers: number | undefined;
   setNumberOfPlayers: (numberOfPlayers: number) => void;
   selectedScenario: Scenario | undefined;
-  currentVillain: Villain | undefined;
-  setCurrentVillain: (currentVillain: Villain) => void;
-  advanceVillainStage: () => void;
-  isThisLastStage: () => boolean;
-  advanceSchemeStage: () => void;
-  currentMainScheme: MainScheme | undefined;
+  moveToNextVillainStage: (villainIndex: number) => void;
+  moveToNextSchemeStage: (schemeIndex: number) => void;
   cleanUp: () => void;
   hasGameStarted: boolean;
   setHasGameStarted: (hasGameStarted: boolean) => void;
   isStartingPoint: boolean;
   setOnVictoryCallback: (callback: () => void) => void;
+  onVictoryCallback: () => void;
   setOnDefeatCallback: (callback: () => void) => void;
+  onDefeatCallback: () => void;
+  getVillain: (villainIndex: number) => Villain;
+  getMainScheme: (schemeIndex: number) => MainScheme;
+  activeVillainIndex: number;
+  activeMainSchemeIndex: number;
+  getVillainStage: (villainIndex: number) => VillainStage;
+  getMainSchemeStage: (mainSchemeIndex: number) => MainSchemeStage;
+  isVillainInLastStage: (villainIndex: number) => boolean;
+  isMainSchemeInLastStage: (mainSchemeIndex: number) => boolean;
 }
 
 export const ScenarioContextDefaults: ScenarioContextProps = {
@@ -37,18 +45,24 @@ export const ScenarioContextDefaults: ScenarioContextProps = {
   numberOfPlayers: undefined,
   setNumberOfPlayers: () => null,
   selectedScenario: undefined,
-  currentVillain: undefined,
-  setCurrentVillain: () => null,
-  advanceVillainStage: () => null,
-  isThisLastStage: () => false,
-  advanceSchemeStage: () => null,
-  currentMainScheme: undefined,
   cleanUp: () => null,
   hasGameStarted: false,
   setHasGameStarted: () => null,
   isStartingPoint: false,
   setOnVictoryCallback: () => null,
+  onVictoryCallback: () => null,
   setOnDefeatCallback: () => null,
+  onDefeatCallback: () => null,
+  moveToNextVillainStage: (villainIndex: number) => null,
+  moveToNextSchemeStage: (schemeIndex: number) => null,
+  getVillain: () => ({} as Villain),
+  getMainScheme: () => ({} as MainScheme),
+  activeVillainIndex: 0,
+  activeMainSchemeIndex: 0,
+  getVillainStage: (villainIndex: number) => ({} as VillainStage),
+  getMainSchemeStage: (mainSchemeIndex: number) => ({} as MainSchemeStage),
+  isVillainInLastStage: (villainIndex: number) => false,
+  isMainSchemeInLastStage: (mainSchemeIndex: number) => false,
 };
 
 const ScenarioContext = createContext(ScenarioContextDefaults);
@@ -61,82 +75,67 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
 }) => {
   const [scenarioValue, setScenarioValue] = useState<string>();
   const [numberOfPlayers, setNumberOfPlayers] = useState<number>();
-
   const [selectedScenario, setSelectedScenario] = useState<Scenario>();
 
-  const [currentVillain, setCurrentVillain] = useState<Villain>();
-  const [currentMainScheme, setCurrentMainScheme] = useState<MainScheme>();
-  const [villainDeck, setVillainDeck] = useState<Array<Villain>>();
-  const [currentVillainStage, setCurrentVillainStage] = useState<number>(0);
-  const [currentMainSchemeStage, setCurrentMainSchemeStage] =
-    useState<number>(0);
+  const [activeVillainIndex, setActiveVillainIndex] = useState(0);
+  const [villainGroup, setVillainGroup] = useState<Array<Villain>>([]);
+  const [villainStageIndexes, setVillainStageIndexes] = useState<Array<number>>(
+    []
+  );
 
-  const isStartingPoint =
-    currentMainSchemeStage === 0 && currentVillainStage === 0;
+  const [activeMainSchemeIndex, setActiveMainSchemeIndex] = useState(0);
+  const [mainSchemeGroup, setMainSchemeGroup] = useState<Array<MainScheme>>([]);
+  const [mainSchemeStageIndexes, setMainSchemeStageIndexes] = useState<
+    Array<number>
+  >([]);
+  const [hasGameStarted, setHasGameStarted] = useState(false);
+  const isStartingPoint = useMemo(
+    () =>
+      villainStageIndexes.every((a) => a === 0) &&
+      mainSchemeStageIndexes.every((a) => a === 0) &&
+      hasGameStarted,
+    [villainStageIndexes, mainSchemeStageIndexes, hasGameStarted]
+  );
 
-  const [onVictoryCallback, setOnVictoryCallback] = useState<() => void>();
-  const [onDefeatCallback, setOnDefeatCallback] = useState<() => void>();
+  const [onVictoryCallback, setOnVictoryCallback] = useState<() => void>(
+    () => null
+  );
+  const [onDefeatCallback, setOnDefeatCallback] = useState<() => void>(
+    () => null
+  );
 
   const cleanUp = useCallback(() => {
     setScenarioValue(undefined);
     setSelectedScenario(undefined);
-    setVillainDeck(undefined);
-    setCurrentVillain(undefined);
-    setCurrentVillainStage(0);
-    setCurrentMainScheme(undefined);
     setNumberOfPlayers(undefined);
-    setCurrentMainSchemeStage(0);
     setHasGameStarted(false);
+    setActiveVillainIndex(0);
+    setVillainGroup([]);
+    setVillainStageIndexes([]);
+    setActiveMainSchemeIndex(0);
+    setMainSchemeGroup([]);
+    setMainSchemeStageIndexes([]);
   }, []);
 
-  const advanceVillainStage = () => {
-    if (villainDeck) {
-      if (currentVillainStage === 0) {
-        setCurrentVillain(villainDeck[currentVillainStage + 1]);
-        setCurrentVillainStage((prevState) => prevState + 1);
-      } else {
-        if (onVictoryCallback) {
-          onVictoryCallback();
-        }
-      }
-    }
+  const moveToNextVillainStage = (villainIndex: number) => {
+    setVillainStageIndexes((prevState) => {
+      const result = cloneDeep(prevState);
+      result[villainIndex]++;
+      return result;
+    });
   };
 
-  const [hasGameStarted, setHasGameStarted] = useState(false);
-
-  const isThisLastStage = useCallback(() => {
-    if (selectedScenario) {
-      return (
-        currentMainSchemeStage === selectedScenario.mainSchemeDeck.length - 1
-      );
-    } else {
-      return false;
-    }
-  }, [currentMainSchemeStage, selectedScenario]);
-
-  const advanceSchemeStage = useCallback(() => {
-    if (selectedScenario) {
-      if (isThisLastStage()) {
-        if (onDefeatCallback) {
-          onDefeatCallback();
-        }
-      } else {
-        setCurrentMainScheme(
-          selectedScenario.mainSchemeDeck[currentMainSchemeStage + 1]
-        );
-        setCurrentMainSchemeStage((prevState) => prevState + 1);
-      }
-    }
-  }, [
-    currentMainSchemeStage,
-    selectedScenario,
-
-    isThisLastStage,
-    onDefeatCallback,
-  ]);
+  const moveToNextSchemeStage = (schemeIndex: number) => {
+    setMainSchemeStageIndexes((prevState) => {
+      const result = cloneDeep(prevState);
+      result[schemeIndex]++;
+      return result;
+    });
+  };
 
   useEffect(() => {
-    const scenarios: Array<Scenario> = ScenariosJson.mCScenarios;
+    const scenarios: Array<Scenario> =
+      ScenariosJson.mCScenarios as Array<Scenario>;
     setSelectedScenario(
       scenarios.find((scenario) => scenario.scenarioValue === scenarioValue)
     );
@@ -144,12 +143,71 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
 
   useEffect(() => {
     if (selectedScenario) {
-      setVillainDeck(selectedScenario.villainDeck.slice(0, 2));
-      setCurrentVillain(selectedScenario!.villainDeck[0]);
-      setCurrentVillainStage(0);
-      setCurrentMainScheme(selectedScenario.mainSchemeDeck[0]);
+      setVillainGroup(
+        selectedScenario.villains.map((villain) => {
+          const result = { ...villain };
+          result.villainDeck = result.villainDeck.slice(0, 2);
+          return result;
+        })
+      );
+      setVillainStageIndexes(Array(selectedScenario.villains.length).fill(0));
+
+      setMainSchemeGroup(selectedScenario.mainSchemes);
+      setMainSchemeStageIndexes(
+        Array(selectedScenario.mainSchemes.length).fill(0)
+      );
     }
   }, [selectedScenario]);
+
+  const getVillain = useCallback(
+    (index: number) => {
+      return villainGroup[index];
+    },
+    [villainGroup]
+  );
+
+  const getMainScheme = useCallback(
+    (index: number) => {
+      return mainSchemeGroup[index];
+    },
+    [mainSchemeGroup]
+  );
+
+  const getVillainStage = useCallback(
+    (index: number) => {
+      return villainGroup[index].villainDeck[villainStageIndexes[index]];
+    },
+    [villainGroup, villainStageIndexes]
+  );
+
+  const getMainSchemeStage = useCallback(
+    (index: number) => {
+      return mainSchemeGroup[index].stages[mainSchemeStageIndexes[index]];
+    },
+    [mainSchemeGroup, mainSchemeStageIndexes]
+  );
+
+  const isVillainInLastStage = (villainIndex: number) => {
+    if (
+      villainStageIndexes[villainIndex] ===
+      villainGroup[villainIndex].villainDeck.length - 1
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const isMainSchemeInLastStage = (mainSchemeIndex: number) => {
+    if (
+      mainSchemeStageIndexes[mainSchemeIndex] ===
+      mainSchemeGroup[mainSchemeIndex].stages.length - 1
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   return (
     <ScenarioContext.Provider
@@ -159,18 +217,24 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         numberOfPlayers,
         setNumberOfPlayers,
         selectedScenario,
-        currentVillain,
-        setCurrentVillain,
-        advanceVillainStage,
-        isThisLastStage,
-        advanceSchemeStage,
-        currentMainScheme,
+        moveToNextVillainStage,
+        moveToNextSchemeStage,
         cleanUp,
         hasGameStarted,
         setHasGameStarted,
         isStartingPoint,
         setOnVictoryCallback,
         setOnDefeatCallback,
+        activeVillainIndex,
+        activeMainSchemeIndex,
+        getVillain,
+        getMainScheme,
+        getVillainStage,
+        getMainSchemeStage,
+        isVillainInLastStage,
+        isMainSchemeInLastStage,
+        onVictoryCallback,
+        onDefeatCallback,
       }}
     >
       {children}

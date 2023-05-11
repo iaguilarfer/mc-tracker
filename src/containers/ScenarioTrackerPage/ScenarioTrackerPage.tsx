@@ -6,18 +6,23 @@ import styles from "./ScenarioTrackerPage.module.scss";
 import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { useModalContext } from "../../context/modalContext/ModalContext";
 import { useTranslation } from "react-i18next";
+import { useVillainHealthContext } from "../../context/VillainHealthContext/VillainHealthContext";
+import { useMainSchemeThreatContext } from "../../context/MainSchemeThreatContext/MainSchemeThreatContext";
 
 export const ScenarioTrackerPage: React.FC = () => {
   const {
     selectedScenario,
-    currentVillain,
-    currentMainScheme,
     setOnVictoryCallback,
     setOnDefeatCallback,
+    activeVillainIndex,
+    activeMainSchemeIndex,
   } = useScenarioContext();
+  const { hasLoadedHealth } = useVillainHealthContext();
+  const { hasLoadedThreat } = useMainSchemeThreatContext();
   const { open } = useModalContext();
   const { t } = useTranslation();
-
+  const isReady =
+    hasLoadedHealth && hasLoadedThreat && selectedScenario !== undefined;
   useEffect(() => {
     setOnVictoryCallback(
       () => () =>
@@ -31,16 +36,15 @@ export const ScenarioTrackerPage: React.FC = () => {
 
   return (
     <div className={styles["scenario-tracker-page"]}>
-      {selectedScenario !== undefined &&
-      currentVillain !== undefined &&
-      currentMainScheme !== undefined ? (
+      {isReady && (
         <div className={styles["scenario-tracker-page-container"]}>
-          <VillainLifeTracker villain={currentVillain} />
-          <MainSchemeThreatTracker mainScheme={currentMainScheme} />
+          <VillainLifeTracker villainIndex={activeVillainIndex} />
+          <MainSchemeThreatTracker mainSchemeIndex={activeMainSchemeIndex} />
         </div>
-      ) : (
-        <div>Scenario not found</div>
       )}
+      {selectedScenario === undefined && <div>Scenario not found</div>}
+      {!hasLoadedHealth && <div>Loading Health</div>}
+      {!hasLoadedThreat && <div>Loading Threat</div>}
     </div>
   );
 };

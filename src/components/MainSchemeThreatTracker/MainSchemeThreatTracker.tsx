@@ -1,7 +1,6 @@
 import React from "react";
 import { schemeImages } from "../../assets/images/schemes";
 import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
-import { MainScheme } from "../../models/MainScheme";
 import styles from "./MainSchemeThreatTracker.module.scss";
 import { useTranslation } from "react-i18next";
 import { useMainSchemeThreatContext } from "../../context/MainSchemeThreatContext/MainSchemeThreatContext";
@@ -9,14 +8,14 @@ import { SchemeModal } from "../SchemeModal/SchemeModal";
 import { useModalContext } from "../../context/modalContext/ModalContext";
 
 interface MainSchemeThreatTrackerProps {
-  mainScheme: MainScheme;
+  mainSchemeIndex: number;
 }
 
 export const MainSchemeThreatTracker: React.FC<
   MainSchemeThreatTrackerProps
-> = ({ mainScheme }) => {
+> = ({ mainSchemeIndex }) => {
   const { t } = useTranslation();
-  const { selectedScenario } = useScenarioContext();
+  const { selectedScenario, getMainSchemeStage } = useScenarioContext();
   const { open } = useModalContext();
 
   const {
@@ -25,10 +24,18 @@ export const MainSchemeThreatTracker: React.FC<
     increaseAccelerationTokens,
     decreaseAccelerationTokens,
     startVillainTurn,
-    threat,
-    currentThreat,
-    maxThreat,
+    getThreat,
   } = useMainSchemeThreatContext();
+
+  const mainSchemeStage = getMainSchemeStage(mainSchemeIndex);
+
+  const { currentThreat, maxThreat, threatPerTurn, accelerationTokens } =
+    getThreat(mainSchemeIndex);
+
+  const imageKey = t(
+    `scenarios.${selectedScenario?.scenarioValue}.mainSchemeImages`,
+    { returnObjects: true }
+  )[mainSchemeIndex];
 
   return (
     <div className={styles["scheme-threat-tracker-container"]}>
@@ -36,9 +43,7 @@ export const MainSchemeThreatTracker: React.FC<
         <img
           onClick={() => open(<SchemeModal />)}
           className={styles["scheme-image"]}
-          src={
-            schemeImages[selectedScenario!.scenarioValue][mainScheme.stage - 1]
-          }
+          src={schemeImages[imageKey][mainSchemeStage.stage - 1]}
           alt={t(`scenarios.${selectedScenario?.scenarioValue}.mainSchemeName`)}
         />
       </div>
@@ -47,7 +52,7 @@ export const MainSchemeThreatTracker: React.FC<
           className={styles["scheme-threat-tracker-current-threat-container"]}
         >
           <div
-            onClick={() => decreaseCurrentThreat()}
+            onClick={() => decreaseCurrentThreat(mainSchemeIndex)}
             className={styles["scheme-threat-tracker-decreasethreat"]}
           >
             <div className={styles["increase-decrease-buttons"]}>-1</div>
@@ -59,7 +64,7 @@ export const MainSchemeThreatTracker: React.FC<
           </div>
 
           <div
-            onClick={() => increaseCurrentThreat()}
+            onClick={() => increaseCurrentThreat(mainSchemeIndex)}
             className={styles["scheme-threat-tracker-increasethreat"]}
           >
             <div className={styles["increase-decrease-buttons"]}>+1</div>
@@ -74,7 +79,7 @@ export const MainSchemeThreatTracker: React.FC<
         >
           <div className={styles["scheme-threat-tracker-acceleration"]}>
             <div
-              onClick={() => decreaseAccelerationTokens()}
+              onClick={() => decreaseAccelerationTokens(mainSchemeIndex)}
               className={styles["scheme-threat-tracker-decreaseacceleration"]}
             >
               <div className={styles["increase-decrease-buttons"]}>-1</div>
@@ -83,13 +88,13 @@ export const MainSchemeThreatTracker: React.FC<
               <p
                 className={styles["scheme-threat-tracker-currentacceleration"]}
               >
-                {threat.accelerationTokens}
+                {accelerationTokens}
                 <span className={styles["accelerationToken"]}>a</span>
               </p>
             </div>
 
             <div
-              onClick={() => increaseAccelerationTokens()}
+              onClick={() => increaseAccelerationTokens(mainSchemeIndex)}
               className={styles["scheme-threat-tracker-increaseacceleration"]}
             >
               <div className={styles["increase-decrease-buttons"]}>+1</div>
@@ -99,9 +104,7 @@ export const MainSchemeThreatTracker: React.FC<
             onClick={() => startVillainTurn()}
             className={styles["scheme-threat-tracker-villainturn"]}
           >
-            <div>{`${t("threatTracker.villainTurn")} ${
-              threat.threatPerTurn
-            }`}</div>
+            <div>{`${t("threatTracker.villainTurn")} ${threatPerTurn}`}</div>
           </div>
         </div>
       </div>

@@ -13,7 +13,8 @@ interface SchemeModalProps {}
 export const SchemeModal: React.FC<SchemeModalProps> = () => {
   const { t } = useTranslation();
   const { close } = useModalContext();
-  const { selectedScenario, currentMainScheme } = useScenarioContext();
+  const { selectedScenario, activeMainSchemeIndex, getMainSchemeStage } =
+    useScenarioContext();
 
   const {
     increaseCurrentThreat,
@@ -23,12 +24,17 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
     increaseAccelerationTokens,
     decreaseAccelerationTokens,
     startVillainTurn,
-    threat,
-    currentThreat,
-    maxThreat,
-    accelerationTokens,
+    getThreat,
   } = useMainSchemeThreatContext();
 
+  const mainSchemeStage = getMainSchemeStage(activeMainSchemeIndex);
+
+  const { currentThreat, maxThreat, threatPerTurn, accelerationTokens } =
+    getThreat(activeMainSchemeIndex);
+  const imageKey = t(
+    `scenarios.${selectedScenario?.scenarioValue}.mainSchemeImages`,
+    { returnObjects: true }
+  )[activeMainSchemeIndex];
   return (
     <Modal modalClassname={styles["scheme-modal"]} size={"large"}>
       <div className={styles["scheme-modal-container"]}>
@@ -36,10 +42,8 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
           <img
             className={styles["scheme-image"]}
             src={
-              selectedScenario && currentMainScheme
-                ? schemeImages[selectedScenario.scenarioValue][
-                    currentMainScheme.stage - 1
-                  ]
+              selectedScenario
+                ? schemeImages[imageKey][mainSchemeStage.stage - 1]
                 : ""
             }
             alt={t(
@@ -59,26 +63,26 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
             <div className={styles["buttons"]}>
               <Button
                 text={t("threatTracker.currentModifier", { modifier: "+1" })}
-                onClick={() => increaseCurrentThreat()}
+                onClick={() => increaseCurrentThreat(activeMainSchemeIndex)}
               />
               <Button
                 text={t("threatTracker.currentModifier", { modifier: "-1" })}
-                onClick={() => decreaseCurrentThreat()}
+                onClick={() => decreaseCurrentThreat(activeMainSchemeIndex)}
               />
             </div>
             <div className={styles["buttons"]}>
               <Button
                 text={t("threatTracker.maxModifier", { modifier: "+1" })}
-                onClick={() => increaseMaxThreat()}
+                onClick={() => increaseMaxThreat(activeMainSchemeIndex)}
               />
               <Button
                 text={t("threatTracker.maxModifier", { modifier: "-1" })}
-                onClick={() => decreaseMaxThreat()}
+                onClick={() => decreaseMaxThreat(activeMainSchemeIndex)}
               />
 
               <Button
                 text={t("threatTracker.camioncito")}
-                onClick={() => increaseMaxThreat(4)}
+                onClick={() => increaseMaxThreat(activeMainSchemeIndex, 4)}
               />
             </div>
             <div className={styles["buttons"]}>
@@ -86,18 +90,20 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
                 text={t("threatTracker.accelerationModifier", {
                   modifier: "+1",
                 })}
-                onClick={() => increaseAccelerationTokens()}
+                onClick={() =>
+                  increaseAccelerationTokens(activeMainSchemeIndex)
+                }
               />
               <Button
                 text={t("threatTracker.accelerationModifier", {
                   modifier: "-1",
                 })}
-                onClick={() => decreaseAccelerationTokens()}
+                onClick={() =>
+                  decreaseAccelerationTokens(activeMainSchemeIndex)
+                }
               />
               <Button
-                text={`${t("threatTracker.villainTurn")} ${
-                  threat.threatPerTurn
-                }`}
+                text={`${t("threatTracker.villainTurn")} ${threatPerTurn}`}
                 onClick={() => startVillainTurn()}
               />
             </div>

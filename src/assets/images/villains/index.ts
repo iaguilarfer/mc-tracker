@@ -3,14 +3,56 @@ interface VillainImages {
 }
 
 export const villainImages: VillainImages = {
-  rhino: [
-    require("./rhino1en.png"),
-    require("./rhino2en.png"),
-    require("./rhino3en.png"),
+  //ENGLISH
+  rhinoEN: [
+    require("./rhino1EN.png"),
+    require("./rhino2EN.png"),
+    require("./rhino3EN.png"),
   ],
-  klaw: [
-    require("./klaw1en.png"),
-    require("./klaw2en.png"),
-    require("./klaw3en.png"),
+  klawEN: [
+    require("./klaw1EN.png"),
+    require("./klaw2EN.png"),
+    require("./klaw3EN.png"),
+  ],
+  ultronEN: [
+    require("./ultron1EN.png"),
+    require("./ultron2EN.png"),
+    require("./ultron3EN.png"),
+  ],
+  crossbonesEN: [
+    require("./crossbones1EN.jpg"),
+    require("./crossbones2EN.png"),
+    require("./crossbones3EN.png"),
+  ],
+  zolaEN: [
+    require("./zola1EN.jpg"),
+    require("./zola2EN.jpg"),
+    require("./zola3EN.jpg"),
+  ],
+  // ESPAÑOL
+  rhinoES: [
+    require("./rhino1ES.png"),
+    require("./rhino2EN.png"),
+    require("./rhino3EN.png"),
+  ],
+  klawES: [
+    require("./klaw1EN.png"),
+    require("./klaw2EN.png"),
+    require("./klaw3EN.png"),
+  ],
+  ultronES: [
+    require("./ultron1EN.png"),
+    require("./ultron2EN.png"),
+    require("./ultron3EN.png"),
+  ],
+  crossbonesES: [
+    require("./crossbones1EN.jpg"),
+    require("./crossbones2EN.png"),
+    require("./crossbones3EN.png"),
+  ],
+  zolaES: [
+    require("./zola1EN.jpg"),
+    require("./zola2EN.jpg"),
+    require("./zola3EN.jpg"),
   ],
 };

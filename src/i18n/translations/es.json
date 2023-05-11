@@ -38,11 +38,40 @@
     "rhino": {
       "villainName": "Rhino",
       "mainSchemeName": "Allanamiento!",
-      "rhinoImage1": "./rhino1es.png"
+      "villainImages": ["rhinoES"],
+      "mainSchemeImages": ["rhinoES"]
     },
     "klaw": {
       "villainName": "Klaw",
-      "mainSchemeName": ["Distribucion Clandestina", "Reunion Secreta"]
+      "mainSchemeName": ["Distribucion Clandestina", "Reunion Secreta"],
+      "villainImages": ["klawES"],
+      "mainSchemeImages": ["klawES"]
+    },
+    "ultron": {
+      "villainName": "Ultron",
+      "mainSchemeName": [
+        "The Crimsom Cowl",
+        "Assault on NORAD",
+        "Countdown to Oblivion"
+      ],
+      "villainImages": ["ultronEN"],
+      "mainSchemeImages": ["ultronEN"]
+    },
+    "crossbones": {
+      "villainName": "Crossbones",
+      "mainSchemeName": [
+        "Atack on Mount Athena",
+        "The Infinity Stone",
+        "The Getaway"
+      ],
+      "villainImages": ["crossbonesES"],
+      "mainSchemeImages": ["crossbonesES"]
+    },
+    "zola": {
+      "villainName": "Zola",
+      "mainSchemeName": ["The Island of Dr.Zola", "The Mad Doctor"],
+      "villainImages": ["zolaEN"],
+      "mainSchemeImages": ["zolaEN"]
     }
   },
   "endGameModal": {
