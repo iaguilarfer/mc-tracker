@@ -11,8 +11,9 @@
       "three": "Three Players",
       "four": "Four Players"
     },
-    "scenarioDificulty": {
-      "easy": "Normal",
+    "modeSelector": {
+      "placeholder": "Select difficulty",
+      "standard": "Standard",
       "expert": "Expert"
     }
   },

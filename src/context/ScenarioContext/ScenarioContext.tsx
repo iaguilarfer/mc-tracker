@@ -8,12 +8,14 @@ import {
   useMemo,
 } from "react";
 import ScenariosJson from "../../assets/data/Scenarios.json";
-import { Scenario } from "../../models/Scenario";
+import { Scenario, gameModes } from "../../models/Scenario";
 import { Villain, VillainStage } from "../../models/Villain";
 import { MainScheme, MainSchemeStage } from "../../models/MainScheme";
 import { cloneDeep } from "lodash";
 
 interface ScenarioContextProps {
+  mode: gameModes | undefined;
+  setMode: (mode: gameModes) => void;
   scenarioValue: string | undefined;
   setScenarioValue: (scenarioValue: string) => void;
   numberOfPlayers: number | undefined;
@@ -40,6 +42,8 @@ interface ScenarioContextProps {
 }
 
 export const ScenarioContextDefaults: ScenarioContextProps = {
+  mode: undefined,
+  setMode: () => null,
   scenarioValue: undefined,
   setScenarioValue: () => null,
   numberOfPlayers: undefined,
@@ -73,6 +77,7 @@ export const useScenarioContext = (): ScenarioContextProps =>
 export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   children,
 }) => {
+  const [mode, setMode] = useState<gameModes>(gameModes.Standard);
   const [scenarioValue, setScenarioValue] = useState<string>();
   const [numberOfPlayers, setNumberOfPlayers] = useState<number>();
   const [selectedScenario, setSelectedScenario] = useState<Scenario>();
@@ -235,6 +240,8 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         isMainSchemeInLastStage,
         onVictoryCallback,
         onDefeatCallback,
+        mode,
+        setMode,
       }}
     >
       {children}

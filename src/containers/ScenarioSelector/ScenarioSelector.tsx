@@ -7,9 +7,12 @@ import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContex
 import styles from "./ScenarioSelector.module.scss";
 import { useMainSchemeThreatContext } from "../../context/MainSchemeThreatContext/MainSchemeThreatContext";
 import { useVillainHealthContext } from "../../context/VillainHealthContext/VillainHealthContext";
+import { gameModes } from "../../models/Scenario";
 
 export const ScenarioSelector: React.FC = () => {
   const {
+    mode,
+    setMode,
     setScenarioValue,
     setNumberOfPlayers,
     numberOfPlayers,
@@ -53,6 +56,17 @@ export const ScenarioSelector: React.FC = () => {
     },
   ];
 
+  const modes = [
+    {
+      value: gameModes.Standard,
+      label: t("scenarioSelectorPage.modeSelector.standard"),
+    },
+    {
+      value: gameModes.Expert,
+      label: t("scenarioSelectorPage.modeSelector.expert"),
+    },
+  ];
+
   const languages = [
     { value: "en", label: "English" },
     { value: "es", label: "Español" },
@@ -69,6 +83,8 @@ export const ScenarioSelector: React.FC = () => {
   const selectedLanguage = languages.find(
     (option) => option.value === i18n.language
   );
+
+  const selectedMode = modes.find((option) => option.value === mode);
 
   const ScenarioSelector = () => (
     <Select
@@ -100,6 +116,20 @@ export const ScenarioSelector: React.FC = () => {
     />
   );
 
+  const ModeSelector = () => (
+    <Select
+      isSearchable={false}
+      value={selectedMode}
+      options={modes}
+      placeholder={t("scenarioSelectorPage.modeSelector.placeholder")}
+      onChange={(option) => {
+        if (option !== null) {
+          setMode(option.value);
+        }
+      }}
+    />
+  );
+
   const LanguageSelector = () => (
     <Select
       isSearchable={false}
@@ -117,6 +147,9 @@ export const ScenarioSelector: React.FC = () => {
         </div>
         <div className={styles["player-selector"]}>
           <NumberOfPlayersSelector />
+        </div>
+        <div className={styles["mode-selector"]}>
+          <ModeSelector />
         </div>
         <div className={styles["language-selector"]}>
           <LanguageSelector />

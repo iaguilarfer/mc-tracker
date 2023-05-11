@@ -6,3 +6,8 @@ export interface Scenario {
   mainSchemes: Array<MainScheme>;
   scenarioValue: string;
 }
+
+export enum gameModes {
+  Standard = "Standard",
+  Expert = "Expert",
+}
