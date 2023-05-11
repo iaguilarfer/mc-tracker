@@ -5,6 +5,8 @@ import Select from "react-select";
 import ScenariosJson from "../../assets/data/Scenarios.json";
 import { useScenarioContext } from "../../context/ScenarioContext/ScenarioContext";
 import styles from "./ScenarioSelector.module.scss";
+import { useMainSchemeThreatContext } from "../../context/MainSchemeThreatContext/MainSchemeThreatContext";
+import { useVillainHealthContext } from "../../context/VillainHealthContext/VillainHealthContext";
 
 export const ScenarioSelector: React.FC = () => {
   const {
@@ -12,13 +14,18 @@ export const ScenarioSelector: React.FC = () => {
     setNumberOfPlayers,
     numberOfPlayers,
     scenarioValue,
-    cleanUp,
+    cleanUp: scenarioCleanUp,
     setHasGameStarted,
   } = useScenarioContext();
 
+  const { cleanUp: healthCleanUp } = useVillainHealthContext();
+  const { cleanUp: threatCleanUp } = useMainSchemeThreatContext();
+
   useEffect(() => {
-    cleanUp();
-  }, [cleanUp]);
+    scenarioCleanUp();
+    healthCleanUp();
+    threatCleanUp();
+  }, [scenarioCleanUp, healthCleanUp, threatCleanUp]);
 
   const { t, i18n } = useTranslation();
 

@@ -25,6 +25,7 @@ export interface MainSchemeThreatContextProps {
   startVillainTurn: () => void;
   getThreat: (mainSchemeIndex: number) => MainSchemeThreat;
   hasLoadedThreat: boolean;
+  cleanUp: () => void;
 }
 
 export const MainSchemeThreatContextDefaults: MainSchemeThreatContextProps = {
@@ -37,6 +38,7 @@ export const MainSchemeThreatContextDefaults: MainSchemeThreatContextProps = {
   startVillainTurn: () => null,
   getThreat: () => ({} as MainSchemeThreat),
   hasLoadedThreat: false,
+  cleanUp: () => null,
 };
 
 export const MainSchemeThreatContext = React.createContext(
@@ -57,12 +59,20 @@ export const MainSchemeThreatContextProvider: React.FC<
     isMainSchemeInLastStage,
     moveToNextSchemeStage,
     onDefeatCallback,
+    hasGameStarted,
+    setHasGameStarted,
   } = useScenarioContext();
 
   const [threats, setThreats] = useState<Array<MainSchemeThreat>>([]);
   const [hasLoadedThreat, setHasLoadedThreat] = useState<boolean>(false);
   const [mainSchemeIndexToReset, setMainSchemeIndexToReset] =
     useState<number>();
+
+  const cleanUp = useCallback(() => {
+    setThreats([]);
+    setHasLoadedThreat(false);
+    setMainSchemeIndexToReset(undefined);
+  }, []);
 
   const getInitialThreat = useCallback(
     (mainSchemeIndex: number, accelerationTokens: number = 0) => {
@@ -203,6 +213,7 @@ export const MainSchemeThreatContextProvider: React.FC<
         case onThreatGetToMaxOption.MoveToNextStage: {
           if (isMainSchemeInLastStage(mainSchemeIndex)) {
             onDefeatCallback();
+            setHasGameStarted(false);
           } else {
             moveToNextSchemeStage(mainSchemeIndex);
             setMainSchemeIndexToReset(mainSchemeIndex);
@@ -216,16 +227,20 @@ export const MainSchemeThreatContextProvider: React.FC<
       isMainSchemeInLastStage,
       moveToNextSchemeStage,
       onDefeatCallback,
+
+      setHasGameStarted,
     ]
   );
 
   useEffect(() => {
-    threats.forEach((threat, index) => {
-      if (threat.currentThreat >= threat.maxThreat) {
-        threatGetToMax(index);
-      }
-    });
-  }, [threats, threatGetToMax]);
+    if (hasGameStarted && mainSchemeIndexToReset === undefined) {
+      threats.forEach((threat, index) => {
+        if (threat.currentThreat >= threat.maxThreat) {
+          threatGetToMax(index);
+        }
+      });
+    }
+  }, [threats, threatGetToMax, hasGameStarted, mainSchemeIndexToReset]);
 
   return (
     <MainSchemeThreatContext.Provider
@@ -239,6 +254,7 @@ export const MainSchemeThreatContextProvider: React.FC<
         startVillainTurn,
         getThreat,
         hasLoadedThreat,
+        cleanUp,
       }}
     >
       {children}

@@ -21,6 +21,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
     useVillainHealthContext();
 
   const villainStage = getVillainStage(villainIndex);
+
   const { currentHealth, maxHealth } = getVillainHealth(villainIndex);
   const imageKey = t(
     `scenarios.${selectedScenario?.scenarioValue}.villainImages`,

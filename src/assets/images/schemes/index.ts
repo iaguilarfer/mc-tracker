@@ -19,6 +19,10 @@ export const schemeImages: SchemeImages = {
     require("./theRealityStoneEN.png"),
     require("./theGetawayEN.png"),
   ],
+  zolaEN: [
+    require("./theIslandOfDrZolaEN.jpg"),
+    require("./theMadDoctorEN.jpg"),
+  ],
 
   // ESPAÑOL
   rhinoES: [require("./thebreakinEN.png")],

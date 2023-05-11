@@ -12,7 +12,6 @@ import { useMainSchemeThreatContext } from "../../context/MainSchemeThreatContex
 export const ScenarioTrackerPage: React.FC = () => {
   const {
     selectedScenario,
-
     setOnVictoryCallback,
     setOnDefeatCallback,
     activeVillainIndex,

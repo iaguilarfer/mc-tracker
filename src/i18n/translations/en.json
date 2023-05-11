@@ -66,6 +66,12 @@
       ],
       "villainImages": ["crossbonesEN"],
       "mainSchemeImages": ["crossbonesEN"]
+    },
+    "zola": {
+      "villainName": "Zola",
+      "mainSchemeName": ["The Island of Dr.Zola", "The Mad Doctor"],
+      "villainImages": ["zolaEN"],
+      "mainSchemeImages": ["zolaEN"]
     }
   },
   "endGameModal": {

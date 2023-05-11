@@ -20,6 +20,7 @@ export interface VillainHealthContextProps {
   decreaseMaxHealth: (villainIndex: number, value?: number) => void;
   getVillainHealth: (villainIndex: number) => VillainHealth;
   hasLoadedHealth: boolean;
+  cleanUp: () => void;
 }
 
 export const VillainHealthContextDefaults: VillainHealthContextProps = {
@@ -29,6 +30,7 @@ export const VillainHealthContextDefaults: VillainHealthContextProps = {
   decreaseMaxHealth: (villainIndex) => null,
   getVillainHealth: () => ({} as VillainHealth),
   hasLoadedHealth: false,
+  cleanUp: () => null,
 };
 
 export const VillainHealthContext = React.createContext(
@@ -49,6 +51,8 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
     moveToNextVillainStage,
     isVillainInLastStage,
     onVictoryCallback,
+    setHasGameStarted,
+    hasGameStarted,
   } = useScenarioContext();
   const [healths, setHealths] = useState<Array<VillainHealth>>([]);
 
@@ -64,6 +68,14 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
     },
     [getVillainStage, numberOfPlayers]
   );
+
+  const cleanUp = useCallback(() => {
+    setHealths([]);
+    setHasLoadedHealth(false);
+    setVillainIndexToReset(undefined);
+  }, []);
+
+  useEffect(() => {}, [healths]);
 
   useEffect(() => {
     if (isStartingPoint) {
@@ -139,6 +151,7 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
       switch (onDefeat) {
         case OnDefeatOption.MoveToNextStage: {
           if (isVillainInLastStage(villainIndex)) {
+            setHasGameStarted(false);
             onVictoryCallback();
           } else {
             moveToNextVillainStage(villainIndex);
@@ -150,6 +163,7 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
     },
     [
       getVillainStage,
+      setHasGameStarted,
       onVictoryCallback,
       moveToNextVillainStage,
       isVillainInLastStage,
@@ -157,12 +171,14 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
   );
 
   useEffect(() => {
-    healths.forEach((health, index) => {
-      if (health.currentHealth <= 0) {
-        defeat(index);
-      }
-    });
-  }, [healths, defeat]);
+    if (hasGameStarted && villainIndexToReset === undefined) {
+      healths.forEach((health, index) => {
+        if (health.currentHealth <= 0) {
+          defeat(index);
+        }
+      });
+    }
+  }, [healths, defeat, villainIndexToReset, hasGameStarted]);
 
   useEffect(() => {
     if (villainIndexToReset !== undefined) {
@@ -184,6 +200,7 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
         decreaseMaxHealth,
         getVillainHealth,
         hasLoadedHealth,
+        cleanUp,
       }}
     >
       {children}

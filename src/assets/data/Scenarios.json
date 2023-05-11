@@ -196,6 +196,53 @@
           ]
         }
       ]
+    },
+    {
+      "scenarioValue": "zola",
+      "villains": [
+        {
+          "villainDeck": [
+            {
+              "maxHealthPerPlayer": 12,
+              "stage": 1,
+              "onDefeat": "MoveToNextStage"
+            },
+            {
+              "maxHealthPerPlayer": 14,
+              "stage": 2,
+              "onDefeat": "MoveToNextStage"
+            },
+            {
+              "maxHealthPerPlayer": 16,
+              "stage": 3,
+              "onDefeat": "MoveToNextStage"
+            }
+          ],
+          "villainValue": "crossbones"
+        }
+      ],
+      "mainSchemes": [
+        {
+          "stages": [
+            {
+              "maxThreatPerPlayer": 6,
+              "startingThreatPerPlayer": 0,
+              "threatPerTurnPerPlayer": 1,
+              "stage": 1,
+              "onThreatGetToZero": "Nothing",
+              "onThreatGetToMax": "MoveToNextStage"
+            },
+            {
+              "maxThreatPerPlayer": 8,
+              "startingThreatPerPlayer": 1,
+              "threatPerTurnPerPlayer": 1,
+              "stage": 2,
+              "onThreatGetToZero": "Nothing",
+              "onThreatGetToMax": "MoveToNextStage"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
