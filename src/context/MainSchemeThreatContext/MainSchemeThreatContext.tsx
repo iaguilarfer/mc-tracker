@@ -227,7 +227,6 @@ export const MainSchemeThreatContextProvider: React.FC<
       isMainSchemeInLastStage,
       moveToNextSchemeStage,
       onDefeatCallback,
-
       setHasGameStarted,
     ]
   );

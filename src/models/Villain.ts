@@ -7,10 +7,12 @@ export enum OnDefeatOption {
 export interface Villain {
   villainDeck: Array<VillainStage>;
   villainValue: string;
+  villainStandardStages: Array<number>;
+  villainExpertStages: Array<number>;
 }
 
 export interface VillainStage {
   maxHealthPerPlayer: number;
-  stage: number;
+  stageIndex: number;
   onDefeat: OnDefeatOption;
 }

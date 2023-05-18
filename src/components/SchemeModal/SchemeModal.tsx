@@ -43,7 +43,7 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
             className={styles["scheme-image"]}
             src={
               selectedScenario
-                ? schemeImages[imageKey][mainSchemeStage.stage - 1]
+                ? schemeImages[imageKey][mainSchemeStage.stageIndex - 1]
                 : ""
             }
             alt={t(

@@ -43,7 +43,7 @@ export const MainSchemeThreatTracker: React.FC<
         <img
           onClick={() => open(<SchemeModal />)}
           className={styles["scheme-image"]}
-          src={schemeImages[imageKey][mainSchemeStage.stage - 1]}
+          src={schemeImages[imageKey][mainSchemeStage.stageIndex - 1]}
           alt={t(`scenarios.${selectedScenario?.scenarioValue}.mainSchemeName`)}
         />
       </div>

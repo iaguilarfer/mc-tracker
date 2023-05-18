@@ -7,21 +7,23 @@
           "villainDeck": [
             {
               "maxHealthPerPlayer": 14,
-              "stage": 1,
+              "stageIndex": 1,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 15,
-              "stage": 2,
+              "stageIndex": 2,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 16,
-              "stage": 3,
+              "stageIndex": 3,
               "onDefeat": "MoveToNextStage"
             }
           ],
-          "villainValue": "rhino"
+          "villainValue": "rhino",
+          "villainStandardStages": [1, 2],
+          "villainExpertStages": [2, 3]
         }
       ],
       "mainSchemes": [
@@ -33,7 +35,7 @@
               "threatPerTurnPerPlayer": 1,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage",
-              "stage": 1
+              "stageIndex": 1
             }
           ]
         }
@@ -47,21 +49,23 @@
           "villainDeck": [
             {
               "maxHealthPerPlayer": 12,
-              "stage": 1,
+              "stageIndex": 1,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 18,
-              "stage": 2,
+              "stageIndex": 2,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 22,
-              "stage": 3,
+              "stageIndex": 3,
               "onDefeat": "MoveToNextStage"
             }
           ],
-          "villainValue": "klaw"
+          "villainValue": "klaw",
+          "villainStandardStages": [1, 2],
+          "villainExpertStages": [2, 3]
         }
       ],
       "mainSchemes": [
@@ -71,7 +75,7 @@
               "maxThreatPerPlayer": 6,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 1,
+              "stageIndex": 1,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             },
@@ -79,7 +83,7 @@
               "maxThreatPerPlayer": 8,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 2,
+              "stageIndex": 2,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             }
@@ -94,21 +98,23 @@
           "villainDeck": [
             {
               "maxHealthPerPlayer": 17,
-              "stage": 1,
+              "stageIndex": 1,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 22,
-              "stage": 2,
+              "stageIndex": 2,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 27,
-              "stage": 3,
+              "stageIndex": 3,
               "onDefeat": "MoveToNextStage"
             }
           ],
-          "villainValue": "ultron"
+          "villainValue": "ultron",
+          "villainStandardStages": [1, 2],
+          "villainExpertStages": [2, 3]
         }
       ],
       "mainSchemes": [
@@ -118,7 +124,7 @@
               "maxThreatPerPlayer": 3,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 1,
+              "stageIndex": 1,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             },
@@ -126,7 +132,7 @@
               "maxThreatPerPlayer": 10,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 2,
+              "stageIndex": 2,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             },
@@ -134,7 +140,7 @@
               "maxThreatPerPlayer": 5,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 3,
+              "stageIndex": 3,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             }
@@ -149,21 +155,23 @@
           "villainDeck": [
             {
               "maxHealthPerPlayer": 12,
-              "stage": 1,
+              "stageIndex": 1,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 14,
-              "stage": 2,
+              "stageIndex": 2,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 16,
-              "stage": 3,
+              "stageIndex": 3,
               "onDefeat": "MoveToNextStage"
             }
           ],
-          "villainValue": "crossbones"
+          "villainValue": "crossbones",
+          "villainStandardStages": [1, 2],
+          "villainExpertStages": [2, 3]
         }
       ],
       "mainSchemes": [
@@ -173,7 +181,7 @@
               "maxThreatPerPlayer": 3,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 1,
+              "stageIndex": 1,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             },
@@ -181,7 +189,7 @@
               "maxThreatPerPlayer": 6,
               "startingThreatPerPlayer": 1,
               "threatPerTurnPerPlayer": 1,
-              "stage": 2,
+              "stageIndex": 2,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             },
@@ -189,7 +197,7 @@
               "maxThreatPerPlayer": 5,
               "startingThreatPerPlayer": 1,
               "threatPerTurnPerPlayer": 1,
-              "stage": 3,
+              "stageIndex": 3,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             }
@@ -204,21 +212,23 @@
           "villainDeck": [
             {
               "maxHealthPerPlayer": 12,
-              "stage": 1,
+              "stageIndex": 1,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 14,
-              "stage": 2,
+              "stageIndex": 2,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 16,
-              "stage": 3,
+              "stageIndex": 3,
               "onDefeat": "MoveToNextStage"
             }
           ],
-          "villainValue": "crossbones"
+          "villainValue": "zola",
+          "villainStandardStages": [1, 2],
+          "villainExpertStages": [2, 3]
         }
       ],
       "mainSchemes": [
@@ -228,7 +238,7 @@
               "maxThreatPerPlayer": 6,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 1,
+              "stageIndex": 1,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             },
@@ -236,7 +246,56 @@
               "maxThreatPerPlayer": 8,
               "startingThreatPerPlayer": 1,
               "threatPerTurnPerPlayer": 1,
-              "stage": 2,
+              "stageIndex": 2,
+              "onThreatGetToZero": "Nothing",
+              "onThreatGetToMax": "MoveToNextStage"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioValue": "redskull",
+      "villains": [
+        {
+          "villainDeck": [
+            {
+              "maxHealthPerPlayer": 12,
+              "stageIndex": 1,
+              "onDefeat": "MoveToNextStage"
+            },
+            {
+              "maxHealthPerPlayer": 16,
+              "stageIndex": 2,
+              "onDefeat": "MoveToNextStage"
+            },
+            {
+              "maxHealthPerPlayer": 20,
+              "stageIndex": 3,
+              "onDefeat": "MoveToNextStage"
+            }
+          ],
+          "villainValue": "redskull",
+          "villainStandardStages": [1, 2],
+          "villainExpertStages": [2, 3]
+        }
+      ],
+      "mainSchemes": [
+        {
+          "stages": [
+            {
+              "maxThreatPerPlayer": 8,
+              "startingThreatPerPlayer": 0,
+              "threatPerTurnPerPlayer": 1,
+              "stageIndex": 1,
+              "onThreatGetToZero": "Nothing",
+              "onThreatGetToMax": "MoveToNextStage"
+            },
+            {
+              "maxThreatPerPlayer": 11,
+              "startingThreatPerPlayer": 1,
+              "threatPerTurnPerPlayer": 1,
+              "stageIndex": 2,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             }

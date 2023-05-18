@@ -8,12 +8,14 @@ import {
   useMemo,
 } from "react";
 import ScenariosJson from "../../assets/data/Scenarios.json";
-import { Scenario } from "../../models/Scenario";
+import { Scenario, gameModes } from "../../models/Scenario";
 import { Villain, VillainStage } from "../../models/Villain";
 import { MainScheme, MainSchemeStage } from "../../models/MainScheme";
 import { cloneDeep } from "lodash";
 
 interface ScenarioContextProps {
+  mode: gameModes | undefined;
+  setMode: (mode: gameModes) => void;
   scenarioValue: string | undefined;
   setScenarioValue: (scenarioValue: string) => void;
   numberOfPlayers: number | undefined;
@@ -40,6 +42,8 @@ interface ScenarioContextProps {
 }
 
 export const ScenarioContextDefaults: ScenarioContextProps = {
+  mode: undefined,
+  setMode: () => null,
   scenarioValue: undefined,
   setScenarioValue: () => null,
   numberOfPlayers: undefined,
@@ -73,6 +77,7 @@ export const useScenarioContext = (): ScenarioContextProps =>
 export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   children,
 }) => {
+  const [mode, setMode] = useState<gameModes>(gameModes.Standard);
   const [scenarioValue, setScenarioValue] = useState<string>();
   const [numberOfPlayers, setNumberOfPlayers] = useState<number>();
   const [selectedScenario, setSelectedScenario] = useState<Scenario>();
@@ -136,6 +141,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   useEffect(() => {
     const scenarios: Array<Scenario> =
       ScenariosJson.mCScenarios as Array<Scenario>;
+
     setSelectedScenario(
       scenarios.find((scenario) => scenario.scenarioValue === scenarioValue)
     );
@@ -146,7 +152,13 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
       setVillainGroup(
         selectedScenario.villains.map((villain) => {
           const result = { ...villain };
-          result.villainDeck = result.villainDeck.slice(0, 2);
+          const villainStagesBaseOnMode =
+            mode === gameModes.Expert
+              ? villain.villainExpertStages
+              : villain.villainStandardStages;
+          result.villainDeck = result.villainDeck.filter((stage) => {
+            return villainStagesBaseOnMode.includes(stage.stageIndex);
+          });
           return result;
         })
       );
@@ -157,7 +169,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         Array(selectedScenario.mainSchemes.length).fill(0)
       );
     }
-  }, [selectedScenario]);
+  }, [selectedScenario, mode]);
 
   const getVillain = useCallback(
     (index: number) => {
@@ -235,6 +247,8 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         isMainSchemeInLastStage,
         onVictoryCallback,
         onDefeatCallback,
+        mode,
+        setMode,
       }}
     >
       {children}

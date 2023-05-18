@@ -14,7 +14,7 @@ export interface MainSchemeStage {
   maxThreatPerPlayer: number;
   startingThreatPerPlayer: number;
   threatPerTurnPerPlayer: number;
-  stage: number;
+  stageIndex: number;
   onThreatGetToZero: onThreatGetToZeroOption;
   onThreatGetToMax: onThreatGetToMaxOption;
 }

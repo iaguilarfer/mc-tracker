@@ -29,9 +29,14 @@ export const villainImages: VillainImages = {
     require("./zola2EN.jpg"),
     require("./zola3EN.jpg"),
   ],
+  redskullEN: [
+    require("./redskull1EN.jpg"),
+    require("./redskull2EN.jpg"),
+    require("./redskull3EN.jpg"),
+  ],
   // ESPAÑOL
   rhinoES: [
-    require("./rhino1ES.png"),
+    require("./rhino1EN.png"),
     require("./rhino2EN.png"),
     require("./rhino3EN.png"),
   ],
@@ -54,5 +59,10 @@ export const villainImages: VillainImages = {
     require("./zola1EN.jpg"),
     require("./zola2EN.jpg"),
     require("./zola3EN.jpg"),
+  ],
+  redskullES: [
+    require("./redskull1EN.jpg"),
+    require("./redskull2EN.jpg"),
+    require("./redskull3EN.jpg"),
   ],
 };
