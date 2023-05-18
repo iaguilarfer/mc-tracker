@@ -151,7 +151,13 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
       setVillainGroup(
         selectedScenario.villains.map((villain) => {
           const result = { ...villain };
-          result.villainDeck = result.villainDeck.slice(0, 2);
+          const villainStagesBaseOnMode =
+            mode === gameModes.Expert
+              ? villain.villainExpertStages
+              : villain.villainStandardStages;
+          result.villainDeck = result.villainDeck.filter((stage) => {
+            return villainStagesBaseOnMode.includes(stage.stage);
+          });
           return result;
         })
       );
@@ -162,7 +168,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         Array(selectedScenario.mainSchemes.length).fill(0)
       );
     }
-  }, [selectedScenario]);
+  }, [selectedScenario, mode]);
 
   const getVillain = useCallback(
     (index: number) => {

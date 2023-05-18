@@ -23,6 +23,10 @@ export const schemeImages: SchemeImages = {
     require("./theIslandOfDrZolaEN.jpg"),
     require("./theMadDoctorEN.jpg"),
   ],
+  redskullEN: [
+    require("./theRiseOfTheRedSkullEN.jpg"),
+    require("./newWorldHydraEN.jpg"),
+  ],
 
   // ESPAÑOL
   rhinoES: [require("./thebreakinEN.png")],
@@ -40,5 +44,13 @@ export const schemeImages: SchemeImages = {
     require("./atackOnMountAthenaEN.png"),
     require("./theRealityStoneEN.png"),
     require("./theGetawayEN.png"),
+  ],
+  zolaES: [
+    require("./theIslandOfDrZolaEN.jpg"),
+    require("./theMadDoctorEN.jpg"),
+  ],
+  redskullES: [
+    require("./theRiseOfTheRedSkullEN.jpg"),
+    require("./newWorldHydraEN.jpg"),
   ],
 };

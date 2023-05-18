@@ -21,7 +21,9 @@
               "onDefeat": "MoveToNextStage"
             }
           ],
-          "villainValue": "rhino"
+          "villainValue": "rhino",
+          "villainStandardStages": [1, 2],
+          "villainExpertStages": [2, 3]
         }
       ],
       "mainSchemes": [
@@ -61,7 +63,9 @@
               "onDefeat": "MoveToNextStage"
             }
           ],
-          "villainValue": "klaw"
+          "villainValue": "klaw",
+          "villainStandardStages": [1, 2],
+          "villainExpertStages": [2, 3]
         }
       ],
       "mainSchemes": [
@@ -108,7 +112,9 @@
               "onDefeat": "MoveToNextStage"
             }
           ],
-          "villainValue": "ultron"
+          "villainValue": "ultron",
+          "villainStandardStages": [1, 2],
+          "villainExpertStages": [2, 3]
         }
       ],
       "mainSchemes": [
@@ -163,7 +169,9 @@
               "onDefeat": "MoveToNextStage"
             }
           ],
-          "villainValue": "crossbones"
+          "villainValue": "crossbones",
+          "villainStandardStages": [1, 2],
+          "villainExpertStages": [2, 3]
         }
       ],
       "mainSchemes": [
@@ -218,7 +226,9 @@
               "onDefeat": "MoveToNextStage"
             }
           ],
-          "villainValue": "crossbones"
+          "villainValue": "zola",
+          "villainStandardStages": [1, 2],
+          "villainExpertStages": [2, 3]
         }
       ],
       "mainSchemes": [
@@ -234,6 +244,55 @@
             },
             {
               "maxThreatPerPlayer": 8,
+              "startingThreatPerPlayer": 1,
+              "threatPerTurnPerPlayer": 1,
+              "stage": 2,
+              "onThreatGetToZero": "Nothing",
+              "onThreatGetToMax": "MoveToNextStage"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "scenarioValue": "redskull",
+      "villains": [
+        {
+          "villainDeck": [
+            {
+              "maxHealthPerPlayer": 12,
+              "stage": 1,
+              "onDefeat": "MoveToNextStage"
+            },
+            {
+              "maxHealthPerPlayer": 16,
+              "stage": 2,
+              "onDefeat": "MoveToNextStage"
+            },
+            {
+              "maxHealthPerPlayer": 20,
+              "stage": 3,
+              "onDefeat": "MoveToNextStage"
+            }
+          ],
+          "villainValue": "redskull",
+          "villainStandardStages": [1, 2],
+          "villainExpertStages": [2, 3]
+        }
+      ],
+      "mainSchemes": [
+        {
+          "stages": [
+            {
+              "maxThreatPerPlayer": 8,
+              "startingThreatPerPlayer": 0,
+              "threatPerTurnPerPlayer": 1,
+              "stage": 1,
+              "onThreatGetToZero": "Nothing",
+              "onThreatGetToMax": "MoveToNextStage"
+            },
+            {
+              "maxThreatPerPlayer": 11,
               "startingThreatPerPlayer": 1,
               "threatPerTurnPerPlayer": 1,
               "stage": 2,

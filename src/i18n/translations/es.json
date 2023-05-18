@@ -25,7 +25,7 @@
     "closeButton": "Cerrar"
   },
   "threatTracker": {
-    "villainTurn": "Turno del villano",
+    "villainTurn": "Turno del villano:",
     "maxThreat": "Amenaza Maxima",
     "currentThreat": "Amenaza Actual",
     "currentAccelerationTokens": "Contadores de Aceleracion Actuales",
@@ -71,8 +71,14 @@
     "zola": {
       "villainName": "Zola",
       "mainSchemeName": ["The Island of Dr.Zola", "The Mad Doctor"],
-      "villainImages": ["zolaEN"],
-      "mainSchemeImages": ["zolaEN"]
+      "villainImages": ["zolaES"],
+      "mainSchemeImages": ["zolaES"]
+    },
+    "redskull": {
+      "villainName": "Red Skull",
+      "mainSchemeName": ["The Rise of the Red Skull", "New World Hydra"],
+      "villainImages": ["redskullES"],
+      "mainSchemeImages": ["redskullES"]
     }
   },
   "endGameModal": {

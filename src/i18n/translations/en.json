@@ -25,7 +25,7 @@
     "closeButton": "Close"
   },
   "threatTracker": {
-    "villainTurn": "Villain Turn",
+    "villainTurn": "Villain Turn:",
     "maxThreat": "Max Threat",
     "currentThreat": "Current Threat",
     "currentModifier": "Current {{modifier}}",
@@ -73,6 +73,12 @@
       "mainSchemeName": ["The Island of Dr.Zola", "The Mad Doctor"],
       "villainImages": ["zolaEN"],
       "mainSchemeImages": ["zolaEN"]
+    },
+    "redskull": {
+      "villainName": "Red Skull",
+      "mainSchemeName": ["The Rise of the Red Skull", "New World Hydra"],
+      "villainImages": ["redskullEN"],
+      "mainSchemeImages": ["redskullEN"]
     }
   },
   "endGameModal": {
