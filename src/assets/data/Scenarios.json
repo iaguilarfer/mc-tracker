@@ -7,17 +7,17 @@
           "villainDeck": [
             {
               "maxHealthPerPlayer": 14,
-              "stage": 1,
+              "stageIndex": 1,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 15,
-              "stage": 2,
+              "stageIndex": 2,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 16,
-              "stage": 3,
+              "stageIndex": 3,
               "onDefeat": "MoveToNextStage"
             }
           ],
@@ -35,7 +35,7 @@
               "threatPerTurnPerPlayer": 1,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage",
-              "stage": 1
+              "stageIndex": 1
             }
           ]
         }
@@ -49,17 +49,17 @@
           "villainDeck": [
             {
               "maxHealthPerPlayer": 12,
-              "stage": 1,
+              "stageIndex": 1,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 18,
-              "stage": 2,
+              "stageIndex": 2,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 22,
-              "stage": 3,
+              "stageIndex": 3,
               "onDefeat": "MoveToNextStage"
             }
           ],
@@ -75,7 +75,7 @@
               "maxThreatPerPlayer": 6,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 1,
+              "stageIndex": 1,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             },
@@ -83,7 +83,7 @@
               "maxThreatPerPlayer": 8,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 2,
+              "stageIndex": 2,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             }
@@ -98,17 +98,17 @@
           "villainDeck": [
             {
               "maxHealthPerPlayer": 17,
-              "stage": 1,
+              "stageIndex": 1,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 22,
-              "stage": 2,
+              "stageIndex": 2,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 27,
-              "stage": 3,
+              "stageIndex": 3,
               "onDefeat": "MoveToNextStage"
             }
           ],
@@ -124,7 +124,7 @@
               "maxThreatPerPlayer": 3,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 1,
+              "stageIndex": 1,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             },
@@ -132,7 +132,7 @@
               "maxThreatPerPlayer": 10,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 2,
+              "stageIndex": 2,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             },
@@ -140,7 +140,7 @@
               "maxThreatPerPlayer": 5,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 3,
+              "stageIndex": 3,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             }
@@ -155,17 +155,17 @@
           "villainDeck": [
             {
               "maxHealthPerPlayer": 12,
-              "stage": 1,
+              "stageIndex": 1,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 14,
-              "stage": 2,
+              "stageIndex": 2,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 16,
-              "stage": 3,
+              "stageIndex": 3,
               "onDefeat": "MoveToNextStage"
             }
           ],
@@ -181,7 +181,7 @@
               "maxThreatPerPlayer": 3,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 1,
+              "stageIndex": 1,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             },
@@ -189,7 +189,7 @@
               "maxThreatPerPlayer": 6,
               "startingThreatPerPlayer": 1,
               "threatPerTurnPerPlayer": 1,
-              "stage": 2,
+              "stageIndex": 2,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             },
@@ -197,7 +197,7 @@
               "maxThreatPerPlayer": 5,
               "startingThreatPerPlayer": 1,
               "threatPerTurnPerPlayer": 1,
-              "stage": 3,
+              "stageIndex": 3,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             }
@@ -212,17 +212,17 @@
           "villainDeck": [
             {
               "maxHealthPerPlayer": 12,
-              "stage": 1,
+              "stageIndex": 1,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 14,
-              "stage": 2,
+              "stageIndex": 2,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 16,
-              "stage": 3,
+              "stageIndex": 3,
               "onDefeat": "MoveToNextStage"
             }
           ],
@@ -238,7 +238,7 @@
               "maxThreatPerPlayer": 6,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 1,
+              "stageIndex": 1,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             },
@@ -246,7 +246,7 @@
               "maxThreatPerPlayer": 8,
               "startingThreatPerPlayer": 1,
               "threatPerTurnPerPlayer": 1,
-              "stage": 2,
+              "stageIndex": 2,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             }
@@ -261,17 +261,17 @@
           "villainDeck": [
             {
               "maxHealthPerPlayer": 12,
-              "stage": 1,
+              "stageIndex": 1,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 16,
-              "stage": 2,
+              "stageIndex": 2,
               "onDefeat": "MoveToNextStage"
             },
             {
               "maxHealthPerPlayer": 20,
-              "stage": 3,
+              "stageIndex": 3,
               "onDefeat": "MoveToNextStage"
             }
           ],
@@ -287,7 +287,7 @@
               "maxThreatPerPlayer": 8,
               "startingThreatPerPlayer": 0,
               "threatPerTurnPerPlayer": 1,
-              "stage": 1,
+              "stageIndex": 1,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             },
@@ -295,7 +295,7 @@
               "maxThreatPerPlayer": 11,
               "startingThreatPerPlayer": 1,
               "threatPerTurnPerPlayer": 1,
-              "stage": 2,
+              "stageIndex": 2,
               "onThreatGetToZero": "Nothing",
               "onThreatGetToMax": "MoveToNextStage"
             }

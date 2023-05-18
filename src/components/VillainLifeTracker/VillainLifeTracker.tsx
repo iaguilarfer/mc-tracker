@@ -33,7 +33,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
         <img
           onClick={() => open(<VillainModal />)}
           className={styles["villain-image"]}
-          src={villainImages[imageKey][villainStage.stage - 1]}
+          src={villainImages[imageKey][villainStage.stageIndex - 1]}
           alt={t(`scenarios.${selectedScenario?.scenarioValue}.villainName`)}
         />
       </div>

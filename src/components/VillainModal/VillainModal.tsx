@@ -39,7 +39,7 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
             className={styles["villain-image"]}
             src={
               selectedScenario
-                ? villainImages[imageKey][villainStage.stage - 1]
+                ? villainImages[imageKey][villainStage.stageIndex - 1]
                 : ""
             }
             alt={t(`scenarios.${selectedScenario?.scenarioValue}.villainName`)}

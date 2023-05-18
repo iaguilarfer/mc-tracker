@@ -141,6 +141,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   useEffect(() => {
     const scenarios: Array<Scenario> =
       ScenariosJson.mCScenarios as Array<Scenario>;
+
     setSelectedScenario(
       scenarios.find((scenario) => scenario.scenarioValue === scenarioValue)
     );
@@ -156,7 +157,7 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
               ? villain.villainExpertStages
               : villain.villainStandardStages;
           result.villainDeck = result.villainDeck.filter((stage) => {
-            return villainStagesBaseOnMode.includes(stage.stage);
+            return villainStagesBaseOnMode.includes(stage.stageIndex);
           });
           return result;
         })
