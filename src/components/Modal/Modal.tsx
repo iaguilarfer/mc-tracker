@@ -6,8 +6,8 @@ import styles from "./Modal.module.scss";
 
 interface ModalProps {
   size: "small" | "medium" | "large";
-  containerClassname?: string;
-  modalClassname?: string;
+  containerClassName?: string;
+  modalClassName?: string;
 }
 
 export const ModalBackdrop: React.FC = () => {
@@ -18,8 +18,8 @@ export const ModalBackdrop: React.FC = () => {
 
 export const Modal: React.FC<PropsWithChildren<ModalProps>> = ({
   children,
-  containerClassname,
-  modalClassname,
+  containerClassName,
+  modalClassName,
   size,
 }) => {
   return (
@@ -27,10 +27,10 @@ export const Modal: React.FC<PropsWithChildren<ModalProps>> = ({
       className={cx(
         styles["modal-container"],
         styles[`modal-container-${size}`],
-        containerClassname
+        containerClassName
       )}
     >
-      <div className={modalClassname}>{children}</div>
+      <div className={modalClassName}>{children}</div>
     </div>
   );
 };

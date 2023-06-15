@@ -36,7 +36,7 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
     { returnObjects: true }
   )[activeMainSchemeIndex];
   return (
-    <Modal modalClassname={styles["scheme-modal"]} size={"large"}>
+    <Modal modalClassName={styles["scheme-modal"]} size={"large"}>
       <div className={styles["scheme-modal-container"]}>
         <div className={styles["scheme-image-container"]}>
           <img

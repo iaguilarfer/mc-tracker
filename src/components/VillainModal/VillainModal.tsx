@@ -31,7 +31,7 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
   const { currentHealth, maxHealth } = getVillainHealth(activeVillainIndex);
 
   return (
-    <Modal modalClassname={styles["villain-modal"]} size={"large"}>
+    <Modal modalClassName={styles["villain-modal"]} size={"large"}>
       <div className={styles["villain-modal-container"]}>
         <div className={styles["villain-image-container"]}>
           {villainGroup.map((villain, index) => {
