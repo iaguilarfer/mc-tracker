@@ -79,6 +79,12 @@
       "mainSchemeName": ["The Rise of the Red Skull", "New World Hydra"],
       "villainImages": ["redskullES"],
       "mainSchemeImages": ["redskullES"]
+    },
+    "towerDefense": {
+      "villainName": "Tower Defense",
+
+      "villainImages": ["proximaMidnightES", "corvusGlaiveES"],
+      "mainSchemeImages": ["underSiegeES", "theArmiesOfThanosES"]
     }
   },
   "endGameModal": {

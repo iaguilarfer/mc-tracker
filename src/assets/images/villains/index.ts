@@ -34,6 +34,17 @@ export const villainImages: VillainImages = {
     require("./redskull2EN.jpg"),
     require("./redskull3EN.jpg"),
   ],
+  proximaMidnightEN: [
+    require("./proximaMidnight1EN.png"),
+    require("./proximaMidnight2EN.png"),
+    require("./proximaMidnight3EN.png"),
+  ],
+
+  corvusGlaiveEN: [
+    require("./corvusGlaive1EN.png"),
+    require("./corvusGlaive2EN.png"),
+    require("./corvusGlaive3EN.png"),
+  ],
   // ESPAÑOL
   rhinoES: [
     require("./rhino1EN.png"),
@@ -64,5 +75,16 @@ export const villainImages: VillainImages = {
     require("./redskull1EN.jpg"),
     require("./redskull2EN.jpg"),
     require("./redskull3EN.jpg"),
+  ],
+  proximaMidnightES: [
+    require("./proximaMidnight1EN.png"),
+    require("./proximaMidnight2EN.png"),
+    require("./proximaMidnight3EN.png"),
+  ],
+
+  corvusGlaiveES: [
+    require("./corvusGlaive1EN.png"),
+    require("./corvusGlaive2EN.png"),
+    require("./corvusGlaive3EN.png"),
   ],
 };

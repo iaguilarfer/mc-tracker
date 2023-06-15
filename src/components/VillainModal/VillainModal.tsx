@@ -6,14 +6,20 @@ import { Modal } from "../Modal/Modal";
 import styles from "./VillainModal.module.scss";
 import { villainImages } from "../../assets/images/villains";
 import { useVillainHealthContext } from "../../context/VillainHealthContext/VillainHealthContext";
+import classNames from "classnames";
 
 interface VillainModalProps {}
 
 export const VillainModal: React.FC<VillainModalProps> = () => {
   const { t } = useTranslation();
   const { close } = useModalContext();
-  const { activeVillainIndex, selectedScenario, getVillainStage } =
-    useScenarioContext();
+  const {
+    activeVillainIndex,
+    selectedScenario,
+    getVillainStage,
+    villainGroup,
+    setActiveVillainIndex,
+  } = useScenarioContext();
   const {
     increaseCurrentHealth,
     decreaseCurrentHealth,
@@ -24,26 +30,38 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
 
   const { currentHealth, maxHealth } = getVillainHealth(activeVillainIndex);
 
-  const villainStage = getVillainStage(activeVillainIndex);
-
-  const imageKey = t(
-    `scenarios.${selectedScenario?.scenarioValue}.villainImages`,
-    { returnObjects: true }
-  )[activeVillainIndex];
-
   return (
     <Modal modalClassname={styles["villain-modal"]} size={"large"}>
       <div className={styles["villain-modal-container"]}>
         <div className={styles["villain-image-container"]}>
-          <img
-            className={styles["villain-image"]}
-            src={
-              selectedScenario
-                ? villainImages[imageKey][villainStage.stageIndex - 1]
-                : ""
-            }
-            alt={t(`scenarios.${selectedScenario?.scenarioValue}.villainName`)}
-          />
+          {villainGroup.map((villain, index) => {
+            const villainStage = getVillainStage(index);
+
+            const imageKey = t(
+              `scenarios.${selectedScenario?.scenarioValue}.villainImages`,
+              { returnObjects: true }
+            )[index];
+
+            return (
+              <>
+                <img
+                  className={classNames(styles["villain-image"], {
+                    [styles["active-villain-selected"]]:
+                      index !== activeVillainIndex,
+                  })}
+                  src={
+                    selectedScenario
+                      ? villainImages[imageKey][villainStage.stageIndex - 1]
+                      : ""
+                  }
+                  alt={t(
+                    `scenarios.${selectedScenario?.scenarioValue}.villainName`
+                  )}
+                  onClick={() => setActiveVillainIndex(index)}
+                />
+              </>
+            );
+          })}
         </div>
         <div className={styles["villain-button-container"]}>
           <div className={styles["current-max-health"]}>

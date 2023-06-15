@@ -27,6 +27,8 @@ export const schemeImages: SchemeImages = {
     require("./theRiseOfTheRedSkullEN.jpg"),
     require("./newWorldHydraEN.jpg"),
   ],
+  underSiegeEN: [require("./underSiegeEN.PNG")],
+  theArmiesOfThanosEN: [require("./theArmiesOfThanosEN.png")],
 
   // ESPAÑOL
   rhinoES: [require("./thebreakinEN.png")],
@@ -53,4 +55,6 @@ export const schemeImages: SchemeImages = {
     require("./theRiseOfTheRedSkullEN.jpg"),
     require("./newWorldHydraEN.jpg"),
   ],
+  underSiegeES: [require("./underSiegeEN.PNG")],
+  theArmiesOfThanosES: [require("./theArmiesOfThanosEN.png")],
 };
