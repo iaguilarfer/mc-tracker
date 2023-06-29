@@ -33,14 +33,9 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
     getThreat,
   } = useMainSchemeThreatContext();
 
-  const mainSchemeStage = getMainSchemeStage(activeMainSchemeIndex);
-
   const { currentThreat, maxThreat, threatPerTurn, accelerationTokens } =
     getThreat(activeMainSchemeIndex);
-  const imageKey = t(
-    `scenarios.${selectedScenario?.scenarioValue}.mainSchemeImages`,
-    { returnObjects: true }
-  )[activeMainSchemeIndex];
+
   return (
     <Modal modalClassName={styles["scheme-modal"]} size={"large"}>
       <div className={styles["scheme-modal-container"]}>
