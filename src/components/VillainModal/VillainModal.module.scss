@@ -1,14 +1,35 @@
+.villain-modal {
+  width: 100%;
+}
+
 .villain-modal-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 600px;
-  width: 1500px;
+  width: 100%;
+}
+
+.villain-image-container {
+  max-height: 70%;
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.villain-image-container::-webkit-scrollbar {
+  display: none;
 }
 
 .villain-image {
+  margin: 0 5% 0 5%;
   height: 100%;
+  object-fit: contain;
 }
 
 .villain-button-close {
@@ -38,4 +59,10 @@
   border-radius: 20px;
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.active-villain-selected {
+  filter: brightness(60%);
+  height: 70%;
+  margin-top: 8%;
 }

@@ -34,11 +34,15 @@ interface ScenarioContextProps {
   getVillain: (villainIndex: number) => Villain;
   getMainScheme: (schemeIndex: number) => MainScheme;
   activeVillainIndex: number;
+  setActiveVillainIndex: (activeVillainIndex: number) => void;
   activeMainSchemeIndex: number;
+  setActiveMainSchemeIndex: (activeMainSchemeIndex: number) => void;
   getVillainStage: (villainIndex: number) => VillainStage;
   getMainSchemeStage: (mainSchemeIndex: number) => MainSchemeStage;
   isVillainInLastStage: (villainIndex: number) => boolean;
   isMainSchemeInLastStage: (mainSchemeIndex: number) => boolean;
+  villainGroup: Array<Villain>;
+  mainSchemeGroup: Array<MainScheme>;
 }
 
 export const ScenarioContextDefaults: ScenarioContextProps = {
@@ -62,11 +66,15 @@ export const ScenarioContextDefaults: ScenarioContextProps = {
   getVillain: () => ({} as Villain),
   getMainScheme: () => ({} as MainScheme),
   activeVillainIndex: 0,
+  setActiveVillainIndex: () => null,
   activeMainSchemeIndex: 0,
+  setActiveMainSchemeIndex: () => null,
   getVillainStage: (villainIndex: number) => ({} as VillainStage),
   getMainSchemeStage: (mainSchemeIndex: number) => ({} as MainSchemeStage),
   isVillainInLastStage: (villainIndex: number) => false,
   isMainSchemeInLastStage: (mainSchemeIndex: number) => false,
+  villainGroup: [],
+  mainSchemeGroup: [],
 };
 
 const ScenarioContext = createContext(ScenarioContextDefaults);
@@ -238,7 +246,9 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         setOnVictoryCallback,
         setOnDefeatCallback,
         activeVillainIndex,
+        setActiveVillainIndex,
         activeMainSchemeIndex,
+        setActiveMainSchemeIndex,
         getVillain,
         getMainScheme,
         getVillainStage,
@@ -249,6 +259,8 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         onDefeatCallback,
         mode,
         setMode,
+        villainGroup,
+        mainSchemeGroup,
       }}
     >
       {children}
