@@ -17,7 +17,7 @@ export const EndGameModal: React.FC<EndGameModalProps> = ({
   const { close } = useModalContext();
 
   return (
-    <Modal modalClassname={styles["end-game-modal"]} size={"large"}>
+    <Modal modalClassName={styles["end-game-modal"]} size={"large"}>
       <div className={styles["end-game-message"]}>{endGameMessage}</div>
       <div className={styles["modal-buttons"]}>
         <Button

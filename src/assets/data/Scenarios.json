@@ -302,6 +302,81 @@
           ]
         }
       ]
+    },
+    {
+      "scenarioValue": "towerDefense",
+      "villains": [
+        {
+          "villainDeck": [
+            {
+              "maxHealthPerPlayer": 9,
+              "stageIndex": 1,
+              "onDefeat": "MoveToNextStage"
+            },
+            {
+              "maxHealthPerPlayer": 12,
+              "stageIndex": 2,
+              "onDefeat": "MoveToNextStage"
+            },
+            {
+              "maxHealthPerPlayer": 15,
+              "stageIndex": 3,
+              "onDefeat": "MoveToNextStage"
+            }
+          ],
+          "villainValue": "proximaMidnight",
+          "villainStandardStages": [1, 2],
+          "villainExpertStages": [2, 3]
+        },
+        {
+          "villainDeck": [
+            {
+              "maxHealthPerPlayer": 8,
+              "stageIndex": 1,
+              "onDefeat": "MoveToNextStage"
+            },
+            {
+              "maxHealthPerPlayer": 11,
+              "stageIndex": 2,
+              "onDefeat": "MoveToNextStage"
+            },
+            {
+              "maxHealthPerPlayer": 14,
+              "stageIndex": 3,
+              "onDefeat": "MoveToNextStage"
+            }
+          ],
+          "villainValue": "corvusGlaive",
+          "villainStandardStages": [1, 2],
+          "villainExpertStages": [2, 3]
+        }
+      ],
+      "mainSchemes": [
+        {
+          "stages": [
+            {
+              "maxThreatPerPlayer": 6,
+              "startingThreatPerPlayer": 1,
+              "threatPerTurnPerPlayer": 1,
+              "stageIndex": 1,
+              "onThreatGetToZero": "Nothing",
+              "onThreatGetToMax": "MoveToNextStage"
+            }
+          ]
+        },
+        {
+          "stages": [
+            {
+              "maxThreatPerPlayer": 6,
+              "startingThreatPerPlayer": 1,
+              "threatPerTurnPerPlayer": 1,
+              "stageIndex": 1,
+              "onThreatGetToZero": "Nothing",
+              "onThreatGetToMax": "MoveToNextStage"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

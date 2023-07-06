@@ -7,14 +7,20 @@ import styles from "./SchemeModal.module.scss";
 
 import { schemeImages } from "../../assets/images/schemes";
 import { useMainSchemeThreatContext } from "../../context/MainSchemeThreatContext/MainSchemeThreatContext";
+import classNames from "classnames";
 
 interface SchemeModalProps {}
 
 export const SchemeModal: React.FC<SchemeModalProps> = () => {
   const { t } = useTranslation();
   const { close } = useModalContext();
-  const { selectedScenario, activeMainSchemeIndex, getMainSchemeStage } =
-    useScenarioContext();
+  const {
+    selectedScenario,
+    activeMainSchemeIndex,
+    getMainSchemeStage,
+    mainSchemeGroup,
+    setActiveMainSchemeIndex,
+  } = useScenarioContext();
 
   const {
     increaseCurrentThreat,
@@ -27,29 +33,41 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
     getThreat,
   } = useMainSchemeThreatContext();
 
-  const mainSchemeStage = getMainSchemeStage(activeMainSchemeIndex);
-
   const { currentThreat, maxThreat, threatPerTurn, accelerationTokens } =
     getThreat(activeMainSchemeIndex);
-  const imageKey = t(
-    `scenarios.${selectedScenario?.scenarioValue}.mainSchemeImages`,
-    { returnObjects: true }
-  )[activeMainSchemeIndex];
+
   return (
-    <Modal modalClassname={styles["scheme-modal"]} size={"large"}>
+    <Modal modalClassName={styles["scheme-modal"]} size={"large"}>
       <div className={styles["scheme-modal-container"]}>
         <div className={styles["scheme-image-container"]}>
-          <img
-            className={styles["scheme-image"]}
-            src={
-              selectedScenario
-                ? schemeImages[imageKey][mainSchemeStage.stageIndex - 1]
-                : ""
-            }
-            alt={t(
-              `scenarios.${selectedScenario?.scenarioValue}.mainSchemeName`
-            )}
-          />
+          {mainSchemeGroup.map((mainScheme, index) => {
+            const mainSchemeStage = getMainSchemeStage(index);
+
+            const imageKey = t(
+              `scenarios.${selectedScenario?.scenarioValue}.mainSchemeImages`,
+              { returnObjects: true }
+            )[index];
+
+            return (
+              <>
+                <img
+                  className={classNames(styles["scheme-image"], {
+                    [styles["active-scheme-selected"]]:
+                      index !== activeMainSchemeIndex,
+                  })}
+                  src={
+                    selectedScenario
+                      ? schemeImages[imageKey][mainSchemeStage.stageIndex - 1]
+                      : ""
+                  }
+                  alt={t(
+                    `scenarios.${selectedScenario?.scenarioValue}.mainSchemeName`
+                  )}
+                  onClick={() => setActiveMainSchemeIndex(index)}
+                />
+              </>
+            );
+          })}
         </div>
         <div className={styles["scheme-button-container"]}>
           <div className={styles["current-max-threat"]}>
