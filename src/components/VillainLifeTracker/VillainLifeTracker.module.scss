@@ -12,13 +12,13 @@
   border-radius: 30px;
   border: solid 5px var(--life-background-color);
 
-  @media screen and (min-height: $small-width-breakpoint) {
+  @media screen and (min-height: $small-height-breakpoint) {
     & {
       font-size: 1.5rem;
     }
   }
 
-  @media screen and (min-height: $medium-width-breakpoint) {
+  @media screen and (min-height: $medium-height-breakpoint) {
     & {
       font-size: 2rem;
     }
