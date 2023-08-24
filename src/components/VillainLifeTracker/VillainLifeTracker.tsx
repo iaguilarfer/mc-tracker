@@ -47,21 +47,20 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
             }}
             className={styles["villain-life-tracker-decreasehealth"]}
           >
-            <div className={styles["increase-decrease-buttons"]}>-1</div>
+            <div className={styles["increase-decrease-buttons"]}>-</div>
           </div>
           <div>
             <p className={styles["villain-life-tracker-currenthealth"]}>
-              {currentHealth}
+              {`${currentHealth}/${maxHealth}`}
             </p>
           </div>
           <div
             onClick={() => increaseCurrentHealth(villainIndex)}
             className={styles["villain-life-tracker-increasehealth"]}
           >
-            <div className={styles["increase-decrease-buttons"]}>+1</div>
+            <div className={styles["increase-decrease-buttons"]}>+</div>
           </div>
         </div>
-        <div>{`${t("villainTracker.maxHealth")}:${maxHealth}`}</div>
       </div>
     </div>
   );

@@ -30,10 +30,20 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
 
   const { currentHealth, maxHealth } = getVillainHealth(activeVillainIndex);
 
+  const villainImageContainerPositionClassName =
+    villainGroup.length === 1
+      ? "villain-image-container--single-villain"
+      : "villain-image-container--multiple-villain";
+
   return (
     <Modal modalClassName={styles["villain-modal"]} size={"large"}>
       <div className={styles["villain-modal-container"]}>
-        <div className={styles["villain-image-container"]}>
+        <div
+          className={classNames(
+            styles["villain-image-container"],
+            styles[villainImageContainerPositionClassName]
+          )}
+        >
           {villainGroup.map((villain, index) => {
             const villainStage = getVillainStage(index);
 
@@ -46,7 +56,7 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
               <>
                 <img
                   className={classNames(styles["villain-image"], {
-                    [styles["active-villain-selected"]]:
+                    [styles["active-villain--not-selected"]]:
                       index !== activeVillainIndex,
                   })}
                   src={
@@ -64,10 +74,6 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
           })}
         </div>
         <div className={styles["villain-button-container"]}>
-          <div className={styles["current-max-health"]}>
-            {t("villainTracker.currentHealth")}: {currentHealth} /{" "}
-            {t("villainTracker.maxHealth")}:{maxHealth}
-          </div>
           <div className={styles["buttons-container"]}>
             <div className={styles["buttons"]}>
               <Button
@@ -101,6 +107,10 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
                 onClick={() => decreaseMaxHealth(activeVillainIndex, 10)}
               />
             </div>
+          </div>
+          <div className={styles["current-max-health"]}>
+            {t("villainTracker.currentHealth")}: {currentHealth} /{" "}
+            {t("villainTracker.maxHealth")}:{maxHealth}
           </div>
         </div>
       </div>

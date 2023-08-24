@@ -1,23 +1,33 @@
+@import "src/stylesheets/viewport";
+
 .scheme-threat-tracker-container {
   max-height: 100%;
   width: 60%;
-  background-color: var(--threat-background-color);
   background-color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  padding: 20px;
+  padding: 1em;
   border-radius: 30px;
   border: solid 5px var(--threat-background-color);
+
+  @media screen and (min-height: $small-height-breakpoint) {
+    & {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media screen and (min-height: $medium-height-breakpoint) {
+    & {
+      font-size: 2rem;
+    }
+  }
 }
 
 .scheme-image-container {
-  max-height: 50%;
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
+  height: 65%;
+  margin-bottom: 1em;
 }
 
 .scheme-image {
@@ -26,146 +36,70 @@
   object-fit: contain;
 }
 
-.scheme-threat-tracker-secondary-buttons-container {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
-.scheme-threat-tracker-acceleration {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 55%;
-  border-radius: 50px;
-  border: solid 5px var(--threat-background-color);
-  margin-bottom: 20px;
-}
-
-.scheme-threat-tracker-villainturn {
-  width: 40%;
-  height: auto;
-  font-size: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
-  border-radius: 50px;
-  border: solid 5px var(--threat-background-color);
-  margin-bottom: 20px;
-  margin-left: 5px;
-}
-
 .scheme-threat-tracker-content {
-  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 35%;
 }
 
 .scheme-threat-tracker-current-threat-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
   border-radius: 70px;
   border: solid 5px var(--threat-background-color);
-  margin-bottom: 20px;
+  flex: 2;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .scheme-threat-tracker-currentthreat {
-  font-size: 120px;
+  font-size: 2em;
   display: flex;
-  margin: 10px;
-}
-
-@media screen and (max-height: 750px) {
-  .scheme-threat-tracker-currentthreat {
-    font-size: 60px;
-  }
-}
-
-@media screen and (max-height: 650px) {
-  .scheme-threat-tracker-currentthreat {
-    font-size: 40px;
-  }
-  .scheme-image-container {
-    max-height: 55%;
-  }
+  margin: 0;
 }
 
 .scheme-threat-tracker-decreasethreat {
-  width: 20%;
+  width: 2em;
   height: auto;
   border-radius: 15px;
-  font-size: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .scheme-threat-tracker-increasethreat {
-  width: 20%;
+  width: 2em;
   height: auto;
   border-radius: 15px;
-  font-size: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.scheme-threat-tracker-decreaseacceleration {
-  width: 20%;
-  height: auto;
-  border-radius: 15px;
-  font-size: 50px;
+.scheme-threat-tracker-villainturn {
   display: flex;
-  align-items: center;
+  flex-direction: row;
   justify-content: center;
-}
-
-.scheme-threat-tracker-increaseacceleration {
-  width: 20%;
-  height: auto;
-  border-radius: 15px;
-  font-size: 50px;
-  display: flex;
   align-items: center;
-  justify-content: center;
-}
+  cursor: pointer;
+  flex: 1;
+  width: 100%;
+  height: 100%;
 
-.scheme-threat-tracker-currentacceleration {
-  font-size: 90px;
-  display: flex;
-  margin: 10px;
+  border-radius: 50px;
+  border: solid 5px var(--threat-background-color);
+  box-sizing: border-box;
+  margin-left: 1em;
+  font-size: 1.2em;
 }
 
 .increase-decrease-buttons {
+  font-size: 2em;
   cursor: pointer;
-}
-
-@media screen and (max-height: 750px) {
-  .scheme-threat-tracker-currentacceleration {
-    font-size: 80px;
-  }
-  .increase-decrease-buttons {
-    font-size: 30px;
-  }
-  .scheme-threat-tracker-villainturn {
-    font-size: 30px;
-  }
-}
-
-@media screen and (max-height: 650px) {
-  .scheme-threat-tracker-currentacceleration {
-    font-size: 50px;
-  }
-  .increase-decrease-buttons {
-    font-size: 20px;
-  }
-  .scheme-threat-tracker-villainturn {
-    font-size: 20px;
-  }
-}
-
-.accelerationToken {
-  font-family: var(--font-icons);
-  margin-top: 8%;
 }

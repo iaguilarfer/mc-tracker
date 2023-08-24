@@ -15,12 +15,10 @@ function App() {
         <VillainHealthContextProvider>
           <MainSchemeThreatContextProvider>
             <ModalProvider>
-              <div>
-                <Routes>
-                  <Route path="/scenario" element={<ScenarioTrackerPage />} />
-                  <Route path="/" element={<ScenarioSelector />} />
-                </Routes>
-              </div>
+              <Routes>
+                <Route path="/scenario" element={<ScenarioTrackerPage />} />
+                <Route path="/" element={<ScenarioSelector />} />
+              </Routes>
             </ModalProvider>
           </MainSchemeThreatContextProvider>
         </VillainHealthContextProvider>

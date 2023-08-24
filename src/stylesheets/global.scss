@@ -6,7 +6,12 @@ body {
   font-family: var(--font-title);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+
+  --small-width-breakpoint: 300px;
+  --medium-width-breakpoint: 600px;
 }
+
 
 button {
   font-family: var(--font-title);

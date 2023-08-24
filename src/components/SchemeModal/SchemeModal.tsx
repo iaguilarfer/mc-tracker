@@ -36,10 +36,20 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
   const { currentThreat, maxThreat, threatPerTurn, accelerationTokens } =
     getThreat(activeMainSchemeIndex);
 
+  const mainSchemeImageContainerPositionClassName =
+    mainSchemeGroup.length === 1
+      ? "main-scheme-image-container--single-villain"
+      : "main-scheme-image-container--multiple-villain";
+
   return (
     <Modal modalClassName={styles["scheme-modal"]} size={"large"}>
       <div className={styles["scheme-modal-container"]}>
-        <div className={styles["scheme-image-container"]}>
+        <div
+          className={classNames(
+            styles["scheme-image-container"],
+            styles[mainSchemeImageContainerPositionClassName]
+          )}
+        >
           {mainSchemeGroup.map((mainScheme, index) => {
             const mainSchemeStage = getMainSchemeStage(index);
 
@@ -52,7 +62,7 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
               <>
                 <img
                   className={classNames(styles["scheme-image"], {
-                    [styles["active-scheme-selected"]]:
+                    [styles["active-scheme--not-selected"]]:
                       index !== activeMainSchemeIndex,
                   })}
                   src={
