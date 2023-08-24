@@ -59,13 +59,13 @@
 }
 
 .scheme-threat-tracker-currentthreat {
-  font-size: 3em;
+  font-size: 2em;
   display: flex;
   margin: 0;
 }
 
 .scheme-threat-tracker-decreasethreat {
-  width: 3em;
+  width: 2em;
   height: auto;
   border-radius: 15px;
   display: flex;
@@ -74,7 +74,7 @@
 }
 
 .scheme-threat-tracker-increasethreat {
-  width: 3em;
+  width: 2em;
   height: auto;
   border-radius: 15px;
   display: flex;
@@ -96,7 +96,7 @@
   border: solid 5px var(--threat-background-color);
   box-sizing: border-box;
   margin-left: 1em;
-  font-size: 1.6em;
+  font-size: 1.2em;
 }
 
 .increase-decrease-buttons {

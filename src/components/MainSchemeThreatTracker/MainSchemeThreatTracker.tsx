@@ -21,15 +21,13 @@ export const MainSchemeThreatTracker: React.FC<
   const {
     increaseCurrentThreat,
     decreaseCurrentThreat,
-    increaseAccelerationTokens,
-    decreaseAccelerationTokens,
     startVillainTurn,
     getThreat,
   } = useMainSchemeThreatContext();
 
   const mainSchemeStage = getMainSchemeStage(mainSchemeIndex);
 
-  const { currentThreat, maxThreat, threatPerTurn, accelerationTokens } =
+  const { currentThreat, maxThreat, threatPerTurn } =
     getThreat(mainSchemeIndex);
 
   const imageKey = t(
