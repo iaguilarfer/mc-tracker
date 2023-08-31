@@ -38,8 +38,8 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
 
   const mainSchemeImageContainerPositionClassName =
     mainSchemeGroup.length === 1
-      ? "main-scheme-image-container--single-villain"
-      : "main-scheme-image-container--multiple-villain";
+      ? "main-scheme-image-container--single-scheme"
+      : "main-scheme-image-container--multiple-scheme";
 
   return (
     <Modal modalClassName={styles["scheme-modal"]} size={"large"}>
