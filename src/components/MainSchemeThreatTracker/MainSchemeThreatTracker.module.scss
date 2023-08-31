@@ -56,6 +56,8 @@
   height: 100%;
   width: 100%;
   box-sizing: border-box;
+
+  padding: 0 10px;
 }
 
 .scheme-threat-tracker-currentthreat {
@@ -65,21 +67,29 @@
 }
 
 .scheme-threat-tracker-decreasethreat {
-  width: 2em;
-  height: auto;
+  width: 45%;
+  height: 100%;
   border-radius: 15px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  border: none;
+  flex-direction: row;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .scheme-threat-tracker-increasethreat {
-  width: 2em;
-  height: auto;
+  width: 45%;
+  height: 100%;
   border-radius: 15px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  border: none;
+  flex-direction: row;
+  background-color: transparent;
+  cursor: pointer;
 }
 
 .scheme-threat-tracker-villainturn {
@@ -102,4 +112,24 @@
 .increase-decrease-buttons {
   font-size: 2em;
   cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.character-inside-scheme-threat {
+  //width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 3em;
+}
+
+.bar-inside-scheme-threat {
+  width: 10%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 3em;
 }
