@@ -47,7 +47,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
             }}
             className={styles["villain-life-tracker-decreasehealth"]}
           >
-            <span className={styles["character-inside-villain-health"]}>-</span>{" "}
+            <span className={styles["character-inside-villain-health"]}>-</span>
             <span className={styles["character-inside-villain-health"]}>
               {currentHealth}
             </span>

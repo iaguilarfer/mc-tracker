@@ -55,7 +55,7 @@ export const MainSchemeThreatTracker: React.FC<
             }}
             className={styles["scheme-threat-tracker-decreasethreat"]}
           >
-            <span className={styles["character-inside-scheme-threat"]}>-</span>{" "}
+            <span className={styles["character-inside-scheme-threat"]}>-</span>
             <span className={styles["character-inside-scheme-threat"]}>
               {currentThreat}
             </span>
