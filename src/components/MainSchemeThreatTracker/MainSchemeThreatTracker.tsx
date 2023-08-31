@@ -70,25 +70,6 @@ export const MainSchemeThreatTracker: React.FC<
             </span>
             <span className={styles["character-inside-scheme-threat"]}>+</span>
           </button>
-
-          {/* <div
-            onClick={() => decreaseCurrentThreat(mainSchemeIndex)}
-            className={styles["scheme-threat-tracker-decreasethreat"]}
-          >
-            <div className={styles["increase-decrease-buttons"]}>-</div>
-          </div>
-          <div>
-            <p className={styles["scheme-threat-tracker-currentthreat"]}>
-              {currentThreat} / {maxThreat}
-            </p>
-          </div>
-
-          <div
-            onClick={() => increaseCurrentThreat(mainSchemeIndex)}
-            className={styles["scheme-threat-tracker-increasethreat"]}
-          >
-            <div className={styles["increase-decrease-buttons"]}>+</div>
-          </div> */}
         </div>
 
         <div
