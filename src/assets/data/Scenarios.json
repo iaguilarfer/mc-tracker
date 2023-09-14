@@ -311,17 +311,17 @@
             {
               "maxHealthPerPlayer": 9,
               "stageIndex": 1,
-              "onDefeat": "MoveToNextStage"
+              "onDefeat": "MoveToNextStageIfAllDefeated"
             },
             {
               "maxHealthPerPlayer": 12,
               "stageIndex": 2,
-              "onDefeat": "MoveToNextStage"
+              "onDefeat": "MoveToNextStageIfAllDefeated"
             },
             {
               "maxHealthPerPlayer": 15,
               "stageIndex": 3,
-              "onDefeat": "MoveToNextStage"
+              "onDefeat": "MoveToNextStageIfAllDefeated"
             }
           ],
           "villainValue": "proximaMidnight",
@@ -333,17 +333,17 @@
             {
               "maxHealthPerPlayer": 8,
               "stageIndex": 1,
-              "onDefeat": "MoveToNextStage"
+              "onDefeat": "MoveToNextStageIfAllDefeated"
             },
             {
               "maxHealthPerPlayer": 11,
               "stageIndex": 2,
-              "onDefeat": "MoveToNextStage"
+              "onDefeat": "MoveToNextStageIfAllDefeated"
             },
             {
               "maxHealthPerPlayer": 14,
               "stageIndex": 3,
-              "onDefeat": "MoveToNextStage"
+              "onDefeat": "MoveToNextStageIfAllDefeated"
             }
           ],
           "villainValue": "corvusGlaive",
@@ -360,7 +360,7 @@
               "threatPerTurnPerPlayer": 1,
               "stageIndex": 1,
               "onThreatGetToZero": "Nothing",
-              "onThreatGetToMax": "MoveToNextStage"
+              "onThreatGetToMax": "Reset"
             }
           ]
         },
@@ -372,7 +372,7 @@
               "threatPerTurnPerPlayer": 1,
               "stageIndex": 1,
               "onThreatGetToZero": "Nothing",
-              "onThreatGetToMax": "MoveToNextStage"
+              "onThreatGetToMax": "Reset"
             }
           ]
         }

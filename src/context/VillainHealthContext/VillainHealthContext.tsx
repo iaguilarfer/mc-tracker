@@ -53,11 +53,14 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
     onVictoryCallback,
     setHasGameStarted,
     hasGameStarted,
+    activeVillainIndex,
   } = useScenarioContext();
   const [healths, setHealths] = useState<Array<VillainHealth>>([]);
 
   const [hasLoadedHealth, setHasLoadedHealth] = useState<boolean>(false);
-  const [villainIndexToReset, setVillainIndexToReset] = useState<number>();
+  const [villainIndexToReset, setVillainIndexToReset] = useState<Array<number>>(
+    []
+  );
 
   const getInitialHealth = useCallback(
     (villainIndex: number) => {
@@ -72,7 +75,7 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
   const cleanUp = useCallback(() => {
     setHealths([]);
     setHasLoadedHealth(false);
-    setVillainIndexToReset(undefined);
+    setVillainIndexToReset([]);
   }, []);
 
   useEffect(() => {}, [healths]);
@@ -155,7 +158,25 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
             onVictoryCallback();
           } else {
             moveToNextVillainStage(villainIndex);
-            setVillainIndexToReset(villainIndex);
+            setVillainIndexToReset([villainIndex]);
+          }
+          break;
+        }
+        case OnDefeatOption.MoveToNextStageIfAllDefeated: {
+          if (healths.every((item) => item.currentHealth === 0)) {
+            if (isVillainInLastStage(villainIndex)) {
+              setHasGameStarted(false);
+              onVictoryCallback();
+            } else {
+              healths.forEach((__item, index) => {
+                moveToNextVillainStage(index);
+              });
+              setVillainIndexToReset(
+                healths.map((__item, index) => {
+                  return index;
+                })
+              );
+            }
           }
           break;
         }
@@ -167,27 +188,38 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
       onVictoryCallback,
       moveToNextVillainStage,
       isVillainInLastStage,
+      healths,
     ]
   );
 
   useEffect(() => {
-    if (hasGameStarted && villainIndexToReset === undefined) {
-      healths.forEach((health, index) => {
-        if (health.currentHealth <= 0) {
-          defeat(index);
-        }
-      });
+    if (hasGameStarted && villainIndexToReset.length === 0) {
+      if (
+        healths[activeVillainIndex] &&
+        healths[activeVillainIndex].currentHealth <= 0
+      ) {
+        defeat(activeVillainIndex);
+      }
     }
-  }, [healths, defeat, villainIndexToReset, hasGameStarted]);
+  }, [
+    healths,
+    defeat,
+    villainIndexToReset,
+    hasGameStarted,
+    activeVillainIndex,
+  ]);
 
   useEffect(() => {
-    if (villainIndexToReset !== undefined) {
+    if (villainIndexToReset.length > 0) {
       setHealths((prevState) => {
         const results = cloneDeep(prevState);
-        results[villainIndexToReset] = getInitialHealth(villainIndexToReset);
+
+        villainIndexToReset.forEach((index) => {
+          results[index] = getInitialHealth(index);
+        });
         return results;
       });
-      setVillainIndexToReset(undefined);
+      setVillainIndexToReset([]);
     }
   }, [villainIndexToReset, getInitialHealth]);
 
