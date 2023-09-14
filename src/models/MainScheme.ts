@@ -4,6 +4,7 @@ export enum onThreatGetToZeroOption {
 
 export enum onThreatGetToMaxOption {
   MoveToNextStage = "MoveToNextStage",
+  Reset = "Reset",
 }
 
 export interface MainScheme {

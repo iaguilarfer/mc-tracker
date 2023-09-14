@@ -220,6 +220,15 @@ export const MainSchemeThreatContextProvider: React.FC<
           }
           break;
         }
+        case onThreatGetToMaxOption.Reset: {
+          setThreats((prevState) => {
+            const results = cloneDeep(prevState);
+            results[mainSchemeIndex].currentThreat = 0;
+
+            return results;
+          });
+          break;
+        }
       }
     },
     [
