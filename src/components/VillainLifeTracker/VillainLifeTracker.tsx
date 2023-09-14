@@ -41,25 +41,27 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
         <div
           className={styles["villain-life-tracker-current-health-container"]}
         >
-          <div
+          <button
             onClick={() => {
               decreaseCurrentHealth(villainIndex);
             }}
             className={styles["villain-life-tracker-decreasehealth"]}
           >
-            <div className={styles["increase-decrease-buttons"]}>-</div>
-          </div>
-          <div>
-            <p className={styles["villain-life-tracker-currenthealth"]}>
-              {`${currentHealth}/${maxHealth}`}
-            </p>
-          </div>
-          <div
+            <span className={styles["character-inside-villain-health"]}>-</span>
+            <span className={styles["character-inside-villain-health"]}>
+              {currentHealth}
+            </span>
+          </button>
+          <div className={styles["bar-inside-villain-health"]}>/</div>
+          <button
             onClick={() => increaseCurrentHealth(villainIndex)}
             className={styles["villain-life-tracker-increasehealth"]}
           >
-            <div className={styles["increase-decrease-buttons"]}>+</div>
-          </div>
+            <span className={styles["character-inside-villain-health"]}>
+              {maxHealth}
+            </span>
+            <span className={styles["character-inside-villain-health"]}>+</span>
+          </button>
         </div>
       </div>
     </div>

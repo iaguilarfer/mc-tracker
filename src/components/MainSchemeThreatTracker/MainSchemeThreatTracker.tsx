@@ -49,24 +49,27 @@ export const MainSchemeThreatTracker: React.FC<
         <div
           className={styles["scheme-threat-tracker-current-threat-container"]}
         >
-          <div
-            onClick={() => decreaseCurrentThreat(mainSchemeIndex)}
+          <button
+            onClick={() => {
+              decreaseCurrentThreat(mainSchemeIndex);
+            }}
             className={styles["scheme-threat-tracker-decreasethreat"]}
           >
-            <div className={styles["increase-decrease-buttons"]}>-</div>
-          </div>
-          <div>
-            <p className={styles["scheme-threat-tracker-currentthreat"]}>
-              {currentThreat} / {maxThreat}
-            </p>
-          </div>
-
-          <div
+            <span className={styles["character-inside-scheme-threat"]}>-</span>
+            <span className={styles["character-inside-scheme-threat"]}>
+              {currentThreat}
+            </span>
+          </button>
+          <div className={styles["bar-inside-scheme-threat"]}>/</div>
+          <button
             onClick={() => increaseCurrentThreat(mainSchemeIndex)}
             className={styles["scheme-threat-tracker-increasethreat"]}
           >
-            <div className={styles["increase-decrease-buttons"]}>+</div>
-          </div>
+            <span className={styles["character-inside-scheme-threat"]}>
+              {maxThreat}
+            </span>
+            <span className={styles["character-inside-scheme-threat"]}>+</span>
+          </button>
         </div>
 
         <div
