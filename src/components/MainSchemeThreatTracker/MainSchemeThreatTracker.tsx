@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { useMainSchemeThreatContext } from "../../context/MainSchemeThreatContext/MainSchemeThreatContext";
 import { SchemeModal } from "../SchemeModal/SchemeModal";
 import { useModalContext } from "../../context/modalContext/ModalContext";
+import { useTemporaryValue } from "../../hooks/useTemporaryValue";
 
 interface MainSchemeThreatTrackerProps {
   mainSchemeIndex: number;
@@ -24,6 +25,9 @@ export const MainSchemeThreatTracker: React.FC<
     startVillainTurn,
     getThreat,
   } = useMainSchemeThreatContext();
+
+  const [temporarySchemeThreat, changeTemporarySchemeThreat] =
+    useTemporaryValue();
 
   const mainSchemeStage = getMainSchemeStage(mainSchemeIndex);
 
@@ -44,6 +48,9 @@ export const MainSchemeThreatTracker: React.FC<
           src={schemeImages[imageKey][mainSchemeStage.stageIndex - 1]}
           alt={t(`scenarios.${selectedScenario?.scenarioValue}.mainSchemeName`)}
         />
+        <div className={styles["temporary-scheme-threat-tracker"]}>
+          {temporarySchemeThreat === 0 ? "" : temporarySchemeThreat}
+        </div>
       </div>
       <div className={styles["scheme-threat-tracker-content"]}>
         <div
@@ -52,6 +59,7 @@ export const MainSchemeThreatTracker: React.FC<
           <button
             onClick={() => {
               decreaseCurrentThreat(mainSchemeIndex);
+              changeTemporarySchemeThreat(-1);
             }}
             className={styles["scheme-threat-tracker-decreasethreat"]}
           >
@@ -62,7 +70,10 @@ export const MainSchemeThreatTracker: React.FC<
           </button>
           <div className={styles["bar-inside-scheme-threat"]}>/</div>
           <button
-            onClick={() => increaseCurrentThreat(mainSchemeIndex)}
+            onClick={() => {
+              increaseCurrentThreat(mainSchemeIndex);
+              changeTemporarySchemeThreat(1);
+            }}
             className={styles["scheme-threat-tracker-increasethreat"]}
           >
             <span className={styles["character-inside-scheme-threat"]}>

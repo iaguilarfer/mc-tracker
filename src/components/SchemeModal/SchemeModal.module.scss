@@ -34,6 +34,7 @@
   width: 100%;
   align-items: center;
   overflow-x: auto;
+  position: relative;
 }
 
 .main-scheme-image-container--single-scheme {
@@ -92,4 +93,13 @@
 .active-scheme--not-selected {
   filter: brightness(60%);
   height: 70%;
+}
+
+.temporary-scheme-threat-tracker {
+  color: var(--threat-background-color);
+  font-size: 5em;
+  font-weight: bold;
+  position: absolute;
+  bottom: 60%;
+  left: 45%;
 }

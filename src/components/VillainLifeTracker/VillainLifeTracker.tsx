@@ -6,6 +6,7 @@ import { useVillainHealthContext } from "../../context/VillainHealthContext/Vill
 import { useModalContext } from "../../context/modalContext/ModalContext";
 import { VillainModal } from "../VillainModal/VillainModal";
 import styles from "./VillainLifeTracker.module.scss";
+import { useTemporaryValue } from "../../hooks/useTemporaryValue";
 
 interface VillainLifeTrackerProps {
   villainIndex: number;
@@ -19,6 +20,8 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
   const { open } = useModalContext();
   const { decreaseCurrentHealth, increaseCurrentHealth, getVillainHealth } =
     useVillainHealthContext();
+  const [temporaryVillainHealth, changeTemporaryVillainHealth] =
+    useTemporaryValue();
 
   const villainStage = getVillainStage(villainIndex);
 
@@ -36,6 +39,9 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
           src={villainImages[imageKey][villainStage.stageIndex - 1]}
           alt={t(`scenarios.${selectedScenario?.scenarioValue}.villainName`)}
         />
+        <div className={styles["temporary-villain-health-tracker"]}>
+          {temporaryVillainHealth === 0 ? "" : temporaryVillainHealth}
+        </div>
       </div>
       <div className={styles["villain-life-tracker-content"]}>
         <div
@@ -44,6 +50,7 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
           <button
             onClick={() => {
               decreaseCurrentHealth(villainIndex);
+              changeTemporaryVillainHealth(-1);
             }}
             className={styles["villain-life-tracker-decreasehealth"]}
           >
@@ -54,7 +61,10 @@ export const VillainLifeTracker: React.FC<VillainLifeTrackerProps> = ({
           </button>
           <div className={styles["bar-inside-villain-health"]}>/</div>
           <button
-            onClick={() => increaseCurrentHealth(villainIndex)}
+            onClick={() => {
+              increaseCurrentHealth(villainIndex);
+              changeTemporaryVillainHealth(+1);
+            }}
             className={styles["villain-life-tracker-increasehealth"]}
           >
             <span className={styles["character-inside-villain-health"]}>
