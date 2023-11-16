@@ -7,6 +7,7 @@ import styles from "./VillainModal.module.scss";
 import { villainImages } from "../../assets/images/villains";
 import { useVillainHealthContext } from "../../context/VillainHealthContext/VillainHealthContext";
 import classNames from "classnames";
+import { useTemporaryValue } from "../../hooks/useTemporaryValue";
 
 interface VillainModalProps {}
 
@@ -27,6 +28,9 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
     decreaseMaxHealth,
     getVillainHealth,
   } = useVillainHealthContext();
+
+  const [temporaryVillainHealth, changeTemporaryVillainHealth] =
+    useTemporaryValue();
 
   const { currentHealth, maxHealth } = getVillainHealth(activeVillainIndex);
 
@@ -75,15 +79,22 @@ export const VillainModal: React.FC<VillainModalProps> = () => {
         </div>
         <div className={styles["villain-button-container"]}>
           <div className={styles["buttons-container"]}>
+            <div className={styles["temporary-villain-health-tracker"]}>
+              {temporaryVillainHealth === 0 ? "" : temporaryVillainHealth}
+            </div>
             <div className={styles["buttons"]}>
               <Button
                 text={t("villainTracker.currentModifier", { modifier: "+1" })}
-                onClick={() => increaseCurrentHealth(activeVillainIndex)}
+                onClick={() => {
+                  increaseCurrentHealth(activeVillainIndex);
+                  changeTemporaryVillainHealth(+1);
+                }}
               />
               <Button
                 text={t("villainTracker.currentModifier", { modifier: "-1" })}
                 onClick={() => {
                   decreaseCurrentHealth(activeVillainIndex);
+                  changeTemporaryVillainHealth(-1);
                 }}
               />
             </div>

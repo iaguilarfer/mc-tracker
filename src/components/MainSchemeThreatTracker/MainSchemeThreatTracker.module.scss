@@ -28,6 +28,7 @@
 .scheme-image-container {
   height: 65%;
   margin-bottom: 1em;
+  position: relative;
 }
 
 .scheme-image {
@@ -130,4 +131,13 @@
   justify-content: space-around;
   align-items: center;
   font-size: 3em;
+}
+
+.temporary-scheme-threat-tracker {
+  color: var(--threat-background-color);
+  width: 100%;
+  font-size: 5em;
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
 }

@@ -28,6 +28,7 @@
 .villain-image-container {
   height: 65%;
   margin-bottom: 1em;
+  position: relative;
 }
 
 .villain-image {
@@ -110,4 +111,13 @@
   justify-content: space-around;
   align-items: center;
   font-size: 3em;
+}
+
+.temporary-villain-health-tracker {
+  color: var(--life-background-color);
+  width: 100%;
+  font-size: 5em;
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
 }

@@ -8,6 +8,7 @@ import styles from "./SchemeModal.module.scss";
 import { schemeImages } from "../../assets/images/schemes";
 import { useMainSchemeThreatContext } from "../../context/MainSchemeThreatContext/MainSchemeThreatContext";
 import classNames from "classnames";
+import { useTemporaryValue } from "../../hooks/useTemporaryValue";
 
 interface SchemeModalProps {}
 
@@ -40,6 +41,9 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
     mainSchemeGroup.length === 1
       ? "main-scheme-image-container--single-scheme"
       : "main-scheme-image-container--multiple-scheme";
+
+  const [temporarySchemeThreat, changeTemporarySchemeThreat] =
+    useTemporaryValue();
 
   return (
     <Modal modalClassName={styles["scheme-modal"]} size={"large"}>
@@ -80,6 +84,9 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
           })}
         </div>
         <div className={styles["scheme-button-container"]}>
+          <div className={styles["temporary-scheme-threat-tracker"]}>
+            {temporarySchemeThreat === 0 ? "" : temporarySchemeThreat}
+          </div>
           <div className={styles["current-max-threat"]}>
             {t("threatTracker.currentThreat")}: {currentThreat}/{" "}
             {t("threatTracker.maxThreat")}: {maxThreat}
@@ -91,11 +98,17 @@ export const SchemeModal: React.FC<SchemeModalProps> = () => {
             <div className={styles["buttons"]}>
               <Button
                 text={t("threatTracker.currentModifier", { modifier: "+1" })}
-                onClick={() => increaseCurrentThreat(activeMainSchemeIndex)}
+                onClick={() => {
+                  increaseCurrentThreat(activeMainSchemeIndex);
+                  changeTemporarySchemeThreat(+1);
+                }}
               />
               <Button
                 text={t("threatTracker.currentModifier", { modifier: "-1" })}
-                onClick={() => decreaseCurrentThreat(activeMainSchemeIndex)}
+                onClick={() => {
+                  decreaseCurrentThreat(activeMainSchemeIndex);
+                  changeTemporarySchemeThreat(-1);
+                }}
               />
             </div>
             <div className={styles["buttons"]}>
