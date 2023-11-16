@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { debounce } from "lodash";
 
 export const useTemporaryValue = (
@@ -6,14 +6,15 @@ export const useTemporaryValue = (
 ): [number, (value: number) => void] => {
   const [temporaryValue, setTemporaryValue] = useState(initialValue);
 
-  const resetTemporaryValue = useCallback(
-    debounce(
-      () => {
-        setTemporaryValue(0);
-      },
-      2000,
-      { leading: false }
-    ),
+  const resetTemporaryValue = useMemo(
+    () =>
+      debounce(
+        () => {
+          setTemporaryValue(0);
+        },
+        2000,
+        { leading: false }
+      ),
     []
   );
 
