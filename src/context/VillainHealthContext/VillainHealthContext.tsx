@@ -54,6 +54,7 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
     setHasGameStarted,
     hasGameStarted,
     activeVillainIndex,
+    onMessageCallback,
   } = useScenarioContext();
   const [healths, setHealths] = useState<Array<VillainHealth>>([]);
 
@@ -159,6 +160,15 @@ export const VillainHealthContextProvider: React.FC<PropsWithChildren<{}>> = ({
           } else {
             moveToNextVillainStage(villainIndex);
             setVillainIndexToReset([villainIndex]);
+            onMessageCallback({
+              title: "Probando cosas",
+              onCancel: () => {
+                console.log("Cancel");
+              },
+              onContinue: () => {
+                console.log("Continue");
+              },
+            });
           }
           break;
         }

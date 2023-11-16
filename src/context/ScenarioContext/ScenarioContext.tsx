@@ -12,6 +12,7 @@ import { Scenario, gameModes } from "../../models/Scenario";
 import { Villain, VillainStage } from "../../models/Villain";
 import { MainScheme, MainSchemeStage } from "../../models/MainScheme";
 import { cloneDeep } from "lodash";
+import { MessageModalProps } from "../../components/MessageModal/MessageModal";
 
 interface ScenarioContextProps {
   mode: gameModes | undefined;
@@ -31,6 +32,10 @@ interface ScenarioContextProps {
   onVictoryCallback: () => void;
   setOnDefeatCallback: (callback: () => void) => void;
   onDefeatCallback: () => void;
+  onMessageCallback: (modalProps: MessageModalProps) => void;
+  setOnMessageCallback: (
+    callback: (modalProps: MessageModalProps) => void
+  ) => void;
   getVillain: (villainIndex: number) => Villain;
   getMainScheme: (schemeIndex: number) => MainScheme;
   activeVillainIndex: number;
@@ -61,6 +66,8 @@ export const ScenarioContextDefaults: ScenarioContextProps = {
   onVictoryCallback: () => null,
   setOnDefeatCallback: () => null,
   onDefeatCallback: () => null,
+  onMessageCallback: () => null,
+  setOnMessageCallback: () => null,
   moveToNextVillainStage: (villainIndex: number) => null,
   moveToNextSchemeStage: (schemeIndex: number) => null,
   getVillain: () => ({} as Villain),
@@ -116,6 +123,9 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
   const [onDefeatCallback, setOnDefeatCallback] = useState<() => void>(
     () => null
   );
+  const [onMessageCallback, setOnMessageCallback] = useState<
+    (modalProps: MessageModalProps) => void
+  >(() => null);
 
   const cleanUp = useCallback(() => {
     setScenarioValue(undefined);
@@ -257,6 +267,8 @@ export const ScenarioProvider: React.FC<PropsWithChildren<{}>> = ({
         isMainSchemeInLastStage,
         onVictoryCallback,
         onDefeatCallback,
+        onMessageCallback,
+        setOnMessageCallback,
         mode,
         setMode,
         villainGroup,

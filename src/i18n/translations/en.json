@@ -92,5 +92,9 @@
     "defeatMessage": "Defeat!",
     "closeButton": "Close",
     "newGameButton": "New Game"
+  },
+  "messageModal": {
+    "cancelButton": "Cancel",
+    "continueButton": "Continue"
   }
 }

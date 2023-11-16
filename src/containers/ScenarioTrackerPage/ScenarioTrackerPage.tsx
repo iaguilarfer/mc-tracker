@@ -8,6 +8,10 @@ import { useModalContext } from "../../context/modalContext/ModalContext";
 import { useTranslation } from "react-i18next";
 import { useVillainHealthContext } from "../../context/VillainHealthContext/VillainHealthContext";
 import { useMainSchemeThreatContext } from "../../context/MainSchemeThreatContext/MainSchemeThreatContext";
+import {
+  MessageModal,
+  MessageModalProps,
+} from "../../components/MessageModal/MessageModal";
 
 export const ScenarioTrackerPage: React.FC = () => {
   const {
@@ -16,6 +20,7 @@ export const ScenarioTrackerPage: React.FC = () => {
     setOnDefeatCallback,
     activeVillainIndex,
     activeMainSchemeIndex,
+    setOnMessageCallback,
   } = useScenarioContext();
   const { hasLoadedHealth } = useVillainHealthContext();
   const { hasLoadedThreat } = useMainSchemeThreatContext();
@@ -31,6 +36,10 @@ export const ScenarioTrackerPage: React.FC = () => {
     setOnDefeatCallback(
       () => () =>
         open(<EndGameModal endGameMessage={t("endGameModal.defeatMessage")} />)
+    );
+    setOnMessageCallback(
+      () => (modalProps: MessageModalProps) =>
+        open(<MessageModal {...modalProps} />)
     );
   }, [open, setOnDefeatCallback, setOnVictoryCallback, t]);
 

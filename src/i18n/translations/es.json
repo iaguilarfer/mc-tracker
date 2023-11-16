@@ -92,5 +92,9 @@
     "defeatMessage": "¡Derrota!",
     "closeButton": "Cerrar",
     "newGameButton": "Nueva Partida"
+  },
+  "messageModal": {
+    "cancelButton": "Cancelar",
+    "continueButton": "Continuar"
   }
 }

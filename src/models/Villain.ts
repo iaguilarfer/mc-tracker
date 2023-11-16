@@ -15,4 +15,5 @@ export interface VillainStage {
   maxHealthPerPlayer: number;
   stageIndex: number;
   onDefeat: OnDefeatOption;
+  onDefeatTitle: string;
 }
